@@ -1,4 +1,4 @@
-package com.nauthui7.demo;
+package com.shopnow;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +17,9 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
+
     @Bean
-    public BCryptPasswordEncoder encoder(){
+    public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -26,31 +27,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         //check login
         auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("SELECT username, password, enable FROM users WHERE username = ?;")
-                .authoritiesByUsernameQuery("SELECT username ,concat('ROLE_',role) as roles FROM users WHERE username = ?;")
+                .usersByUsernameQuery("SELECT email, password, enable FROM users WHERE email = ?;")
+                .authoritiesByUsernameQuery("SELECT email ,concat('ROLE_',role) as roles FROM users WHERE email = ?;")
                 .passwordEncoder(encoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/api/**").permitAll()
+        http
+                .authorizeRequests()
+                .antMatchers("/**", "/api").permitAll() // Cho phép tất cả mọi người truy cập vào 2 địa chỉ này
+//                .anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
                 .and()
-                .authorizeRequests().antMatchers("/**").permitAll()
-                .and()
+<<<<<<< HEAD
                 .authorizeRequests().antMatchers("/blog").hasRole("USER")
                 .and()
                 .authorizeRequests().antMatchers("/tag").hasRole("USER")
                 .and()
                 .formLogin()
+=======
+                .formLogin() // Cho phép người dùng xác thực bằng form login
+                .defaultSuccessUrl("/")
+                .permitAll() // Tất cả đều được truy cập vào địa chỉ này
+>>>>>>> ed30d476756e47eaebfb2622457f14bf0408975e
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-        http.authorizeRequests()
-                .and().formLogin()
-                .defaultSuccessUrl("/blog")
-                .failureUrl("/")
-                .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login");
-        http.csrf().disable();
+                .logout() // Cho phép logout
+                .permitAll();
     }
 }
