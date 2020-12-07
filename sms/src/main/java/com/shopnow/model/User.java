@@ -20,7 +20,7 @@ public class User {
     private String user_phone;
     private String user_address;
     private String user_gender;
-    private String user_email;
+    private String email;
     private String password;
     private String user_avatar;
     private String personal_code;
