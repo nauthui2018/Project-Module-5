@@ -18,7 +18,6 @@ public class User {
 
     private String user_fullname;
     private String user_phone;
-    private String user_name;
     private String user_address;
     private String user_gender;
     private String user_email;
