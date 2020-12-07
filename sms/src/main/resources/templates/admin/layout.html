@@ -11,17 +11,6 @@
 
     <title>Shop Now | </title>
 
-    <!-- NProgress -->
-    <link href="../../static/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../../static/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-
-    <!-- bootstrap-progressbar -->
-    <link href="../../static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="../../static/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
-    <!-- bootstrap-daterangepicker -->
-    <link href="../../static/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!--    Bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!--    Data Table-->
@@ -35,15 +24,26 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <!--    Summernote-->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../../static/admin/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../../static/admin/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="../../static/admin/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../../static/admin/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../../static/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../../static/build/css/custom.min.css" rel="stylesheet">
+    <link href="../../static/admin/build/css/custom.min.css" rel="stylesheet">
 </head>
 
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
-            <div class="col-md-3 left_col" th:fragment="left-view">
+            <!-- left_nav -->
+            <div class="col-md-3 left_col" th:fragment="left_nav">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
                         <div>
@@ -58,18 +58,15 @@
                         <div class="menu_section">
                             <h3>General</h3>
                             <ul class="nav side-menu">
-                                <li><a href="layout.html"><i class="mr-2 fas fa-cash-register"></i> Bán hàng </a>
-
-                                </li>
-                                <li class="li-menu"><a><i class="mr-2 fas fa-shipping-fast"></i> Đơn hàng 
-                                  <span class="fa fa-chevron-down"></span></a>
+                                <li><a><i class="mr-3 fas fa-cash-register"></i>Bán hàng</a></li>
+                                <li class="li-menu"><a><i class="mr-3 fas fa-shipping-fast"></i>Đơn hàng<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="">Tạo đơn và giao hàng</a></li>
                                         <li><a href="">Danh sách đơn hàng</a></li>
                                         <li><a href="">Khách trả hàng</a></li>
                                     </ul>
                                 </li>
-                                <li class="li-menu"><a><i class="mr-2 fas fa-boxes"></i> Sản phẩm <span class="fa fa-chevron-down" ></span></a>
+                                <li class="li-menu"><a><i class="mr-3 fas fa-boxes"></i>Sản phẩm<span class="fa fa-chevron-down" ></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="">Danh sách sản phẩm</a></li>
                                         <li><a href="">Quản lý kho</a></li>
@@ -80,10 +77,19 @@
                                         <li><a href="">Điều chỉnh giá vốn</a></li>
                                     </ul>
                                 </li>
-                                <li><a><i class="fas fa-users"></i> Khách hàng <span class="fa fa-chevron-down"></span></a></li>
-                                <li><a><i class="fas fa-user-shield"></i> Nhân viên <span class="fa fa-chevron-down"></span></a>
+                                <li class="li-menu"><a><i class="mr-3 fas fa-users"></i>Khách hàng<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="">Danh sách khách hàng</a></li>
+                                        <li><a href="">Danh sách loại khách hàng</a></li>
+                                    </ul>
                                 </li>
-                                <li class="li-menu"><a><i class="fas fa-cogs"></i>Layouts <span class="fa fa-chevron-down"></span></a>
+                                <li class="li-menu"><a><i class="mr-3 fas fa-user-shield"></i>Nhân viên<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="">Danh sách nhân viên</a></li>
+                                        <li><a href="">Thêm mới nhân viên</a></li>
+                                    </ul>
+                                </li>
+                                <li class="li-menu"><a><i class="mr-3 fas fa-cogs"></i>Cài đặt<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="">Thông tin cửa hàng</a></li>
                                         <li><a href="">Cập nhật thông tin</a></li>
@@ -91,54 +97,11 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="menu_section">
-                            <h3>Live On</h3>
-                            <ul class="nav side-menu">
-                                <li class="li-menu"><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="e_commerce.html">E-commerce</a></li>
-                                        <li><a href="projects.html">Projects</a></li>
-                                        <li><a href="project_detail.html">Project Detail</a></li>
-                                        <li><a href="contacts.html">Contacts</a></li>
-                                        <li><a href="profile.html">Profile</a></li>
-                                    </ul>
-                                </li>
-                                <li class="li-menu"><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="page_403.html">403 Error</a></li>
-                                        <li><a href="page_404.html">404 Error</a></li>
-                                        <li><a href="page_500.html">500 Error</a></li>
-                                        <li><a href="plain_page.html">Plain Page</a></li>
-                                        <li><a href="login.html">Login Page</a></li>
-                                        <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                                    </ul>
-                                </li>
-                                <li class="li-menu"><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="#level1_1">Level One</a>
-                                            <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                                                <ul class="nav child_menu">
-                                                    <li class="sub_menu"><a href="level2.html">Level Two</a>
-                                                    </li>
-                                                    <li><a href="#level2_1">Level Two</a>
-                                                    </li>
-                                                    <li><a href="#level2_2">Level Two</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#level1_2">Level One</a>
-                                            </li>
-                                    </ul>
-                                    </li>
-                                    <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                            </ul>
-                        </div>
-
                     </div>
                     <!-- /sidebar menu -->
 
                     <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
+                    <!-- <div class="sidebar-footer hidden-small">
                         <a data-toggle="tooltip" data-placement="top" title="Settings">
                             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </a>
@@ -151,97 +114,29 @@
                         <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
                             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                         </a>
-                    </div>
+                    </div> -->
                     <!-- /menu footer buttons -->
                 </div>
             </div>
 
             <!-- top navigation -->
-            <div class="top_nav" th:fragment="top-nav">
+            <div class="top_nav" th:fragment="top_nav">
                 <div class="nav_menu">
                     <div class="nav toggle">
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
                     <nav class="nav navbar-nav">
-                        <ul class=" navbar-right">
+                        <ul class="navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/img.jpg" alt="">John Doe
+                                    <img src="../../static/admin/production/images/img.jpg" alt="">John Doe
                                 </a>
-                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:;"> Profile</a>
-                                    <a class="dropdown-item" href="javascript:;">
-                                        <span class="badge bg-red pull-right">50%</span>
-                                        <span>Settings</span>
-                                    </a>
+                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown" style="width: 100px;">
+                                    <a class="dropdown-item" href="login.html"><i class="fa fa-user pull-right"></i>Profile</a>
+                                    <a class="dropdown-item" href="login.html"><i class="fas fa-cogs pull-right"></i>Setting</a>
+                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Log Out</a>
                                     <a class="dropdown-item" href="javascript:;">Help</a>
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                                 </div>
-                            </li>
-
-                            <li role="presentation" class="nav-item dropdown open">
-                                <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
-                                </a>
-                                <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item">
-                                            <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                            <span>
-                          <span>John Smith</span>
-                                            <span class="time">3 mins ago</span>
-                                            </span>
-                                            <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <div class="text-center">
-                                            <a class="dropdown-item">
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
                     </nav>
@@ -252,7 +147,7 @@
             <!-- page content -->
             <div class="right_col" role="main">
                 <!-- top tiles -->
-                <div class="row" style="display: inline-block;">
+                <div class="row" style="display: inline-block;" th:fragment="top_tiles">
                     <div class="tile_count">
                         <div class="col-md-2 col-sm-4  tile_stats_count">
                             <span class="count_top"><i class="fa fa-user"></i> Saled Products</span>
@@ -394,7 +289,7 @@
             <!-- /page content -->
 
             <!-- footer content -->
-            <footer>
+            <footer th:fragment="footer">
                 <div class="pull-right">
                     Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
                 </div>
@@ -404,50 +299,76 @@
         </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="../../static/vendors/jquery/dist/jquery.min.js"></script>
+    <th:block th:fragment="block-script">
+        <!-- jQuery -->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+        <!--    Bootstrap-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <!--    Data Table-->
+        <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+        <!--    Toastr-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+        <!--    Bootbox-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+        <!--    Validation-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+        <!--    Select2-->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+        <!--    Summernote-->
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    </th:block>
+
+    <th:block th:fragment="block-dataTable">
+        <table id="datatables" name="tags-datatables" class="table table-hover table-primary">
+
+        </table>
+    </th:block>
+
+
+    <script src="../../static/admin/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../../static/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
-    <script src="../../static/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- <script src="../../static/admin/vendors/fastclick/lib/fastclick.js"></script> -->
     <!-- NProgress -->
-    <script src="../../static/vendors/nprogress/nprogress.js"></script>
+    <!-- <script src="../../static/vendors/nprogress/nprogress.js"></script> -->
     <!-- Chart.js -->
-    <script src="../../static/vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- <script src="../../static/vendors/Chart.js/dist/Chart.min.js"></script> -->
     <!-- gauge.js -->
-    <script src="../../static/vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- <script src="../../static/vendors/gauge.js/dist/gauge.min.js"></script> -->
     <!-- bootstrap-progressbar -->
-    <script src="../../static/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- <script src="../../static/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script> -->
     <!-- iCheck -->
-    <script src="../../static/vendors/iCheck/icheck.min.js"></script>
+    <script src="../../static/admin/vendors/iCheck/icheck.min.js"></script>
     <!-- Skycons -->
-    <script src="../../static/vendors/skycons/skycons.js"></script>
+    <!-- <script src="../../static/vendors/skycons/skycons.js"></script> -->
     <!-- Flot -->
-    <script src="../../static/vendors/Flot/jquery.flot.js"></script>
-    <script src="../../static/vendors/Flot/jquery.flot.pie.js"></script>
-    <script src="../../static/vendors/Flot/jquery.flot.time.js"></script>
-    <script src="../../static/vendors/Flot/jquery.flot.stack.js"></script>
-    <script src="../../static/vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- <script src="../../static/admin/vendors/Flot/jquery.flot.js"></script>
+    <script src="../../static/admin/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="../../static/admin/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="../../static/admin/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="../../static/admin/vendors/Flot/jquery.flot.resize.js"></script> -->
     <!-- Flot plugins -->
-    <script src="../../static/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="../../static/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="../../static/vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- <script src="../../static/admin/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="../../static/admin/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="../../static/admin/vendors/flot.curvedlines/curvedLines.js"></script> -->
     <!-- DateJS -->
-    <script src="../../static/vendors/DateJS/build/date.js"></script>
+    <!-- <script src="../../static/vendors/DateJS/build/date.js"></script> -->
     <!-- JQVMap -->
-    <script src="../../static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <!-- <script src="../../static/vendors/jqvmap/dist/jquery.vmap.js"></script>
     <script src="../../static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="../../static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <script src="../../static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script> -->
     <!-- bootstrap-daterangepicker -->
-    <script src="../../static/vendors/moment/min/moment.min.js"></script>
-    <script src="../../static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- <script src="../../static/vendors/moment/min/moment.min.js"></script> -->
+    <!-- <script src="../../static/vendors/bootstrap-daterangepicker/daterangepicker.js"></script> -->
 
     <!-- Custom Theme Scripts -->
-    <script src="../../static/build/js/custom.min.js"></script>
+    <script src="../../static/admin/build/js/custom.min.js"></script>
 
     <script>
-        $(window).on('load', function() {
-
+        $(document).ready(function() {
             var elems = document.getElementsByClassName("li-menu");
             var elems1 = document.getElementsByClassName("child_menu");
             for (i = 0; i < elems.length; i++) {
