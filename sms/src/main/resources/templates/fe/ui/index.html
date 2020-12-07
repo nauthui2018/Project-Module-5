@@ -11,31 +11,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="fe/ui/images/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="/fe/ui/assets/images/favicon.png" type="image/png">
 
     <!--====== Magnific Popup CSS ======-->
-    <link rel="stylesheet" href="fe/ui/css/magnific-popup.css">
+    <link rel="stylesheet" href="/fe/ui/assets/css/magnific-popup.css">
 
     <!--====== Slick CSS ======-->
-    <link rel="stylesheet" href="fe/ui/css/slick.css">
+    <link rel="stylesheet" href="/fe/ui/assets/css/slick.css">
 
     <!--====== Line Icons CSS ======-->
-    <link rel="stylesheet" href="fe/ui/css/LineIcons.css">
+    <link rel="stylesheet" href="/fe/ui/assets/css/LineIcons.css">
 
     <!--====== Bootstrap CSS ======-->
-    <link rel="stylesheet" href="fe/ui/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fe/ui/assets/css/bootstrap.min.css">
 
     <!--====== Default CSS ======-->
-    <link rel="stylesheet" href="fe/ui/css/default.css">
+    <link rel="stylesheet" href="/fe/ui/assets/css/default.css">
 
     <!--====== Style CSS ======-->
-    <link rel="stylesheet" href="fe/ui/css/style.css">
+    <link rel="stylesheet" href="/fe/ui/assets/css/style.css">
 
+    <!--====== Font Awesome ======-->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 
 <body>
 <!--[if IE]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https:/browsehappy.com/">upgrade
     your browser</a> to improve your experience and security.</p>
 <![endif]-->
 
@@ -69,7 +72,7 @@
                 <nav class="navbar navbar-expand-lg">
 
                     <a class="navbar-brand" href="#">
-                        <img src="fe/ui//images/logo.svg" alt="Logo">
+                        <img src="/fe/ui/assets/images/logo.svg" alt="Logo">
                     </a>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTwo"
@@ -90,7 +93,7 @@
 
                     <div class="navbar-btn d-none d-sm-inline-block">
                         <ul>
-                            <li><a class="solid" href="#">Đăng nhập</a></li>
+                            <li><a class="solid" data-toggle="modal" data-target="#pos-login">Đăng nhập</a></li>
                         </ul>
                     </div>
                 </nav> <!-- navbar -->
@@ -121,8 +124,10 @@
                                 <p class="text">We blend insights and strategy to create digital products for
                                     forward-thinking organisations.</p>
                                 <ul class="slider-btn rounded-buttons">
-                                    <li><a class="main-btn rounded-one" href="#">ĐĂNG KÝ</a></li>
-                                    <li><a class="main-btn rounded-two" href="#">ĐĂNG NHẬP</a></li>
+                                    <li><a class="main-btn rounded-one" data-toggle="modal" data-target="#myModal">ĐĂNG
+                                        KÝ</a></li>
+                                    <li><a class="main-btn rounded-two" data-toggle="modal" data-target="#pos-login">ĐĂNG
+                                        NHẬP</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -130,53 +135,7 @@
                 </div> <!-- container -->
                 <div class="slider-image-box d-none d-lg-flex align-items-end">
                     <div class="slider-image">
-                        <img src="fe/ui//images/slider/1.png" alt="Hero">
-                    </div> <!-- slider-imgae -->
-                </div> <!-- slider-imgae box -->
-            </div> <!-- carousel-item -->
-
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="slider-content">
-                                <h1 class="title">Crafted for Business</h1>
-                                <p class="text">We blend insights and strategy to create digital products for
-                                    forward-thinking organisations.</p>
-                                <ul class="slider-btn rounded-buttons">
-                                    <li><a class="main-btn rounded-one" href="#">ĐĂNG KÝ</a></li>
-                                    <li><a class="main-btn rounded-two" href="#">ĐĂNG NHẬP</a></li>
-                                </ul>
-                            </div> <!-- slider-content -->
-                        </div>
-                    </div> <!-- row -->
-                </div> <!-- container -->
-                <div class="slider-image-box d-none d-lg-flex align-items-end">
-                    <div class="slider-image">
-                        <img src="fe/ui//images/slider/2.png" alt="Hero">
-                    </div> <!-- slider-imgae -->
-                </div> <!-- slider-imgae box -->
-            </div> <!-- carousel-item -->
-
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="slider-content">
-                                <h1 class="title">Based on Bootstrap 4</h1>
-                                <p class="text">We blend insights and strategy to create digital products for
-                                    forward-thinking organisations.</p>
-                                <ul class="slider-btn rounded-buttons">
-                                    <li><a class="main-btn rounded-one" href="#">ĐĂNG KÝ</a></li>
-                                    <li><a class="main-btn rounded-two" href="#">ĐĂNG NHẬP</a></li>
-                                </ul>
-                            </div> <!-- slider-content -->
-                        </div>
-                    </div> <!-- row -->
-                </div> <!-- container -->
-                <div class="slider-image-box d-none d-lg-flex align-items-end">
-                    <div class="slider-image">
-                        <img src="fe/ui//images/slider/3.png" alt="Hero">
+                        <img src="/fe/ui/assets/images/slider/1.png" alt="Hero">
                     </div> <!-- slider-imgae -->
                 </div> <!-- slider-imgae box -->
             </div> <!-- carousel-item -->
@@ -194,86 +153,87 @@
 <!--====== SLIDER PART ENDS ======-->
 
 <!--====== MODAL SIGN UP ======-->
-<div id="trialPopupModal" class="modal fade modal-register modal-register-default show" role="dialog" aria-modal="true"
-     style="padding-right: 17px; display: block;">
+<div id="myModal" class="modal fade modal-register modal-register-default" role="dialog" aria-modal="true"
+     style="padding-right: 17px; display: block; background-color: rgba(0, 0, 0, 0.6); padding-top: 6%; ">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-             viewBox="0 0 512.001 512.001" xml:space="preserve"><g><path d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717 L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859 c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287 l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285 L284.286,256.002z"></path></g></svg>
+             viewBox="0 0 512.001 512.001" xml:space="preserve"><g><path d="M284.286,256.002L506.143,34.144c7.811-7.811,
+                     7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717 L34.143,
+                     5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,
+                     477.859 c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,
+                     14.143-5.857L256,284.287 l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,
+                     14.143-5.857c7.811-7.811,7.811-20.475,0-28.285 L284.286,256.002z"></path></g></svg>
     </button>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="roof-store"><img
-                    src="https://www.sapo.vn/Themes/Portal/Default/StylesV2/images/fnb/roof-store.png"></div>
+            <div class="roof-store">
+                <img src="fe/ui/assets/images/roof-store.png">
+            </div>
             <div class="modal-body"><h2>Đăng ký ngay</h2>
-                <form action="https://www.sapo.vn/consultingrequest/registertrial" id="trialForm" autocomplete="off"
+                <form action="https:/www.sapo.vn/consultingrequest/registertrial" id="trialForm" autocomplete="off"
                       class="form-request" onsubmit="return handleSubmit(event, 1)" method="POST"
                       accept-charset="UTF-8">
                     <ul class="register-form-error"></ul>
-                    <div class="form-group mdc-text-field"><input type="text" maxlength="60" id="FullName"
-                                                                  class="form-control form-input" name="FullName"
-                                                                  required="required"><label for="FullName">Họ tên của
-                        bạn</label></div>
+                    <div class="form-group mdc-text-field">
+                        <input type="text" maxlength="60" id="FullName" class="form-control form-input" name="FullName"
+                               required="required" placeholder="Họ tên của bạn">
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group mdc-text-field"><input type="tel" pattern="^\d{8,11}$" maxlength="15"
-                                                                          id="PhoneNumber"
-                                                                          class="form-control form-input"
-                                                                          name="PhoneNumber" required="required"><label
-                                    for="PhoneNumber">Số điện thoại của bạn</label></div>
+                            <div class="form-group mdc-text-field">
+                                <input type="tel" pattern="^\d{8,11}$" maxlength="15"
+                                       id="PhoneNumber" class="form-control form-input" name="PhoneNumber"
+                                       required="required" placeholder="Số điện thoại của bạn">
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group mdc-text-field"><input type="email"
-                                                                          pattern="^([a-zA-Z0-9_\-\.\+]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
-                                                                          maxlength="50" id="Email"
-                                                                          class="form-control form-input valid"
-                                                                          name="Email" required="required"><label
-                                    for="Email">Email đăng ký</label></div>
+                            <div class="form-group mdc-text-field">
+                                <input type="email"
+                                       pattern="^([a-zA-Z0-9_\-\.\+]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+                                       maxlength="50" id="Email" class="form-control form-input valid"
+                                       name="Email" required="required" placeholder="Email đăng ký">
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group mdc-text-field"><input type="text" pattern="^.{3,60}$" maxlength="60"
-                                                                          id="StoreName" class="form-control form-input"
-                                                                          name="StoreName" required="required"
-                                                                          title="Tên của hàng dài từ 3 đến 60 ký tự"><label
-                                    for="StoreName">Tên cửa hàng của bạn</label></div>
+                            <div class="form-group mdc-text-field">
+                                <input type="text" pattern="^.{3,60}$" maxlength="60"
+                                       id="StoreName" class="form-control form-input"
+                                       name="StoreName" required="required"
+                                       title="Tên của hàng dài từ 3 đến 60 ký tự" placeholder="Tên cửa hàng của bạn">
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group mdc-text-field"><input type="password" pattern="^.{6,64}$"
-                                                                          maxlength="64" id="Password"
-                                                                          class="form-control form-input valid"
-                                                                          name="Password" required="required"
-                                                                          autocomplete="store-password"><label
-                                    for="Password">Mật khẩu đăng nhập cửa hàng</label></div>
+                            <div class="form-group mdc-text-field">
+                                <input type="password" pattern="^.{6,64}$" maxlength="64" id="Password"
+                                       class="form-control form-input valid" name="Password" required="required"
+                                       autocomplete="store-password" placeholder="Mật khẩu đăng nhập cửa hàng">
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group mdc-selectize"><select id="CityDistrict" name="CityDistrict"
-                                                                          tabindex="-1" class="selectized"
-                                                                          style="display: none;">
-                                <option value="" selected="selected"></option>
-                            </select>
-                                <div class="selectize-control single">
-                                    <div class="selectize-input items required invalid not-full has-options"><input
-                                            type="select-one" autocomplete="off" tabindex=""
-                                            id="CityDistrict-selectized" required="" style="width: 4px;"></div>
-                                    <div class="selectize-dropdown single" style="display: none;">
-                                        <div class="selectize-dropdown-content"></div>
-                                    </div>
-                                </div>
-                                <label for="CityDistrict-selectized">Bạn ở tỉnh/ thành phố nào?</label></div>
+                            <div class="form-group mdc-selectize">
+                                <select id="CityDistrict" name="CityDistrict" tabindex="-1" class="selectized"
+                                        style="display: none;">
+                                    <option value="" selected="selected">
+
+                                    </option>
+                                </select>
+                                <label for="CityDistrict">Bạn ở tỉnh/ thành phố nào?</label></div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group mdc-text-field mdc-select-field"><select id="PackageType"
-                                                                                            name="PackageType"
-                                                                                            required="required">
-                                <option value="" hidden=""></option>
-                                <option value="pos">Phần mềm quản lý bán hàng</option>
-                                <option value="web">Thiết kế website bán hàng</option>
-                                <option value="sapo_go">Quản lý bán hàng online (Facebook &amp; Sàn TMĐT)</option>
-                                <option value="omni">Quản lý và bán hàng đa kênh</option>
-                                "</select><label for="PackageType">Chọn sản phẩm bạn quan tâm</label></div>
+                            <div class="form-group mdc-text-field mdc-select-field">
+                                <select id="PackageType"
+                                        name="PackageType"
+                                        required="required">
+                                    <option value="" hidden=""></option>
+                                    <option value="pos">Phần mềm quản lý bán hàng</option>
+                                    <option value="web">Thiết kế website bán hàng</option>
+                                    <option value="sapo_go">Quản lý bán hàng online (Facebook &amp; Sàn TMĐT)</option>
+                                    <option value="omni">Quản lý và bán hàng đa kênh</option>
+                                    "</select><label for="PackageType">Chọn sản phẩm bạn quan tâm</label></div>
                         </div>
                     </div>
                     <div class="form-group mdc-text-field">
@@ -286,6 +246,54 @@
     </div>
 </div>
 
+<!--====== MODAL LOG IN ======-->
+<div id="pos-login" class="modal fade modal-login" role="dialog" aria-modal="true"
+     style="padding-right: 17px; display: block; background-color: rgba(0, 0, 0, 0.6); padding-top: 6%;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close"></span>
+            </button>
+            <div class="modal-body login-form">
+                <h4 class="modal-title">
+                    <img src="/fe/ui/assets/images/logo-2.svg" height="40" class="fade show">
+                    <span>Đăng nhập vào cửa hàng của bạn</span>
+                </h4>
+                <form id="pos-login-form" method="post" action="">
+                    <div class="form-group margin-bottom errors">
+                        <ul class="has-error px-0"></ul>
+                    </div>
+                    <div class="form-login-info">
+                        <div class="form-group">
+                            <input class="form-input" data-val="true" data-val-required="Nhập vào Email"
+                                   data-val-email="Email không đúng định dạng" name="Email" placeholder="Địa chỉ email"
+                                   type="text" value="" aria-required="true" aria-invalid="true"
+                                   aria-describedby="Email-error">
+                            <div class="has-error padding-md-left padding-sm-top">
+                                <span class="help-block"><span class="help-block field-validation-valid"
+                                                               data-valmsg-for="Email"
+                                                               data-valmsg-replace="true"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input name="Password" class="form-input" type="password" placeholder="Mật khẩu"
+                                   data-val-required="Nhập vào mật khẩu" aria-required="true" data-val="true"
+                                   data-val-length="Mật khẩu dài từ 6 đến 50 ký tự" data-val-length-max="50"
+                                   data-val-length-min="6">
+                            <div class="has-error padding-md-left padding-sm-top">
+                                <span class="help-block"><span class="help-block field-validation-valid"
+                                                               data-valmsg-for="Password"
+                                                               data-valmsg-replace="true"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center" style="clear:both">
+                        <button class="btn-registration" onclick="return loginPos();" type="button">Đăng nhập</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <!--====== FEATRES TWO PART START ======-->
 
 <section id="services" class="features-area">
@@ -306,7 +314,7 @@
                         <h4 class="features-title"><a href="#">Graphics Design</a></h4>
                         <div class="features-icon">
                             <i class="lni lni-brush"></i>
-                            <img class="shape" src="fe/ui//images/f-shape-1.svg" alt="Shape">
+                            <img class="shape" src="/fe/ui/assets/images/f-shape-1.svg" alt="Shape">
                         </div>
                     </div>
                     <div class="features-content">
@@ -322,7 +330,7 @@
                         <h4 class="features-title"><a href="#">Website Design</a></h4>
                         <div class="features-icon">
                             <i class="lni lni-layout"></i>
-                            <img class="shape" src="fe/ui//images/f-shape-1.svg" alt="Shape">
+                            <img class="shape" src="/fe/ui/assets/images/f-shape-1.svg" alt="Shape">
                         </div>
                     </div>
                     <div class="features-content">
@@ -338,7 +346,7 @@
                         <h4 class="features-title"><a href="#">Digital Marketing</a></h4>
                         <div class="features-icon">
                             <i class="lni lni-bolt"></i>
-                            <img class="shape" src="fe/ui//images/f-shape-1.svg" alt="Shape">
+                            <img class="shape" src="/fe/ui/assets/images/f-shape-1.svg" alt="Shape">
                         </div>
                     </div>
                     <div class="features-content">
@@ -446,7 +454,7 @@
             </div>
             <div class="col-lg-7">
                 <div class="about-image mt-50">
-                    <img src="fe/ui//images/about.jpg" alt="about">
+                    <img src="/fe/ui/assets/images/about.jpg" alt="about">
                 </div> <!-- faq image -->
             </div>
         </div> <!-- row -->
@@ -473,7 +481,7 @@
                 <div class="team-style-eleven text-center mt-30 wow fadeIn" data-wow-duration="1s"
                      data-wow-delay="0s">
                     <div class="team-image">
-                        <img src="fe/ui//images/team-1.jpg" alt="Team">
+                        <img src="/fe/ui/assets/images/team-1.jpg" alt="Team">
                     </div>
                     <div class="team-content">
                         <div class="team-social">
@@ -493,7 +501,7 @@
                 <div class="team-style-eleven text-center mt-30 wow fadeIn" data-wow-duration="1s"
                      data-wow-delay="0s">
                     <div class="team-image">
-                        <img src="fe/ui//images/team-2.jpg" alt="Team">
+                        <img src="/fe/ui/assets/images/team-2.jpg" alt="Team">
                     </div>
                     <div class="team-content">
                         <div class="team-social">
@@ -513,7 +521,7 @@
                 <div class="team-style-eleven text-center mt-30 wow fadeIn" data-wow-duration="1s"
                      data-wow-delay="0s">
                     <div class="team-image">
-                        <img src="fe/ui//images/team-3.jpg" alt="Team">
+                        <img src="/fe/ui/assets/images/team-3.jpg" alt="Team">
                     </div>
                     <div class="team-content">
                         <div class="team-social">
@@ -552,7 +560,7 @@
             <div class="col-lg-12">
                 <div class="contact-map mt-30">
                     <iframe id="gmap_canvas"
-                            src="https://maps.google.com/maps?q=Mission%20District%2C%20San%20Francisco%2C%20CA%2C%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            src="https:/maps.google.com/maps?q=Mission%20District%2C%20San%20Francisco%2C%20CA%2C%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
                             frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                 </div> <!-- row -->
             </div>
@@ -605,12 +613,12 @@
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="footer-logo text-center">
-                    <a class="mt-30" href="index.html"><img src="fe/ui//images/logo.svg" alt="Logo"></a>
+                    <a class="mt-30" href="index.html"><img src="/fe/ui/assets/images/logo.svg" alt="Logo"></a>
                 </div> <!-- footer logo -->
                 <ul class="social text-center mt-60">
-                    <li><a href="https://facebook.com/uideckHQ"><i class="lni lni-facebook-filled"></i></a></li>
-                    <li><a href="https://twitter.com/uideckHQ"><i class="lni lni-twitter-original"></i></a></li>
-                    <li><a href="https://instagram.com/uideckHQ"><i class="lni lni-instagram-original"></i></a></li>
+                    <li><a href="https:/facebook.com/uideckHQ"><i class="lni lni-facebook-filled"></i></a></li>
+                    <li><a href="https:/twitter.com/uideckHQ"><i class="lni lni-twitter-original"></i></a></li>
+                    <li><a href="https:/instagram.com/uideckHQ"><i class="lni lni-instagram-original"></i></a></li>
                     <li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
                 </ul> <!-- social -->
                 <div class="footer-support text-center">
@@ -618,8 +626,8 @@
                     <span class="mail">support@uideck.com</span>
                 </div>
                 <div class="copyright text-center mt-35">
-                    <p class="text">Designed by <a href="https://uideck.com" rel="nofollow">UIdeck</a> and
-                        Built-with <a rel="nofollow" href="https://ayroui.com">Ayro UI</a></p>
+                    <p class="text">Designed by <a href="https:/uideck.com" rel="nofollow">UIdeck</a> and
+                        Built-with <a rel="nofollow" href="https:/ayroui.com">Ayro UI</a></p>
                 </div> <!--  copyright -->
             </div>
         </div> <!-- row -->
@@ -652,33 +660,39 @@
 
 
 <!--====== Jquery js ======-->
-<script src="fe/ui//js/vendor/jquery-1.12.4.min.js"></script>
-<script src="fe/ui//js/vendor/modernizr-3.7.1.min.js"></script>
+<script src="/fe/ui/assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/fe/ui/assets/js/vendor/modernizr-3.7.1.min.js"></script>
 
 <!--====== Bootstrap js ======-->
-<script src="fe/ui//js/popper.min.js"></script>
-<script src="fe/ui//js/bootstrap.min.js"></script>
+<script src="/fe/ui/assets/js/popper.min.js"></script>
+<script src="/fe/ui/assets/js/bootstrap.min.js"></script>
 
 <!--====== Slick js ======-->
-<script src="fe/ui//js/slick.min.js"></script>
+<script src="/fe/ui/assets/js/slick.min.js"></script>
 
 <!--====== Magnific Popup js ======-->
-<script src="fe/ui//js/jquery.magnific-popup.min.js"></script>
+<script src="/fe/ui/assets/js/jquery.magnific-popup.min.js"></script>
 
 <!--====== Ajax Contact js ======-->
-<script src="fe/ui//js/ajax-contact.js"></script>
+<script src="/fe/ui/assets/js/ajax-contact.js"></script>
 
 <!--====== Isotope js ======-->
-<script src="fe/ui//js/imagesloaded.pkgd.min.js"></script>
-<script src="fe/ui//js/isotope.pkgd.min.js"></script>
+<script src="/fe/ui/assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="/fe/ui/assets/js/isotope.pkgd.min.js"></script>
 
 <!--====== Scrolling Nav js ======-->
-<script src="fe/ui//js/jquery.easing.min.js"></script>
-<script src="fe/ui//js/scrolling-nav.js"></script>
+<script src="/fe/ui/assets/js/jquery.easing.min.js"></script>
+<script src="/fe/ui/assets/js/scrolling-nav.js"></script>
 
 <!--====== Main js ======-->
-<script src="fe/ui//js/main.js"></script>
+<script src="/fe/ui/assets/js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#myModal").hide();
+        $("#pos-login").hide();
+    })
 
+</script>
 </body>
 
 </html>
