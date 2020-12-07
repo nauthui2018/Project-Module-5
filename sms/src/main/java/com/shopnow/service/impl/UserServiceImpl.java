@@ -4,9 +4,10 @@ import com.shopnow.model.User;
 import com.shopnow.repository.UserRepository;
 import com.shopnow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
