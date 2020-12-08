@@ -4855,4 +4855,8 @@ p.form-message.success.form-message.error, p.form-message.error.form-message.err
 .modal-login .modal-body .form-input[name="Password"] {
     padding-right: 50px;
 }
+
+.modal-register-default .modal-content .modal-body .form-request .form-group.mdc-selectize {
+    position: relative;
+}
 /*# sourceMappingURL=style.css.map */

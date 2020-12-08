@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
         User user=findById(id);
         if(user!=null){
             user.setDeleted(true);
+            userRepository.save(user);
             return true;
         }
         return false;

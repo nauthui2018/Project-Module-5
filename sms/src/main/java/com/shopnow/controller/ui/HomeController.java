@@ -1,6 +1,8 @@
 package com.shopnow.controller.ui;
 
 import com.shopnow.model.WebInfo;
+import com.shopnow.service.LineOfBusinessService;
+import com.shopnow.service.ProvinceService;
 import com.shopnow.service.WebInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +16,18 @@ public class HomeController {
     @Autowired
     WebInfoService webInfoService;
 
+    @Autowired
+    ProvinceService provinceService;
+
+    @Autowired
+    LineOfBusinessService lineOfBusinessService;
+
     @GetMapping
     public ModelAndView index(){
         WebInfo webInfo=webInfoService.findById(1L);
         ModelAndView modelAndView = new ModelAndView("fe/ui/index","webInfo", webInfo);
+        modelAndView.addObject("provinces", provinceService.findAll());
+        modelAndView.addObject("lineOfBusinesses", lineOfBusinessService.findAll());
         return modelAndView;
     }
 
