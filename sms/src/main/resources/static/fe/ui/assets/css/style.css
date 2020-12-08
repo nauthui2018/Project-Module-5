@@ -3385,8 +3385,8 @@ p {
 .slider-content {
     position: relative;
     z-index: 9;
-    padding-top: 240px;
-    padding-bottom: 200px;
+    padding-top: 25%;
+    padding-bottom: 20%;
 }
 
 @media (max-width: 767px) {
