@@ -39,17 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**", "/api").permitAll() // Cho phép tất cả mọi người truy cập vào 2 địa chỉ này
 //                .anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
                 .and()
-<<<<<<< HEAD
                 .authorizeRequests().antMatchers("/blog").hasRole("USER")
                 .and()
                 .authorizeRequests().antMatchers("/tag").hasRole("USER")
                 .and()
                 .formLogin()
-=======
-                .formLogin() // Cho phép người dùng xác thực bằng form login
                 .defaultSuccessUrl("/")
                 .permitAll() // Tất cả đều được truy cập vào địa chỉ này
->>>>>>> ed30d476756e47eaebfb2622457f14bf0408975e
                 .and()
                 .logout() // Cho phép logout
                 .permitAll();
