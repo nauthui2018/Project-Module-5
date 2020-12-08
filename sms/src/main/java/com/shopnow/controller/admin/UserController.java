@@ -23,7 +23,7 @@ public class UserController {
     @PostMapping("/register")
     public String createUser(@ModelAttribute("user") User user, Model model){
         //Ma hoa password
-        User userCheck = userService.findByUsername(user.getUser_email());
+        User userCheck = userService.findByEmail(user.getEmail());
         if(userCheck!=null){
             model.addAttribute("message", "User name already exists");
             model.addAttribute("user",user);

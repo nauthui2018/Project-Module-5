@@ -4,5 +4,5 @@ import com.shopnow.model.User;
 import org.springframework.stereotype.Service;
 
 public interface UserService extends BaseService<User>{
-    User findByUsername(String username);
+    User findByEmail(String username);
 }

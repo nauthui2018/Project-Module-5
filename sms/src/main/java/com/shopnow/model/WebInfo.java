@@ -21,10 +21,12 @@ public class WebInfo {
     private String address;
     private String slogan;
     private String description_slogan;
-    private String service;
     private String about_us;
-    private String background;
-    private String logo;
+    private String background1;
+    private String background2;
+    private String background3;
+    private String logo1;
+    private String logo2;
     private boolean deleted=false;
 
 }
