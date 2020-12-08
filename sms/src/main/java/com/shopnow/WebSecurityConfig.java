@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests().antMatchers("/tag").hasRole("USER")
                 .and()
-                .formLogin()
+                .formLogin()// Cho phép người dùng xác thực bằng form login
                 .defaultSuccessUrl("/")
                 .permitAll() // Tất cả đều được truy cập vào địa chỉ này
                 .and()
