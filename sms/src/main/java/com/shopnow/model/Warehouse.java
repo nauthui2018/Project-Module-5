@@ -1,12 +1,12 @@
 package com.shopnow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "warehouses")
@@ -23,8 +23,7 @@ public class Warehouse {
     private boolean deleted = false;
     private LocalDate stock_check;
 
-    @OneToOne
-    @JoinColumn(name = "product_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Product product;
+    @OneToMany(targetEntity = Product.class)
+    @JsonIgnore
+    private Set<Product> products;
 }

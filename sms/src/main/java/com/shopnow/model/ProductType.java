@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
-@Table(name = "productTypes")
+@Table(name = "product_types")
 @Data
 @Where(clause = "deleted=false")
 public class ProductType {

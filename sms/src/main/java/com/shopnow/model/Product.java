@@ -8,6 +8,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -30,9 +31,18 @@ public class Product {
     private Long primeCost;
 
     @ManyToOne
-    @JoinColumn(name = "productType_id")
+    @JoinColumn(name = "productype_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ProductType productType;
+
+    @ManyToOne
+    @JoinColumn(name = "warehouse_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Warehouse warehouse;
+
+    @OneToMany(targetEntity = OrderDetail.class)
+    @JsonIgnore
+    private Set<OrderDetail> orderDetails;
 
     private LocalDate creatingDate;
     private boolean deleted = false;
