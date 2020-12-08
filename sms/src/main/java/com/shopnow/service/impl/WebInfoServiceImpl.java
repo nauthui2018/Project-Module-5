@@ -28,9 +28,10 @@ public class WebInfoServiceImpl implements WebInfoService {
         WebInfo webInfo = findById(id);
         if (webInfo != null) {
             webInfo.setDeleted(true);
+            webInfoRepository.save(webInfo);
             return true;
-        } else
-            return false;
+        }
+        return false;
     }
 
     @Override
