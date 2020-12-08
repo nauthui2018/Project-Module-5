@@ -6,7 +6,6 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "order_details")
@@ -16,5 +15,19 @@ public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
+    private Long priceCost;
+    private float discount;
+    private int quantity;
+    private boolean deleted = false;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Order order;
 }
