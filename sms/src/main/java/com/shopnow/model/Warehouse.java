@@ -23,7 +23,7 @@ public class Warehouse {
     private boolean deleted = false;
     private LocalDate stock_check;
 
-    @OneToMany(targetEntity = Product.class)
+    @OneToMany(mappedBy = "warehouse")
     @JsonIgnore
     private Set<Product> products;
 }

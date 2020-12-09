@@ -1,9 +1,12 @@
 package com.shopnow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,4 +19,8 @@ public class LineOfBusiness {
 
     private String name;
     private boolean deleted=false;
+
+    @OneToMany(mappedBy = "lineOfBusiness")
+    @JsonIgnore
+    private Set<Shop> shops=new HashSet<>();
 }

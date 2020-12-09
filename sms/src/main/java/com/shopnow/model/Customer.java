@@ -25,17 +25,17 @@ public class Customer {
     private String gender;
     private boolean deleted = false;
 
-//    @ManyToOne
-//    @JoinColumn(name = "customerGroup_id")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    private CustomerGroup customerGroup;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "province_id")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
-//    private Province province;
-//
-//    @OneToMany(targetEntity = Invoice.class)
-//    @JsonIgnore
-//    private Set<Invoice> invoices;
+    @ManyToOne
+    @JoinColumn(name = "customerGroup_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private CustomerGroup customerGroup;
+
+    @ManyToOne
+    @JoinColumn(name = "province_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Province province;
+
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnore
+    private Set<Invoice> invoices;
 }

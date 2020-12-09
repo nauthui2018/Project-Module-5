@@ -1,5 +1,6 @@
 package com.shopnow.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.Where;
@@ -18,10 +19,13 @@ public class CustomerGroup {
     private Long id;
 
     private String name;
-    private LocalDate creatingDate;
+
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private LocalDate creating_date=LocalDate.now();
+
     private boolean deleted = false;
 
-    @OneToMany(targetEntity = Customer.class)
+    @OneToMany(mappedBy = "customerGroup")
     @JsonIgnore
     private Set<Customer> customers;
 }

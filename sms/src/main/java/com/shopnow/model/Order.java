@@ -1,5 +1,6 @@
 package com.shopnow.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,7 +23,10 @@ public class Order {
 
     private float discount;
     private Long total_amount;
-    private LocalDate ordered_date;
+
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private LocalDate ordered_date=LocalDate.now();
+
     private boolean finished = false;
     private boolean deleted = false;
 
@@ -30,7 +35,7 @@ public class Order {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Supplier supplier;
 
-    @OneToMany(targetEntity = OrderDetail.class)
+    @OneToMany(mappedBy = "order")
     @JsonIgnore
-    private Set<OrderDetail> orderDetails;
+    private Set<OrderDetail> orderDetails = new HashSet<>();
 }
