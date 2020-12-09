@@ -28,4 +28,6 @@ public class InvoiceDetail {
     @ManyToOne
     @JoinColumn(name="invoice_id")
     private Invoice invoice;
+
+    private boolean deleted=false;
 }
