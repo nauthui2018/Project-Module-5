@@ -6,6 +6,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,11 +19,11 @@ public class ProductType {
     private Long id;
 
     private String name;
-    private LocalDate creatingDate;
+    private LocalDate creating_date;
     private Long wholesale_quantity;
     private boolean deleted = false;
 
-    @OneToMany(targetEntity = Product.class)
+    @OneToMany(mappedBy = "productType")
     @JsonIgnore
-    private Set<Product> products;
+    private Set<Product> products=new HashSet<>();
 }

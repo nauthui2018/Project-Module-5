@@ -16,7 +16,7 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long priceCost;
+    private Long price_cost;
     private float discount;
     private int quantity;
     private boolean deleted = false;

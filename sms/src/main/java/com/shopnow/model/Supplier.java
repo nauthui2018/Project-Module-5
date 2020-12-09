@@ -22,7 +22,7 @@ public class Supplier {
     private String supplier_address;
     private boolean deleted = false;
 
-    @OneToMany(targetEntity = Order.class)
+    @OneToMany(mappedBy = "supplier")
     @JsonIgnore
     private Set<Order> orders;
 }
