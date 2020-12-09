@@ -9,18 +9,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping(value = "/register")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/register")
+    @GetMapping
     public ModelAndView getViewRegister(){
         return new ModelAndView("register","user",new User());
     }
-    @PostMapping("/register")
+    @PostMapping
     public String createUser(@ModelAttribute("user") User user, Model model){
         //Ma hoa password
         User userCheck = userService.findByEmail(user.getEmail());
