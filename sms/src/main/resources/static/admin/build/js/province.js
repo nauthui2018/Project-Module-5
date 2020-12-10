@@ -61,9 +61,7 @@ provinces.addNew = function () {
 
 provinces.resetForm = function () {
     $('#formAddEdit')[0].reset();
-    $('#title').val('');
-    $('#description').val('');
-    $('#content').val('');
+    $('#name').val('');
     $("#formAddEdit").validate().resetForm();
 }
 
