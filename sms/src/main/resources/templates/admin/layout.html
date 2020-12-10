@@ -21,7 +21,7 @@
     <!-- bootstrap-daterangepicker -->
     <link href="/admin/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!--    Bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <!--    Data Table-->
     <link href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!--    Toastr-->
@@ -49,487 +49,414 @@
 </head>
 
 <body class="nav-md">
-    <div class="container body">
-        <div class="main_container">
-            <!-- left_nav -->
-            <div class="col-md-3 left_col" th:fragment="left_nav_user">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <div>
-                            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Shop Name!</span></a>
-                        </div>
+<div class="container body">
+    <div class="main_container">
+        <!-- left_nav -->
+        <div class="col-md-3 left_col" th:fragment="left_nav">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <div>
+                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
                     </div>
-                    <div class="clearfix"></div>
-                    <br />
-
-                    <!-- sidebar menu -->
-                    <div id="sidebar-menu1" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <h3>General</h3>
-                            <ul class="nav side-menu">
-                                <li><a><i class="mr-3 fas fa-cash-register"></i>Bán hàng</a></li>
-                                <li class="li-menu"><a><i class="mr-3 fas fa-shipping-fast"></i>Đơn hàng<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="">Tạo đơn và giao hàng</a></li>
-                                        <li><a href="">Danh sách đơn hàng</a></li>
-                                        <li><a href="">Khách trả hàng</a></li>
-                                    </ul>
-                                </li>
-                                <li class="li-menu"><a><i class="mr-3 fas fa-boxes"></i>Sản phẩm<span class="fa fa-chevron-down" ></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="">Danh sách sản phẩm</a></li>
-                                        <li><a href="">Quản lý kho</a></li>
-                                        <li><a href="">Nhập kho</a></li>
-                                        <li><a href="">Kiểm kê</a></li>
-                                        <li><a href="">Chuyển hàng</a></li>
-                                        <li><a href="">Nhà cung cấp</a></li>
-                                        <li><a href="">Điều chỉnh giá vốn</a></li>
-                                    </ul>
-                                </li>
-                                <li class="li-menu"><a><i class="mr-3 fas fa-users"></i>Khách hàng<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="">Danh sách khách hàng</a></li>
-                                        <li><a href="">Danh sách loại khách hàng</a></li>
-                                    </ul>
-                                </li>
-                                <li class="li-menu"><a><i class="mr-3 fas fa-user-shield"></i>Nhân viên<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="">Danh sách nhân viên</a></li>
-                                        <li><a href="">Thêm mới nhân viên</a></li>
-                                    </ul>
-                                </li>
-                                <li class="li-menu"><a><i class="mr-3 fas fa-cogs"></i>Cài đặt<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="">Thông tin cửa hàng</a></li>
-                                        <li><a href="">Cập nhật thông tin</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /sidebar menu -->
-
-                    <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                    <!-- /menu footer buttons -->
-                </div>
-            </div>
-
-            <div class="col-md-3 left_col" th:fragment="left_nav_admin">
-                <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <div>
-                            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Shop Name!</span></a>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <br />
-
-                    <!-- sidebar admin menu -->
-                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <h3>Admin</h3>
-                            <ul class="nav side-menu">
-                                <li><a><i class="mr-3 fas fa-user"></i>User</a></li>
-                                <li><a><i class="mr-3 fas fa-home"></i>Shop</a></li>
-                                <li><a><i class="mr-3 fas fa-globe"></i>Province</a></li>
-                                <li><a><i class="mr-3 fas fa-reorder"></i>Line Of Business</a></li>
-                                <li><a><i class="mr-3 fas fa-cogs"></i>Web Infor</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /sidebar admin menu -->
-
-                    <!-- /menu footer buttons -->
-                    <div class="sidebar-footer hidden-small">
-                        <a data-toggle="tooltip" data-placement="top" title="Settings">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Lock">
-                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                        </a>
-                    </div>
-                    <!-- /menu footer buttons -->
-                </div>
-            </div>
-
-            <!-- top navigation -->
-            <div class="top_nav" th:fragment="top_nav">
-                <div class="nav_menu">
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-                    <nav class="nav navbar-nav">
-                        <ul class="navbar-right">
-                            <li class="nav-item dropdown open" style="padding-left: 15px;">
-                                <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="/admin/production/images/img.jpg" alt="">John Doe
-                                </a>
-                                <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown" style="width: 100px;">
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-user pull-right"></i>Profile</a>
-                                    <a class="dropdown-item" href="login.html"><i class="fas fa-cogs pull-right"></i>Setting</a>
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Log Out</a>
-                                    <a class="dropdown-item" href="javascript:;">Help</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <!-- /top navigation -->
-
-            <!-- page content -->
-            <div class="right_col" role="main">
-                <div class="page-title">
-                    <div class="title_left">
-                        <h3>Tables <small>Some examples to get you started</small></h3>
-                    </div>
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
-                                <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- top tiles -->
-                <div class="row" style="display: inline-block;" th:fragment="top_tiles">
-                    <div class="tile_count">
-                        <div class="col-md-2 col-sm-4  tile_stats_count">
-                            <span class="count_top"><i class="fa fa-user"></i> Saled Products</span>
-                            <div class="count">2500</div>
-                            <span class="count_bottom"><i class="green">4% </i> From last Week</span>
-                        </div>
-                        <div class="col-md-2 col-sm-4  tile_stats_count">
-                            <span class="count_top"><i class="fa fa-clock-o"></i> Customers</span>
-                            <div class="count">123.50</div>
-                            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
-                        </div>
-                        <div class="col-md-2 col-sm-4  tile_stats_count">
-                            <span class="count_top"><i class="fa fa-user"></i> Total Orders</span>
-                            <div class="count green">2,500</div>
-                            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-                        </div>
-                        <div class="col-md-2 col-sm-4  tile_stats_count">
-                            <span class="count_top"><i class="fa fa-user"></i> Total Amounts</span>
-                            <div class="count">4,567</div>
-                            <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
-                        </div>
-                        <div class="col-md-2 col-sm-4  tile_stats_count">
-                            <span class="count_top"><i class="fa fa-user"></i> Stock</span>
-                            <div class="count">2,315</div>
-                            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-                        </div>
-                        <div class="col-md-2 col-sm-4  tile_stats_count">
-                            <span class="count_top"><i class="fa fa-user"></i> Total Scrap</span>
-                            <div class="count">7,325</div>
-                            <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- /top tiles -->
-
-                <!-- button-bar -->
-                <div class="button-bar mt-2">
-                    <div class="col-sm-6">
-                        <button class="btn btn-sm" data-toggle="modal" data-target="#myModal" style="background-color: rgba(52, 73, 94, 0.94); color: white">
-                            <i class="fa fa-plus mr-1"></i>New Item</button>
-                    </div>
-                    <div class="col-sm-6" style="text-align: right">
-                        <a class="btn btn-sm" href="/" style="background-color: rgba(52, 73, 94, 0.94); color: white">Home page</a>
-                    </div>
-                </div>
-                <!-- /button-bar -->
-
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 ">
-                        <div class="x_content">
-                            <div class="table-responsive">
-                                <table class="table table-striped jambo_table bulk_action">
-                                    <thead>
-                                        <tr class="headings">
-                                            <th>
-                                                <input type="checkbox" id="check-all" class="flat">
-                                            </th>
-                                            <th class="column-title">Invoice </th>
-                                            <th class="column-title">Invoice Date </th>
-                                            <th class="column-title">Order </th>
-                                            <th class="column-title">Bill to Name </th>
-                                            <th class="column-title">Status </th>
-                                            <th class="column-title">Amount </th>
-                                            <th class="column-title no-link last"><span class="nobr">Action</span>
-                                            </th>
-                                            <th class="bulk-actions" colspan="7">
-                                                <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                                            </th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <tr class="odd pointer">
-                                            <td class="a-center ">
-                                                <input type="checkbox" class="flat" name="table_records">
-                                            </td>
-                                            <td class=" ">121000039</td>
-                                            <td class=" ">May 23, 2014 11:30:12 PM</td>
-                                            <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i>
-                                            </td>
-                                            <td class=" ">John Blank L</td>
-                                            <td class=" ">Paid</td>
-                                            <td class="a-right a-right ">$741.20</td>
-                                            <td class=" last"><a href="#">View</a>
-                                            </td>
-                                        </tr>
-                                        <tr class="even pointer">
-                                            <td class="a-center ">
-                                                <input type="checkbox" class="flat" name="table_records">
-                                            </td>
-                                            <td class=" ">121000038</td>
-                                            <td class=" ">May 26, 2014 10:55:33 PM</td>
-                                            <td class=" ">121000203</td>
-                                            <td class=" ">Mike Smith</td>
-                                            <td class=" ">Paid</td>
-                                            <td class="a-right a-right ">$432.26</td>
-                                            <td class=" last"><a href="#">View</a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd pointer">
-                                            <td class="a-center ">
-                                                <input type="checkbox" class="flat" name="table_records">
-                                            </td>
-                                            <td class=" ">121000037</td>
-                                            <td class=" ">May 26, 2014 10:52:44 PM</td>
-                                            <td class=" ">121000204</td>
-                                            <td class=" ">Mike Smith</td>
-                                            <td class=" ">Paid</td>
-                                            <td class="a-right a-right ">$333.21</td>
-                                            <td class=" last"><a href="#">View</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr class="even pointer">
-                                            <td class="a-center ">
-                                                <input type="checkbox" class="flat" name="table_records">
-                                            </td>
-                                            <td class=" ">121000040</td>
-                                            <td class=" ">May 27, 2014 11:47:56 PM </td>
-                                            <td class=" ">121000210</td>
-                                            <td class=" ">John Blank L</td>
-                                            <td class=" ">Paid</td>
-                                            <td class="a-right a-right ">$7.45</td>
-                                            <td class=" last"><a href="#">View</a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd pointer">
-                                            <td class="a-center ">
-                                                <input type="checkbox" class="flat" name="table_records">
-                                            </td>
-                                            <td class=" ">121000039</td>
-                                            <td class=" ">May 28, 2014 11:30:12 PM</td>
-                                            <td class=" ">121000208</td>
-                                            <td class=" ">John Blank L</td>
-                                            <td class=" ">Paid</td>
-                                            <td class="a-right a-right ">$741.20</td>
-                                            <td class=" last"><a href="#">View</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br />
-            </div>
-            <!-- /page content -->
-
-            <!-- Modal Create -->
-            <div class="modal" id="myModal">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Create new blog</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form id="myForm">
-                                <div class="row form-tag">
-                                    <div class="col-3">
-                                        <label>Title</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <input type="text" id="title" name="title" class="form-control" required>
-                                        <p style="color: red;display: none" class="ui-state-error-text"></p>
-                                    </div>
-                                </div>
-                                <div class="row form-tag">
-                                    <div class="col-3">
-                                        <label for="tags">Tag</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <select class="select2 form-control" id="tags" name="tags" multiple="multiple">
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row form-tag">
-                                    <div class="col-3">
-                                        <label>Author</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <input type="text" id="author" name="author" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="row form-tag">
-                                    <div class="col-3">
-                                        <label>Content</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <textarea class="summernote form-control" id="content" name="content"></textarea>
-                                        <p style="color: red;display: none" class="ui-state-error-text"></p>
-                                    </div>
-                                </div>
-                                <div class="row form-tag">
-                                    <div class="col-9">
-                                        <input type="hidden" id="id" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="row form-tag">
-                                    <div class="col-9">
-                                        <input type="hidden" id="publishedDate" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="row form-tag">
-                                    <div class="col-9">
-                                        <input type="hidden" id="modifiedDate" class="form-control" required>
-                                    </div>
-                                </div>
-                                <!-- Modal footer -->
-                                <div class="modal-footer">
-                                    <input type="submit" class="btn btn-primary" onclick="return blog.create()"
-                                           id="submit" value="Save">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- footer content -->
-            <footer th:fragment="footer">
-                <div class="pull-right">
-                    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
                 </div>
                 <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>General</h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="mr-3 fas fa-cash-register"></i>Bán hàng</a></li>
+                            <li class="li-menu"><a><i class="mr-3 fas fa-shipping-fast"></i>Đơn hàng<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="">Tạo đơn và giao hàng</a></li>
+                                    <li><a href="">Danh sách đơn hàng</a></li>
+                                    <li><a href="">Khách trả hàng</a></li>
+                                </ul>
+                            </li>
+                            <li class="li-menu"><a><i class="mr-3 fas fa-boxes"></i>Sản phẩm<span class="fa fa-chevron-down" ></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="">Danh sách sản phẩm</a></li>
+                                    <li><a href="">Quản lý kho</a></li>
+                                    <li><a href="">Nhập kho</a></li>
+                                    <li><a href="">Kiểm kê</a></li>
+                                    <li><a href="">Chuyển hàng</a></li>
+                                    <li><a href="">Nhà cung cấp</a></li>
+                                    <li><a href="">Điều chỉnh giá vốn</a></li>
+                                </ul>
+                            </li>
+                            <li class="li-menu"><a><i class="mr-3 fas fa-users"></i>Khách hàng<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="">Danh sách khách hàng</a></li>
+                                    <li><a href="">Danh sách loại khách hàng</a></li>
+                                </ul>
+                            </li>
+                            <li class="li-menu"><a><i class="mr-3 fas fa-user-shield"></i>Nhân viên<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="">Danh sách nhân viên</a></li>
+                                    <li><a href="">Thêm mới nhân viên</a></li>
+                                </ul>
+                            </li>
+                            <li class="li-menu"><a><i class="mr-3 fas fa-cogs"></i>Cài đặt<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="">Thông tin cửa hàng</a></li>
+                                    <li><a href="">Cập nhật thông tin</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <!-- <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" title="Settings">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Lock">
+                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                </div> -->
+                <!-- /menu footer buttons -->
+            </div>
         </div>
+
+        <!-- top navigation -->
+        <div class="top_nav" th:fragment="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <nav class="nav navbar-nav">
+                    <ul class="navbar-right">
+                        <li class="nav-item dropdown open" style="padding-left: 15px;">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                <img src="/admin/production/images/img.jpg" alt="">John Doe
+                            </a>
+                            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown" style="width: 100px;">
+                                <a class="dropdown-item" href="login.html"><i class="fa fa-user pull-right"></i>Profile</a>
+                                <a class="dropdown-item" href="login.html"><i class="fas fa-cogs pull-right"></i>Setting</a>
+                                <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Log Out</a>
+                                <a class="dropdown-item" href="javascript:;">Help</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <!-- top tiles -->
+            <div class="row" style="display: inline-block;" th:fragment="top_tiles">
+                <div class="tile_count">
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> Saled Products</span>
+                        <div class="count">2500</div>
+                        <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+                    </div>
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top"><i class="fa fa-clock-o"></i> Customers</span>
+                        <div class="count">123.50</div>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+                    </div>
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> Total Orders</span>
+                        <div class="count green">2,500</div>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                    </div>
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> Total Amounts</span>
+                        <div class="count">4,567</div>
+                        <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+                    </div>
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> Stock</span>
+                        <div class="count">2,315</div>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                    </div>
+                    <div class="col-md-2 col-sm-4  tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> Total Scrap</span>
+                        <div class="count">7,325</div>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /top tiles -->
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_content">
+
+                        <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <thead>
+                                <tr class="headings">
+                                    <th>
+                                        <input type="checkbox" id="check-all" class="flat">
+                                    </th>
+                                    <th class="column-title">Invoice </th>
+                                    <th class="column-title">Invoice Date </th>
+                                    <th class="column-title">Order </th>
+                                    <th class="column-title">Bill to Name </th>
+                                    <th class="column-title">Status </th>
+                                    <th class="column-title">Amount </th>
+                                    <th class="column-title no-link last"><span class="nobr">Action</span>
+                                    </th>
+                                    <th class="bulk-actions" colspan="7">
+                                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr class="odd pointer">
+                                    <td class="a-center ">
+                                        <input type="checkbox" class="flat" name="table_records">
+                                    </td>
+                                    <td class=" ">121000039</td>
+                                    <td class=" ">May 23, 2014 11:30:12 PM</td>
+                                    <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i>
+                                    </td>
+                                    <td class=" ">John Blank L</td>
+                                    <td class=" ">Paid</td>
+                                    <td class="a-right a-right ">$741.20</td>
+                                    <td class=" last"><a href="#">View</a>
+                                    </td>
+                                </tr>
+                                <tr class="even pointer">
+                                    <td class="a-center ">
+                                        <input type="checkbox" class="flat" name="table_records">
+                                    </td>
+                                    <td class=" ">121000038</td>
+                                    <td class=" ">May 26, 2014 10:55:33 PM</td>
+                                    <td class=" ">121000203</td>
+                                    <td class=" ">Mike Smith</td>
+                                    <td class=" ">Paid</td>
+                                    <td class="a-right a-right ">$432.26</td>
+                                    <td class=" last"><a href="#">View</a>
+                                    </td>
+                                </tr>
+                                <tr class="odd pointer">
+                                    <td class="a-center ">
+                                        <input type="checkbox" class="flat" name="table_records">
+                                    </td>
+                                    <td class=" ">121000037</td>
+                                    <td class=" ">May 26, 2014 10:52:44 PM</td>
+                                    <td class=" ">121000204</td>
+                                    <td class=" ">Mike Smith</td>
+                                    <td class=" ">Paid</td>
+                                    <td class="a-right a-right ">$333.21</td>
+                                    <td class=" last"><a href="#">View</a>
+                                    </td>
+                                </tr>
+
+                                <tr class="even pointer">
+                                    <td class="a-center ">
+                                        <input type="checkbox" class="flat" name="table_records">
+                                    </td>
+                                    <td class=" ">121000040</td>
+                                    <td class=" ">May 27, 2014 11:47:56 PM </td>
+                                    <td class=" ">121000210</td>
+                                    <td class=" ">John Blank L</td>
+                                    <td class=" ">Paid</td>
+                                    <td class="a-right a-right ">$7.45</td>
+                                    <td class=" last"><a href="#">View</a>
+                                    </td>
+                                </tr>
+                                <tr class="odd pointer">
+                                    <td class="a-center ">
+                                        <input type="checkbox" class="flat" name="table_records">
+                                    </td>
+                                    <td class=" ">121000039</td>
+                                    <td class=" ">May 28, 2014 11:30:12 PM</td>
+                                    <td class=" ">121000208</td>
+                                    <td class=" ">John Blank L</td>
+                                    <td class=" ">Paid</td>
+                                    <td class="a-right a-right ">$741.20</td>
+                                    <td class=" last"><a href="#">View</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </div>
+        <!-- /page content -->
+
+        <!-- Modal Create -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Create new blog</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form id="myForm">
+                            <div class="row form-tag">
+                                <div class="col-3">
+                                    <label>Title</label>
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" id="title" name="title" class="form-control" required>
+                                    <p style="color: red;display: none" class="ui-state-error-text"></p>
+                                </div>
+                            </div>
+                            <div class="row form-tag">
+                                <div class="col-3">
+                                    <label for="tags">Tag</label>
+                                </div>
+                                <div class="col-9">
+                                    <select class="select2 form-control" id="tags" name="tags" multiple="multiple">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-tag">
+                                <div class="col-3">
+                                    <label>Author</label>
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" id="author" name="author" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row form-tag">
+                                <div class="col-3">
+                                    <label>Content</label>
+                                </div>
+                                <div class="col-9">
+                                    <textarea class="summernote form-control" id="content" name="content"></textarea>
+                                    <p style="color: red;display: none" class="ui-state-error-text"></p>
+                                </div>
+                            </div>
+                            <div class="row form-tag">
+                                <div class="col-9">
+                                    <input type="hidden" id="id" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row form-tag">
+                                <div class="col-9">
+                                    <input type="hidden" id="publishedDate" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="row form-tag">
+                                <div class="col-9">
+                                    <input type="hidden" id="modifiedDate" class="form-control" required>
+                                </div>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <input type="submit" class="btn btn-primary" onclick="return blog.create()"
+                                       id="submit" value="Save">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer content -->
+        <footer th:fragment="footer">
+            <div class="pull-right">
+                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
     </div>
-    <th:block th:fragment="block-script">
-        <!-- template -->
-        <script src="/admin/vendors/jquery/dist/jquery.min.js"></script>
-        <script src="/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+<th:block th:fragment="block-script">
+    <!-- template -->
+    <script src="/admin/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Custom Theme Scripts -->
-        <script src="/admin/build/js/custom.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/admin/build/js/custom.min.js"></script>
 
-        <!-- FastClick -->
-        <script src="/admin/vendors/fastclick/lib/fastclick.js"></script>
-        <!-- NProgress -->
-        <script src="/admin/vendors/nprogress/nprogress.js"></script>
-        <!-- Chart.js -->
-        <script src="/admin/vendors/Chart.js/dist/Chart.min.js"></script>
-        <!-- gauge.js -->
-        <script src="/admin/vendors/gauge.js/dist/gauge.min.js"></script>
-        <!-- bootstrap-progressbar -->
-        <script src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-        <!-- iCheck -->
-        <script src="/admin/vendors/iCheck/icheck.min.js"></script>
-        <!-- Skycons -->
-        <script src="/admin/vendors/skycons/skycons.js"></script>
-        <!-- Flot -->
-        <script src="/admin/vendors/Flot/jquery.flot.js"></script>
-        <script src="/admin/vendors/Flot/jquery.flot.pie.js"></script>
-        <script src="/admin/vendors/Flot/jquery.flot.time.js"></script>
-        <script src="/admin/vendors/Flot/jquery.flot.stack.js"></script>
-        <script src="/admin/vendors/Flot/jquery.flot.resize.js"></script>
-        <!-- Flot plugins -->
-        <script src="/admin/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-        <script src="/admin/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-        <script src="/admin/vendors/flot.curvedlines/curvedLines.js"></script>
-        <!-- DateJS -->
-        <script src="/admin/vendors/DateJS/build/date.js"></script>
-        <!-- JQVMap -->
-        <script src="/admin/vendors/jqvmap/dist/jquery.vmap.js"></script>
-        <script src="/admin/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-        <script src="/admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-        <!-- bootstrap-daterangepicker -->
-        <script src="/admin/vendors/moment/min/moment.min.js"></script>
-        <script src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- FastClick -->
+    <script src="/admin/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/admin/vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="/admin/vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="/admin/vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="/admin/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="/admin/vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="/admin/vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="/admin/vendors/Flot/jquery.flot.js"></script>
+    <script src="/admin/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="/admin/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="/admin/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="/admin/vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="/admin/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="/admin/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="/admin/vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="/admin/vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="/admin/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="/admin/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="/admin/vendors/moment/min/moment.min.js"></script>
+    <script src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
-        <!--    Data Table-->
-        <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-        <!--    Toastr-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
-        <!--    Bootbox-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-        <!--    Validation-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
-        <!--    Select2-->
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-        <!--    Summernote-->
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <!--    Data Table-->
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <!--    Toastr-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+    <!--    Bootbox-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <!--    Validation-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+    <!--    Select2-->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <!--    Summernote-->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
-        <script>
-            $(document).ready(function() {
-                var elems = document.getElementsByClassName("li-menu");
-                var elems1 = document.getElementsByClassName("child_menu");
-                for (i = 0; i < elems.length; i++) {
-                    elems[i].classList.remove("active");
-                }
-                for (i = 0; i < elems1.length; i++) {
-                    elems1[i].style.display = "none";
-                }
-            })
-        </script>
+    <script>
+        $(document).ready(function() {
+            var elems = document.getElementsByClassName("li-menu");
+            var elems1 = document.getElementsByClassName("child_menu");
+            for (i = 0; i < elems.length; i++) {
+                elems[i].classList.remove("active");
+            }
+            for (i = 0; i < elems1.length; i++) {
+                elems1[i].style.display = "none";
+            }
+        })
+    </script>
 
-    </th:block>
+</th:block>
 
-    <th:block th:fragment="block-dataTable">
-        <table id="datatables" name="tags-datatables" class="table table-hover table-primary">
-        </table>
-    </th:block>
-
-</body>
-
-</html>
+<th:block th:fragment="block-dataTable">
+    <table id="datatables" name="tags-datatables" class="table table-hover table-primary">
+    </table>
+</th:block>
