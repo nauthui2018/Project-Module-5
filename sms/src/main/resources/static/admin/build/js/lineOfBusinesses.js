@@ -1,9 +1,9 @@
-var provinces = {} || provinces;
+var lineOfBusinesses = {} || lineOfBusinesses;
 
-provinces.intTable = function () {
+lineOfBusinesses.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: 'http://localhost:8080/api/provinces/',
+            url: 'http://localhost:8080/api/lob/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -18,13 +18,13 @@ provinces.intTable = function () {
                 data: "id", name: "ID", title: "ID", orderable: true
             },
             {
-                data: "name", name: "Tên Tỉnh Thành", title: "Tên tỉnh thành", orderable: true
+                data: "name", name: "Tên Lĩnh vực kinh doanh", title: "Tên Lĩnh vực kinh doanh", orderable: true
             },
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = "<a href='javascript:' title='Sửa Tỉnh thành' onclick='provinces.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a href='javascript:' title='Thêm Tỉnh thành' onclick='provinces.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
+                    var str = "<a href='javascript:' title='Sửa Lĩnh vực kinh doanh' onclick='lineOfBusinesses.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
+                        "<a href='javascript:' title='Thêm Lĩnh vực kinh doanh' onclick='lineOfBusinesses.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
                     return str;
                 }
             }
@@ -32,28 +32,28 @@ provinces.intTable = function () {
     });
 };
 
-provinces.addNew = function () {
-    $('#modalTitle').html("Thêm Tỉnh thành mới");
-    provinces.resetForm();
+lineOfBusinesses.addNew = function () {
+    $('#modalTitle').html("Thêm Lĩnh vực kinh doanh mới");
+    lineOfBusinesses.resetForm();
     $('#modalAddEdit').modal('show');
 }
 
-provinces.resetForm = function () {
+lineOfBusinesses.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#name').val('');
     $("#formAddEdit").validate().resetForm();
 }
 
 
-provinces.get = function (id) {
+lineOfBusinesses.get = function (id) {
     console.log('get :' + id);
     $.ajax({
-        url: "http://localhost:8080/api/provinces/" + id,
+        url: "http://localhost:8080/api/lob/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (data) {
         $('#formAddEdit')[0].reset();
-        $('#modalTitle').html("Chỉnh sửa Tỉnh thành");
+        $('#modalTitle').html("Chỉnh sửa Lĩnh vực kinh doanh");
         $('#id').val(data.id);
         $('#name').val(data.name);
         $('#modalAddEdit').modal('show');
@@ -62,14 +62,14 @@ provinces.get = function (id) {
     });
 }
 
-provinces.save = function () {
+lineOfBusinesses.save = function () {
     if ($("#formAddEdit").valid()) {
         if ($('#id').val() == 0) {
             var provinceObj = {};
             provinceObj.name = $('#name').val();
 
             $.ajax({
-                url: "http://localhost:8080/api/provinces/",
+                url: "http://localhost:8080/api/lob/",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -89,7 +89,7 @@ provinces.save = function () {
             provinceObj.name = $('#name').val();
             provinceObj.id = $('#id').val();
             $.ajax({
-                url: "http://localhost:8080/api/provinces/",
+                url: "http://localhost:8080/api/lob/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -109,9 +109,9 @@ provinces.save = function () {
         return false;
     }
 }
-provinces.delete = function (id) {
+lineOfBusinesses.delete = function (id) {
     bootbox.confirm({
-        message: "Bạn có muốn xóa Tỉnh thành này không?",
+        message: "Bạn có muốn xóa lĩnh vực kinh doanh này không?",
         buttons: {
             confirm: {
                 label: 'Có',
@@ -125,7 +125,7 @@ provinces.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "http://localhost:8080/api/provinces/" + id,
+                    url: "http://localhost:8080/api/lob/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {
@@ -141,7 +141,7 @@ provinces.delete = function (id) {
 }
 
 
-provinces.initValidation = function () {
+lineOfBusinesses.initValidation = function () {
     $("#formAddEdit").validate({
         rules: {
             name: {
@@ -158,11 +158,11 @@ provinces.initValidation = function () {
     });
 }
 
-provinces.init = function () {
-    provinces.intTable();
-    provinces.initValidation();
+lineOfBusinesses.init = function () {
+    lineOfBusinesses.intTable();
+    lineOfBusinesses.initValidation();
 }
 
 $(document).ready(function () {
-    provinces.init();
+    lineOfBusinesses.init();
 });

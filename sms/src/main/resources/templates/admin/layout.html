@@ -56,13 +56,18 @@
         <!-- left_nav -->
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                    <div>
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                <th:block th:fragment="nav-title">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <div>
+                            <a href="index.html" class="site_title"><img src="/fe/ui/assets/images/logo.svg" alt="Logo"
+                                                                         width="50rem">
+                                <span>Shop Now</span>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="clearfix"></div>
-                <br/>
+                    <div class="clearfix"></div>
+                    <br/>
+                </th:block>
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section" th:fragment="user">
@@ -310,7 +315,7 @@
         <!-- footer content -->
         <footer th:fragment="footer">
             <div class="pull-right">
-                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                Shop Now</a>
             </div>
             <div class="clearfix"></div>
         </footer>
