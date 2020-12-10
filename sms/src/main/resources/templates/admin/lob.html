@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_content">
-                        <button type="button" class="btn btn-primary" onclick="provinces.addNew()">
+                        <button type="button" class="btn btn-primary" onclick="lineOfBusinesses.addNew()">
                             Thêm mới
                         </button>
                         <div class="table-responsive">
@@ -43,7 +43,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title" id="modalTitle"></h4>
-                    <button type="button" class="close" onclick="provinces.resetForm()" data-dismiss="modal"
+                    <button type="button" class="close" onclick="lineOfBusinesses.resetForm()" data-dismiss="modal"
                             aria-label="Close">&times;
                     </button>
                 </div>
@@ -54,7 +54,7 @@
                         <input hidden name="id" id="id">
                         <div class="row form-group">
                             <div class="col-3">
-                                <label>Tên tỉnh</label>
+                                <label>Tên Lĩnh vực kinh doanh</label>
                             </div>
                             <div class="col-9">
                                 <input class="form-control" type="text"
@@ -68,9 +68,9 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <a href="javascript:" class="btn btn-primary"
-                       onclick="provinces.save()">Lưu</a>
+                       onclick="lineOfBusinesses.save()">Lưu</a>
 
-                    <button type="button" class="btn btn-danger" onclick="provinces.resetForm()"
+                    <button type="button" class="btn btn-danger" onclick="lineOfBusinesses.resetForm()"
                             data-dismiss="modal"
                             aria-label="Close">
                         Đóng
@@ -82,7 +82,7 @@
     <div th:insert="admin/layout::block-script">
 
     </div>
-    <script src="/admin/build/js/province.js"></script>
+    <script src="/admin/build/js/lineOfBusinesses.js"></script>
 </div>
 </body>
 </html>

@@ -56,13 +56,18 @@
         <!-- left_nav -->
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                    <div>
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                <th:block th:fragment="nav-title">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <div>
+                            <a href="index.html" class="site_title"><img src="/fe/ui/assets/images/logo.svg" alt="Logo"
+                                                                         width="50rem">
+                                <span>Shop Now</span>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="clearfix"></div>
-                <br/>
+                    <div class="clearfix"></div>
+                    <br/>
+                </th:block>
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section" th:fragment="user">
@@ -306,87 +311,10 @@
             <br/>
         </div>
         <!-- /page content -->
-
-        <!-- Modal Create -->
-        <div class="modal" id="myModal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h4 class="modal-title">Create new blog</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <form id="myForm">
-                            <div class="row form-tag">
-                                <div class="col-3">
-                                    <label>Title</label>
-                                </div>
-                                <div class="col-9">
-                                    <input type="text" id="title" name="title" class="form-control" required>
-                                    <p style="color: red;display: none" class="ui-state-error-text"></p>
-                                </div>
-                            </div>
-                            <div class="row form-tag">
-                                <div class="col-3">
-                                    <label for="tags">Tag</label>
-                                </div>
-                                <div class="col-9">
-                                    <select class="select2 form-control" id="tags" name="tags" multiple="multiple">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row form-tag">
-                                <div class="col-3">
-                                    <label>Author</label>
-                                </div>
-                                <div class="col-9">
-                                    <input type="text" id="author" name="author" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="row form-tag">
-                                <div class="col-3">
-                                    <label>Content</label>
-                                </div>
-                                <div class="col-9">
-                                    <textarea class="summernote form-control" id="content" name="content"></textarea>
-                                    <p style="color: red;display: none" class="ui-state-error-text"></p>
-                                </div>
-                            </div>
-                            <div class="row form-tag">
-                                <div class="col-9">
-                                    <input type="hidden" id="id" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="row form-tag">
-                                <div class="col-9">
-                                    <input type="hidden" id="publishedDate" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="row form-tag">
-                                <div class="col-9">
-                                    <input type="hidden" id="modifiedDate" class="form-control" required>
-                                </div>
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <input type="submit" class="btn btn-primary" onclick="return blog.create()"
-                                       id="submit" value="Save">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- footer content -->
         <footer th:fragment="footer">
             <div class="pull-right">
-                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                Shop Now</a>
             </div>
             <div class="clearfix"></div>
         </footer>
