@@ -199,7 +199,7 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
-                <div class="page-title">
+                <div class="page-title" th:fragment="page_title">
                     <div class="title_left">
                         <h3>Tables <small>Some examples to get you started</small></h3>
                     </div>
@@ -253,7 +253,7 @@
                 <!-- /top tiles -->
 
                 <!-- button-bar -->
-                <div class="button-bar mt-2">
+                <div class="button-bar mt-2" th:fragment="button_bar">
                     <div class="col-sm-6">
                         <button class="btn btn-sm" data-toggle="modal" data-target="#myModal" style="background-color: rgba(52, 73, 94, 0.94); color: white">
                             <i class="fa fa-plus mr-1"></i>New Item</button>
@@ -264,7 +264,7 @@
                 </div>
                 <!-- /button-bar -->
 
-                <div class="row">
+                <div class="row" th:fragment="main_content">
                     <div class="col-md-12 col-sm-12 ">
                         <div class="x_content">
                             <div class="table-responsive">
@@ -367,7 +367,7 @@
             <!-- /page content -->
 
             <!-- Modal Create -->
-            <div class="modal" id="myModal">
+            <div class="modal" id="myModal" th:fragment="modal">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
 
