@@ -10,6 +10,6 @@ public class ProductTypeController {
 
     @GetMapping
     public String index(){
-        return "admin/layout";
+        return "admin/product_type";
     }
 }
