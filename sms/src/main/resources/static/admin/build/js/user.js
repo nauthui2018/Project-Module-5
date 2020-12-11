@@ -1,9 +1,9 @@
-var provinces = {} || provinces;
+var users = {} || users;
 
-provinces.intTable = function () {
+users.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: 'http://localhost:8080/api/provinces/',
+            url: 'http://localhost:8080/api/users/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -15,16 +15,41 @@ provinces.intTable = function () {
                 }
             },
             {
+                data: "user_avatar", name: "Avatar", title: "Avatar", orderable: false, "render": function (data) {
+                return  str = `<img src="${data}" alt="avatar" width="30rem"/>`
+                }
+            },
+            {
                 data: "id", name: "ID", title: "ID", orderable: false
             },
             {
-                data: "name", name: "Tên Tỉnh Thành", title: "Tên tỉnh thành", orderable: true
+                data: "user_fullname", name: "Tên", title: "Tên", orderable: true
+            },
+            {
+                data: "user_phone", name: "Số điện thoại", title: "Số điện thoại", orderable: false
+            },
+            {
+                data: "user_address", name: "Địa chỉ", title: "Địa chỉ", orderable: false
+            },
+            {
+                data: "email", name: "Email", title: "Email", orderable: false
+            },
+            {
+                data: "starting_date", name: "Ngày đăng ký", title: "Ngày đăng ký", orderable: true
+            },
+            {
+                data: "role", name: "Role", title: "Role", orderable: false
+            },
+            {
+                data: "shop", name: "Shop", title: "Shop", orderable: false, "render": function (data) {
+                    return `${data.shop_name}`
+                }
             },
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = "<a href='javascript:' title='Sửa Tỉnh thành' onclick='provinces.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a href='javascript:' title='Thêm Tỉnh thành' onclick='provinces.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
+                    var str = "<a href='javascript:' title='Sửa User' onclick='users.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
+                        "<a href='javascript:' title='Thêm User' onclick='users.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
                     return str;
                 }
             }
@@ -32,28 +57,28 @@ provinces.intTable = function () {
     });
 };
 
-provinces.addNew = function () {
-    $('#modalTitle').html("Thêm Tỉnh thành mới");
-    provinces.resetForm();
+users.addNew = function () {
+    $('#modalTitle').html("Thêm User mới");
+    users.resetForm();
     $('#modalAddEdit').modal('show');
 }
 
-provinces.resetForm = function () {
+users.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#name').val('');
     $("#formAddEdit").validate().resetForm();
 }
 
 
-provinces.get = function (id) {
+users.get = function (id) {
     console.log('get :' + id);
     $.ajax({
-        url: "http://localhost:8080/api/provinces/" + id,
+        url: "http://localhost:8080/api/users/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (data) {
         $('#formAddEdit')[0].reset();
-        $('#modalTitle').html("Chỉnh sửa Tỉnh thành");
+        $('#modalTitle').html("Chỉnh sửa User");
         $('#id').val(data.id);
         $('#name').val(data.name);
         $('#modalAddEdit').modal('show');
@@ -62,18 +87,18 @@ provinces.get = function (id) {
     });
 }
 
-provinces.save = function () {
+users.save = function () {
     if ($("#formAddEdit").valid()) {
         if ($('#id').val() == 0) {
-            var provinceObj = {};
-            provinceObj.name = $('#name').val();
+            var userObj = {};
+            userObj.name = $('#name').val();
 
             $.ajax({
-                url: "http://localhost:8080/api/provinces/",
+                url: "http://localhost:8080/api/users/",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(provinceObj)
+                data: JSON.stringify(userObj)
             }).done(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
@@ -85,15 +110,15 @@ provinces.save = function () {
 
             });
         } else {
-            var provinceObj = {};
-            provinceObj.name = $('#name').val();
-            provinceObj.id = $('#id').val();
+            var userObj = {};
+            userObj.name = $('#name').val();
+            userObj.id = $('#id').val();
             $.ajax({
-                url: "http://localhost:8080/api/provinces/",
+                url: "http://localhost:8080/api/users/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(provinceObj)
+                data: JSON.stringify(userObj)
             }).done(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
@@ -109,9 +134,9 @@ provinces.save = function () {
         return false;
     }
 }
-provinces.delete = function (id) {
+users.delete = function (id) {
     bootbox.confirm({
-        message: "Bạn có muốn xóa Tỉnh thành này không?",
+        message: "Bạn có muốn xóa user này không?",
         buttons: {
             confirm: {
                 label: 'Có',
@@ -125,7 +150,7 @@ provinces.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "http://localhost:8080/api/provinces/" + id,
+                    url: "http://localhost:8080/api/users/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {
@@ -141,7 +166,7 @@ provinces.delete = function (id) {
 }
 
 
-provinces.initValidation = function () {
+users.initValidation = function () {
     $("#formAddEdit").validate({
         rules: {
             name: {
@@ -151,18 +176,18 @@ provinces.initValidation = function () {
         },
         messages: {
             name: {
-                required: "Vui lòng nhập Tên",
+                required: "Vui lòng nhập Tiêu đề",
                 maxlength: 150
             }
         }
     });
 }
 
-provinces.init = function () {
-    provinces.intTable();
-    provinces.initValidation();
+users.init = function () {
+    users.intTable();
+    users.initValidation();
 }
 
 $(document).ready(function () {
-    provinces.init();
+    users.init();
 });

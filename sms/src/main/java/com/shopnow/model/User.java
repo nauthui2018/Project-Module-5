@@ -40,6 +40,7 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "shop_id", referencedColumnName = "id")
+    @JsonIgnore
     private Shop shop;
 
     @ManyToOne
