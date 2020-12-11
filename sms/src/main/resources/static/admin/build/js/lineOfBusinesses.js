@@ -3,7 +3,7 @@ var lineOfBusinesses = {} || lineOfBusinesses;
 lineOfBusinesses.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: 'http://localhost:8080/api/lob/',
+            url: 'http://localhost:8080/api/lobs/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -15,7 +15,7 @@ lineOfBusinesses.intTable = function () {
                 }
             },
             {
-                data: "id", name: "ID", title: "ID", orderable: true
+                data: "id", name: "ID", title: "ID", orderable: false
             },
             {
                 data: "name", name: "Tên Lĩnh vực kinh doanh", title: "Tên Lĩnh vực kinh doanh", orderable: true
@@ -48,7 +48,7 @@ lineOfBusinesses.resetForm = function () {
 lineOfBusinesses.get = function (id) {
     console.log('get :' + id);
     $.ajax({
-        url: "http://localhost:8080/api/lob/" + id,
+        url: "http://localhost:8080/api/lobs/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (data) {
@@ -65,15 +65,15 @@ lineOfBusinesses.get = function (id) {
 lineOfBusinesses.save = function () {
     if ($("#formAddEdit").valid()) {
         if ($('#id').val() == 0) {
-            var provinceObj = {};
-            provinceObj.name = $('#name').val();
+            var lobObj = {};
+            lobObj.name = $('#name').val();
 
             $.ajax({
-                url: "http://localhost:8080/api/lob/",
+                url: "http://localhost:8080/api/lobs/",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(provinceObj)
+                data: JSON.stringify(lobObj)
             }).done(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
@@ -85,15 +85,15 @@ lineOfBusinesses.save = function () {
 
             });
         } else {
-            var provinceObj = {};
-            provinceObj.name = $('#name').val();
-            provinceObj.id = $('#id').val();
+            var lobObj = {};
+            lobObj.name = $('#name').val();
+            lobObj.id = $('#id').val();
             $.ajax({
-                url: "http://localhost:8080/api/lob/",
+                url: "http://localhost:8080/api/lobs/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(provinceObj)
+                data: JSON.stringify(lobObj)
             }).done(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
@@ -125,7 +125,7 @@ lineOfBusinesses.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "http://localhost:8080/api/lob/" + id,
+                    url: "http://localhost:8080/api/lobs/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {
@@ -151,7 +151,7 @@ lineOfBusinesses.initValidation = function () {
         },
         messages: {
             name: {
-                required: "Vui lòng nhập Tiêu đề",
+                required: "Vui lòng nhập Tên",
                 maxlength: 150
             }
         }
