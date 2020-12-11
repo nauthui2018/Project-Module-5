@@ -19,9 +19,16 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ModelAndView getViewRegister(){
-        return new ModelAndView("register","user",new User());
+    public String index(){
+        return "admin/user";
     }
+
+
+    @GetMapping(value = "/sign_in")
+    public ModelAndView getViewRegister(){
+        return new ModelAndView("fe/login/register","user",new User());
+    }
+
     @PostMapping
     public String createUser(@ModelAttribute("user") User user, Model model){
         //Ma hoa password
@@ -29,12 +36,12 @@ public class UserController {
         if(userCheck!=null){
             model.addAttribute("message", "User name already exists");
             model.addAttribute("user",user);
-            return "register";
+            return "fe/login/register";
         }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setRole("USER");
         user.setDeleted(false);
         userService.save(user);
-        return "redirect:/login";
+        return "fe/login/index";
     }
 }
