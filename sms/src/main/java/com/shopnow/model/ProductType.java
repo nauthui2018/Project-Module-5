@@ -19,7 +19,7 @@ public class ProductType {
     private Long id;
 
     private String name;
-    private LocalDate creating_date;
+    private LocalDate creating_date =LocalDate.now();
     private Long wholesale_quantity;
     private boolean deleted = false;
 
