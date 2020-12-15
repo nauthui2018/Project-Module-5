@@ -17,11 +17,11 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int product_quantity;
-    private int coming_quantity;
-    private int delivered_quantity;
-    private int scrap_quantity;
+    private int coming_quantity = 0;
+    private int delivered_quantity = 0;
+    private int scrap_quantity = 0;
     private boolean deleted = false;
-    private LocalDate stock_check;
+    private String stock_check;
 
     @OneToMany(mappedBy = "warehouse")
     @JsonIgnore
