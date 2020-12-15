@@ -1,5 +1,6 @@
 package com.shopnow.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.Where;
@@ -19,7 +20,8 @@ public class ProductType {
     private Long id;
 
     private String name;
-    private LocalDate creating_date =LocalDate.now();
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private LocalDate creating_date = LocalDate.now();
     private Long wholesale_quantity;
     private boolean deleted = false;
 
