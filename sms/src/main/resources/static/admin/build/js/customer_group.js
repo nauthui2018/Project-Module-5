@@ -1,54 +1,41 @@
-var product_types = {} || product_types;
+var customer_groups = {} || customer_groups;
 
 $(document).ready(function () {
-    product_types.init();
+    customer_groups.init();
 });
 
-product_types.init = function () {
-    product_types.intTable();
-    product_types.initValidation();
+customer_groups.init = function () {
+    customer_groups.intTable();
+    customer_groups.initValidation();
 }
 
-product_types.addNew = function () {
-    $('.modal-title').html("Thêm dòng sản phẩm mới");
-    product_types.resetForm();
+customer_groups.addNew = function () {
+    $('.modal-title').html("Thêm nhóm khách hàng mới");
+    customer_groups.resetForm();
     $('#modalAddEdit').modal('show');
 }
 
-product_types.resetForm = function () {
+customer_groups.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#name').val('');
-    $('#wholesale_quantity').val('');
     $('#id').val('');
     $('#creating_date').val('');
     $('#deleted').val('');
     $("#formAddEdit").validate().resetForm();
 }
 
-product_types.initValidation = function () {
+customer_groups.initValidation = function () {
     $("#formAddEdit").validate({
         rules: {
             name: {
                 required: true,
                 maxlength: 150,
             },
-            wholesale_quantity: {
-                required: true,
-                regex: "[0-9]",
-                minlength: 2,
-                maxlength: 6,
-            },
         },
         messages: {
             name: {
-                required: "Bạn chưa nhập tên",
-                maxlength: "Tên quá dài. Bạn vui lòng kiểm tra lại!",
-            },
-            wholesale_quantity: {
-                required: "Vui lòng số lượng bán sỉ cho dòng hàng này!",
-                regex: "Số lượng bạn nhập không đúng. Vui lòng kiểm tra lại",
-                minlength: "Số lượng bán sỉ tối thiểu là 10",
-                maxlength: "Số lượng bán sỉ tối đa là 99999"
+                required: "Bạn chưa nhập nhóm khách hàng",
+                maxlength: "Tên nhóm quá dài. Bạn vui lòng kiểm tra lại!",
             },
         },
     });
@@ -63,12 +50,12 @@ $.validator.addMethod(
     "Please check your input."
 );
 
-product_types.intTable = function () {
+customer_groups.intTable = function () {
     $("#datatables").DataTable({
         destroy: true,
         "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
         ajax: {
-            url: 'http://localhost:8080/api/product_type/',
+            url: 'http://localhost:8080/api/customer_group/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -80,13 +67,12 @@ product_types.intTable = function () {
                 }
             },
             { data: "id", name: "ID", title: "ID", orderable: false},
-            { data: "name", name: "Dòng sản phẩm", title: "Dòng sản phẩm", orderable: true},
-            { data: "wholesale_quantity", name: "Số lượng bán sỉ", title: "Số lượng bán sỉ", orderable: true},
+            { data: "name", name: "Nhóm khách hàng", title: "Nhóm khách hàng", orderable: true},
             { data: "creating_date", name: "Ngày tạo", title: "Ngày tạo", orderable: true},
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = "<a href='javascript:' title='Cập nhật' onclick='product_types.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a class='ml-3' href='javascript:' title='Xóa' onclick='product_types.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
+                    var str = "<a href='javascript:' title='Cập nhật' onclick='customer_groups.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
+                        "<a class='ml-3' href='javascript:' title='Xóa' onclick='customer_groups.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
                     return str;
                 }
             }
@@ -94,9 +80,9 @@ product_types.intTable = function () {
     });
 }
 
-product_types.get = function (id) {
+customer_groups.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/product_type/" + id,
+        url: "http://localhost:8080/api/customer_group/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -105,7 +91,6 @@ product_types.get = function (id) {
         $('.modal-title').html("Chỉnh sửa thông tin");
         $('#id').val(data.id);
         $('#name').val(data.name);
-        $('#wholesale_quantity').val(data.wholesale_quantity);
         $('#creating_date').val(data.creating_date);
         $('#deleted').val(data.deleted);
         $('#modalAddEdit').modal('show');
@@ -115,18 +100,17 @@ product_types.get = function (id) {
     });
 }
 
-product_types.save = function () {
+customer_groups.save = function () {
     if ($("#formAddEdit").valid()) {
         if ($('#id').val() === '') {
-            var new_product_type = {};
-            new_product_type.name = $('#name').val();
-            new_product_type.wholesale_quantity = $('#wholesale_quantity').val();
+            var new_customer_group = {};
+            new_customer_group.name = $('#name').val();
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/product_type",
+                url: "http://localhost:8080/api/customer_group",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(new_product_type)
+                data: JSON.stringify(new_customer_group)
             });
             ajaxAdd.done(function () {
                 $('#modalAddEdit').modal('hide');
@@ -139,18 +123,17 @@ product_types.save = function () {
                 toastr.error('Thêm không thành công', 'INFORMATION:');
             });
         } else {
-            var product_type = {};
-            product_type.id = $('#id').val();
-            product_type.name = $('#name').val();
-            product_type.wholesale_quantity = $('#wholesale_quantity').val();
-            product_type.creating_date = $('#creating_date').val();
-            product_type.deleted = $('#deleted').val();
+            var customer_group = {};
+            customer_group.id = $('#id').val();
+            customer_group.name = $('#name').val();
+            customer_group.creating_date = $('#creating_date').val();
+            customer_group.deleted = $('#deleted').val();
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/product_type/",
+                url: "http://localhost:8080/api/customer_group/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(product_type)
+                data: JSON.stringify(customer_group)
             });
             ajaxUpdate.done(function () {
                 $('#modalAddEdit').modal('hide');
@@ -169,9 +152,9 @@ product_types.save = function () {
     }
 }
 
-product_types.delete = function (id) {
+customer_groups.delete = function (id) {
     bootbox.confirm({
-        message: "Bạn có muốn xóa dòng sản phẩm này không?",
+        message: "Bạn có muốn xóa nhóm khách hàng này không?",
         buttons: {
             confirm: {
                 label: 'Có',
@@ -185,7 +168,7 @@ product_types.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/product_type/" + id,
+                    url: "http://localhost:8080/api/customer_group/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });
