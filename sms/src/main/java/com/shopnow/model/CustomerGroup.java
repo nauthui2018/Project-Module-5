@@ -6,23 +6,22 @@ import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.*;
+import java.util.Date;
 import java.util.Set;
+import java.util.TimeZone;
 
 @Entity
 @Table(name = "customer_groups")
 @Data
-@Where(clause = "deleted=false")
+@Where(clause = "deleted = false")
 public class CustomerGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-    private LocalDate creating_date=LocalDate.now();
-
+    private String creating_date;
     private boolean deleted = false;
 
     @OneToMany(mappedBy = "customerGroup")
