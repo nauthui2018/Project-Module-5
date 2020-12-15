@@ -20,8 +20,7 @@ public class ProductType {
     private Long id;
 
     private String name;
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-    private LocalDate creating_date = LocalDate.now();
+    private String creating_date;
     private Long wholesale_quantity;
     private boolean deleted = false;
 

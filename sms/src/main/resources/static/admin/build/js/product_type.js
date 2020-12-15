@@ -121,6 +121,7 @@ product_types.save = function () {
             var new_product_type = {};
             new_product_type.name = $('#name').val();
             new_product_type.wholesale_quantity = $('#wholesale_quantity').val();
+            new_product_type.creating_date = new Date().toLocaleString();
             var ajaxAdd = $.ajax({
                 url: "http://localhost:8080/api/product_type",
                 method: "POST",

@@ -105,6 +105,7 @@ customer_groups.save = function () {
         if ($('#id').val() === '') {
             var new_customer_group = {};
             new_customer_group.name = $('#name').val();
+            new_customer_group.creating_date = new Date().toLocaleString();
             var ajaxAdd = $.ajax({
                 url: "http://localhost:8080/api/customer_group",
                 method: "POST",
