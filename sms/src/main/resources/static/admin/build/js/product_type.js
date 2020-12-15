@@ -34,7 +34,9 @@ product_types.initValidation = function () {
             },
             wholesale_quantity: {
                 required: true,
-                regex: "[0-9]{2,}",
+                regex: "[0-9]",
+                minlength: 2,
+                maxlength: 6,
             },
         },
         messages: {
@@ -45,6 +47,8 @@ product_types.initValidation = function () {
             wholesale_quantity: {
                 required: "Vui lòng số lượng bán sỉ cho dòng hàng này!",
                 regex: "Số lượng bạn nhập không đúng. Vui lòng kiểm tra lại",
+                minlength: "Số lượng bán sỉ tối thiểu là 10",
+                maxlength: "Số lượng bán sỉ tối đa là 99999"
             },
         },
     });
@@ -91,11 +95,12 @@ product_types.intTable = function () {
 }
 
 product_types.get = function (id) {
-    $.ajax({
+    var ajaxGet = $.ajax({
         url: "http://localhost:8080/api/product_type/" + id,
         method: "GET",
         dataType: "json"
-    }).done(function (data) {
+    });
+    ajaxGet.done(function (data) {
         $('#formAddEdit')[0].reset();
         $('.modal-title').html("Chỉnh sửa thông tin");
         $('#id').val(data.id);
@@ -104,28 +109,31 @@ product_types.get = function (id) {
         $('#creating_date').val(data.creating_date);
         $('#deleted').val(data.deleted);
         $('#modalAddEdit').modal('show');
-    }).fail(function () {
+    });
+    ajaxGet.fail(function () {
         toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
     });
 }
 
 product_types.save = function () {
     if ($("#formAddEdit").valid()) {
-        if ($('#id').val() === 0) {
+        if ($('#id').val() === '') {
             var new_product_type = {};
             new_product_type.name = $('#name').val();
             new_product_type.wholesale_quantity = $('#wholesale_quantity').val();
-            $.ajax({
+            var ajaxAdd = $.ajax({
                 url: "http://localhost:8080/api/product_type",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(new_product_type)
-            }).done(function () {
-                toastr.info('Thêm thành công', 'INFORMATION:');
+            });
+            ajaxAdd.done(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
-            }).fail(function () {
+                toastr.info('Thêm thành công', 'INFORMATION:');
+            });
+            ajaxAdd.fail(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
                 toastr.error('Thêm không thành công', 'INFORMATION:');
@@ -137,17 +145,19 @@ product_types.save = function () {
             product_type.wholesale_quantity = $('#wholesale_quantity').val();
             product_type.creating_date = $('#creating_date').val();
             product_type.deleted = $('#deleted').val();
-            $.ajax({
+            var ajaxUpdate = $.ajax({
                 url: "http://localhost:8080/api/product_type/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(product_type)
-            }).done(function () {
+            });
+            ajaxUpdate.done(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
                 toastr.info('Cập nhật thành công', 'INFORMATION:')
-            }).fail(function () {
+            });
+            ajaxUpdate.fail(function () {
                 console.log("POST ");
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
@@ -174,14 +184,16 @@ product_types.delete = function (id) {
         },
         callback: function (result) {
             if (result) {
-                $.ajax({
+                var ajaxDelete = $.ajax({
                     url: "http://localhost:8080/api/product_type/" + id,
                     method: "DELETE",
                     dataType: "json"
-                }).done(function () {
+                });
+                ajaxDelete.done(function () {
                     $("#datatables").DataTable().ajax.reload();
                     toastr.info('Xóa thành công!', 'INFORMATION:')
-                }).fail(function () {
+                });
+                ajaxDelete.fail(function () {
                     toastr.error('Xóa không thành công!', 'INFORMATION:')
                 });
             }
