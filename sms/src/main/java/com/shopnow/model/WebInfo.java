@@ -1,13 +1,16 @@
 package com.shopnow.model;
 
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
 @Entity
 @Table (name = "webinfos")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Where(clause = "deleted=false")
 public class WebInfo {
     private static final long serialVersionUID = 1L;

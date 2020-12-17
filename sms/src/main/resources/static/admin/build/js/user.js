@@ -9,7 +9,7 @@ users.intTable = function () {
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">",
+            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">", orderable: false,
                 "render":function () {
                     return '<input type="checkbox" class="flat" name="table_records">';
                 }
@@ -49,7 +49,7 @@ users.intTable = function () {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
                     var str = "<a href='javascript:' title='Sửa User' onclick='users.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a href='javascript:' title='Thêm User' onclick='users.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
+                        "<a href='javascript:' title='Xóa User' onclick='users.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
                     return str;
                 }
             }

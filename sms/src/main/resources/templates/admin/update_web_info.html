@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="">
+
+<header th:replace="admin/layout::header">
+</header>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- left_nav -->
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <th:block th:insert="admin/layout::nav-title"></th:block>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div th:replace="admin/layout::admin"></div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="admin/layout::top_nav"></div>
+        <div class="right_col" role="main">
+            <h1 style="color: #26B99A">Chỉnh sửa Thông tin trang web</h1>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="row">
+                            <div class="col-3">
+                                <input type="hidden" th:value="${webInfo.logo1}" id="imageLogo1">
+                                <img th:src="@{${webInfo.logo1}}" class="card-img-top" id="logo1"
+                                     style="background-color: #3B3B3B; width: 9em">
+                            </div>
+                            <div class="col-9">
+                                <h5 style="color: #0067F4">Logo 1</h5>
+                                <form th:name="formUpload" enctype="multipart/form-data">
+                                    <input hidden name="id" class="id" th:value="${webInfo.id}">
+                                    <input type="file" name="file" id="imglogo1" accept="image/svg+xml"
+                                           style="width: 70px; overflow:hidden; ">
+                                </form>
+                                <br>
+                                <a href="javascript:" class="btn btn-success btn-sm"
+                                   onclick="webInfos.upload('logo1','imglogo1')">Upload</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="row">
+                            <div class="col-3">
+                                <input type="hidden" th:value="${webInfo.logo2}" id="imageLogo2">
+                                <img th:src="@{${webInfo.logo2}}" class="card-img-top" id="logo2"
+                                     style="background-color: #3B3B3B; width: 9em">
+                            </div>
+                            <div class="col-9">
+                                <h5 style="color: #0067F4">Logo 2</h5>
+                                <form th:name="formUpload" enctype="multipart/form-data">
+                                    <input hidden name="id" class="id" th:value="${webInfo.id}">
+                                    <input type="file" name="file" id="imglogo2" accept="image/svg+xml"
+                                           style="width: 70px; overflow:hidden; ">
+                                </form>
+                                <br>
+                                <a href="javascript:" class="btn btn-success btn-sm"
+                                   onclick="webInfos.upload('logo2','imglogo2')">Upload</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 col-md-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="hidden" th:value="${webInfo.background1}" id="imageBackground1">
+                                <img th:src="@{${webInfo.background1}}" class="card-img-top" id="background1"
+                                     style="background-color: #3B3B3B; width: 9em">
+                            </div>
+                            <div class="col-6">
+                                <h5 style="color: #0067F4">Background 1</h5>
+                                <form th:name="formUpload" enctype="multipart/form-data">
+                                    <input hidden name="id" class="id" th:value="${webInfo.id}">
+                                    <input type="file" name="file" id="imgBackground1" accept="image/png"
+                                           style="width: 70px; overflow:hidden; ">
+                                </form>
+                                <br>
+                                <a href="javascript:" class="btn btn-success btn-sm"
+                                   onclick="webInfos.upload('background1','imgBackground1')">Upload</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="hidden" th:value="${webInfo.background2}" id="imageBackground2">
+                                <img th:src="@{${webInfo.background2}}" class="card-img-top" id="background2"
+                                     style="background-color: #3B3B3B; width: 9em">
+                            </div>
+                            <div class="col-6">
+                                <h5 style="color: #0067F4">Background 2</h5>
+                                <form th:name="formUpload" enctype="multipart/form-data">
+                                    <input hidden name="id" class="id" th:value="${webInfo.id}">
+                                    <input type="file" name="file" id="imgBackground2" accept="image/png"
+                                           style="width: 70px; overflow:hidden; ">
+                                </form>
+                                <br>
+                                <a href="javascript:" class="btn btn-success btn-sm"
+                                   onclick="webInfos.upload('background2','imgBackground2')">Upload</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="hidden" th:value="${webInfo.background3}" id="imageBackground3">
+                                <img th:src="@{${webInfo.background3}}" class="card-img-top" id="background3"
+                                     style="background-color: #3B3B3B; width: 9em">
+                            </div>
+                            <div class="col-6">
+                                <h5 style="color: #0067F4">Background 3</h5>
+                                <form th:name="formUpload" enctype="multipart/form-data">
+                                    <input hidden name="id" class="id" th:value="${webInfo.id}">
+                                    <input type="file" name="file" id="imgBackground3" accept="image/png"
+                                           style="width: 70px; overflow:hidden; ">
+                                </form>
+                                <br>
+                                <a href="javascript:" class="btn btn-success btn-sm"
+                                   onclick="webInfos.upload('background3','imgBackground3')">Upload</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="x_content">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <a href="/webInfo" class="btn btn-secondary">Quay lại</a>
+                        </div>
+                    </div>
+                </div>
+                <form id="#formAddEdit" class="form-group">
+                    <table>
+                        <tr>
+                            <td>Hotline</td>
+                            <td><input type="text" name="hotline" id="hotline" th:value="${webInfo.hotline}"
+                                       class="form-control" placeholder="Hotline"></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td><input type="text" name="email" id="email" th:value="${webInfo.email}"
+                                       class="form-control" placeholder="Email"></td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ</td>
+                            <td><input type="text" name="address" id="address" th:value="${webInfo.address}"
+                                       class="form-control" placeholder="Địa chỉ"></td>
+                        </tr>
+                        <tr>
+                            <td>Slogan</td>
+                            <td><input type="text" name="slogan" id="slogan" th:value="${webInfo.slogan}"
+                                       class="form-control" placeholder="Slogan"></td>
+                        </tr>
+                        <tr>
+                            <td>Nội dung slogan</td>
+                            <td><input type="text" name="description_slogan" id="description_slogan"
+                                       th:value="${webInfo.description_slogan}" class="form-control"
+                                       placeholder="Nội dung slogan"></td>
+                        </tr>
+                        <tr>
+                            <td>Giới thiệu</td>
+                            <td><textarea id="summernote"  th:utext="${webInfo.about_us}" class="form-control"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="hidden" id="id" th:value="${webInfo.id}"></td>
+                            <td>
+                                <a href="javascript:;" class="btn btn-primary" onclick="webInfos.save()">Xong</a>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="admin/layout::footer"></footer>
+</div>
+<div th:insert="admin/layout::block-script">
+
+</div>
+<script src="/admin/build/js/webInfo.js"></script>
+</body>
+</html>
