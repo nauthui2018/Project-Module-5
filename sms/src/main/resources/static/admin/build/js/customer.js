@@ -10,7 +10,7 @@ $(document).ready(function () {
 customers.init = function () {
     customers.intTable();
     customers.initValidation();
-    customer_groups.listGroup();
+    customer_groups.listCustomerGroup();
 }
 
 customers.addNew = function () {
@@ -114,7 +114,7 @@ customers.get = function (id) {
     });
 }
 
-customer_groups.listGroup = function () {
+customer_groups.listCustomerGroup = function () {
     $.ajax({
         url: "http://localhost:8080/api/customer_group",
         method: "GET",
