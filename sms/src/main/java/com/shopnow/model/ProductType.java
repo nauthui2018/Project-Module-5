@@ -6,7 +6,7 @@ import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,13 +18,15 @@ public class ProductType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-    private String creating_date;
+
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private ZonedDateTime creating_date = ZonedDateTime.now();
+
     private Long wholesale_quantity;
     private boolean deleted = false;
 
     @OneToMany(mappedBy = "productType")
     @JsonIgnore
-    private Set<Product> products=new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 }

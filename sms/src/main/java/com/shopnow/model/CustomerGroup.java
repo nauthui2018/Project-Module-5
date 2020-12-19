@@ -7,9 +7,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.*;
-import java.util.Date;
 import java.util.Set;
-import java.util.TimeZone;
 
 @Entity
 @Table(name = "customer_groups")
@@ -17,14 +15,15 @@ import java.util.TimeZone;
 @Where(clause = "deleted = false")
 public class CustomerGroup {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
-    private String creating_date;
+
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private ZonedDateTime creating_date = ZonedDateTime.now();
     private boolean deleted = false;
 
-    @OneToMany(mappedBy = "customerGroup")
+    @OneToMany(mappedBy = "customer_group")
     @JsonIgnore
     private Set<Customer> customers;
 }
