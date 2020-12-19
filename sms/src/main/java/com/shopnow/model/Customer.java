@@ -26,9 +26,9 @@ public class Customer {
     private boolean deleted = false;
 
     @ManyToOne
-    @JoinColumn(name = "customerGroup_id")
+    @JoinColumn(name = "customer_group_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private CustomerGroup customerGroup;
+    private CustomerGroup customer_group;
 
     @ManyToOne
     @JoinColumn(name = "province_id")
