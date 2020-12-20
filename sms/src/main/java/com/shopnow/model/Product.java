@@ -20,16 +20,17 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String product_name;
+    private String name;
     private String brand;
     private String image;
     private String unit;
-    private int quantity;
     private String barcode;
     private String description;
     private Long retail_price;
     private Long wholesale_price;
     private Long prime_cost;
+    private LocalDate creating_date;
+    private boolean deleted = false;
 
     @ManyToOne
     @JoinColumn(name = "productype_id")
@@ -45,6 +46,5 @@ public class Product {
     @JsonIgnore
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
-    private LocalDate creating_date;
-    private boolean deleted = false;
+
 }

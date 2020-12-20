@@ -5,7 +5,6 @@ import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -16,14 +15,15 @@ public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int product_quantity;
-    private int coming_quantity = 0;
-    private int delivered_quantity = 0;
-    private int scrap_quantity = 0;
+    private String name;
+    private String description;
     private boolean deleted = false;
-    private String stock_check;
 
     @OneToMany(mappedBy = "warehouse")
     @JsonIgnore
     private Set<Product> products;
+
+    @OneToMany(mappedBy = "warehouse")
+    @JsonIgnore
+    private Set<StockCheck> stock_checks;
 }

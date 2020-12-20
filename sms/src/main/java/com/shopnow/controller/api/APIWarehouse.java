@@ -1,8 +1,6 @@
 package com.shopnow.controller.api;
 
-import com.shopnow.model.CustomerGroup;
 import com.shopnow.model.Warehouse;
-import com.shopnow.service.CustomerGroupService;
 import com.shopnow.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +33,7 @@ public class APIWarehouse {
         if(warehouse != null) {
             return new ResponseEntity<>(warehouse, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(warehouse, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
     }
 
