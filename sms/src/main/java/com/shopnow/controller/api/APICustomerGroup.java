@@ -30,9 +30,11 @@ public class APICustomerGroup {
     @GetMapping(value = "/{id}")
     public ResponseEntity<CustomerGroup> getCustomerGroup(@PathVariable("id") Long id){
         CustomerGroup customerGroup= customerGroupService.findById(id);
-        if(customerGroup != null)
-        return new ResponseEntity<>(customerGroup,HttpStatus.OK);
-        return new ResponseEntity<>(customerGroup,HttpStatus.NO_CONTENT);
+        if(customerGroup != null) {
+            return new ResponseEntity<>(customerGroup, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(customerGroup, HttpStatus.NO_CONTENT);
+        }
     }
 
     @PutMapping

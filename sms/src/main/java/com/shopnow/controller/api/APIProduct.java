@@ -30,9 +30,11 @@ public class APIProduct {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable("id") Long id){
         Product product= productService.findById(id);
-        if(product!=null)
-            return new ResponseEntity<>(product,HttpStatus.OK);
-        return new ResponseEntity<>(product,HttpStatus.NO_CONTENT);
+        if(product!=null) {
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(product, HttpStatus.NO_CONTENT);
+        }
     }
 
     @PutMapping

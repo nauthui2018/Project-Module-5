@@ -32,9 +32,11 @@ public class APIWarehouse {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Warehouse> getWarehouse(@PathVariable("id") Long id){
         Warehouse warehouse = warehouseService.findById(id);
-        if(warehouse != null)
-        return new ResponseEntity<>(warehouse,HttpStatus.OK);
-        return new ResponseEntity<>(warehouse,HttpStatus.NO_CONTENT);
+        if(warehouse != null) {
+            return new ResponseEntity<>(warehouse, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(warehouse, HttpStatus.NO_CONTENT);
+        }
     }
 
     @PutMapping
