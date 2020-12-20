@@ -69,19 +69,19 @@ customers.intTable = function () {
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">", orderable: false,
+            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">",
                 "render":function () {
                     return '<input type="checkbox" class="flat" name="table_records">';
                 }
             },
-            { data: "id", name: "ID", title: "ID", orderable: false},
-            { data: "customer_fullName", name: "customer_fullName", title: "Tên khách hàng", orderable: false},
-            { data: "customer_group.name", name: "customer_group", title: "Nhóm khách hàng", orderable: true},
-            { data: "customer_phone", name: "customer_phone", title: "Số điện thoại", orderable: false},
-            { data: "gender", name: "gender", title: "Giới tính", orderable: false},
-            { data: "customer_address", name: "customer_address", title: "Địa chỉ", orderable: false},
+            { data: "id", name: "ID", title: "ID", sortable: false},
+            { data: "customer_fullName", name: "customer_fullName", title: "Tên khách hàng", sortable: true},
+            { data: "customer_group.name", name: "customer_group", title: "Nhóm khách hàng", sortable: true},
+            { data: "customer_phone", name: "customer_phone", title: "Số điện thoại", sortable: false},
+            { data: "gender", name: "gender", title: "Giới tính", sortable: false},
+            { data: "customer_address", name: "customer_address", title: "Địa chỉ", sortable: false},
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
-                orderable: false, "render": function (data) {
+                "render": function (data) {
                     var str = "<a href='javascript:' title='Cập nhật' onclick='customers.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: #ffa500'><i class=\"fas fa-edit\"></i></a> " +
                         "<a class='ml-3' href='javascript:' title='Xóa' onclick='customers.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
                     return str;
@@ -168,6 +168,7 @@ customers.save = function () {
                 toastr.error('Thêm không thành công', 'INFORMATION:');
             });
         } else {
+            customer.id = $('#id').val();
             var ajaxUpdate = $.ajax({
                 url: "http://localhost:8080/api/customer/",
                 method: "PUT",
