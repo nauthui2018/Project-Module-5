@@ -30,9 +30,11 @@ public class APICustomer {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Customer> getCustomer(@PathVariable("id") Long id){
         Customer customer= customerService.findById(id);
-        if(customer!=null)
-            return new ResponseEntity<>(customer,HttpStatus.OK);
-        return new ResponseEntity<>(customer,HttpStatus.NO_CONTENT);
+        if(customer!=null) {
+            return new ResponseEntity<>(customer, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(customer, HttpStatus.NO_CONTENT);
+        }
     }
 
     @PutMapping
