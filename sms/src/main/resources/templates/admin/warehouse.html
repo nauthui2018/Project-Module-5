@@ -67,11 +67,10 @@
             <div class="modal-body">
                 <form id="formAddEdit" th:name="formAddEdit">
                     <input type="hidden" name="id" id="id" class="form-control" required>
-                    <input type="hidden" name="creating_date" id="creating_date" class="form-control" required>
                     <input type="hidden" name="deleted" id="deleted" class="form-control" required>
                     <div class="row form-group">
                         <div class="col-3">
-                            <label>Tên dòng sản phẩm</label>
+                            <label>Tên kho</label>
                         </div>
                         <div class="col-9">
                             <input type="text" id="name" name="name" class="form-control" required>
@@ -83,7 +82,43 @@
                             <label>Số lượng ban đầu</label>
                         </div>
                         <div class="col-9">
-                            <input type="number" id="wholesale_quantity" name="wholesale_quantity" class="form-control" required>
+                            <input type="number" id="product_quantity" name="product_quantity" class="form-control" required>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Số lượng đang về kho</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="coming_quantity" name="coming_quantity" class="form-control" required>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Số lượng đang giao cho khách</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="delivered_quantity" name="delivered_quantity" class="form-control" required>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Số lượng bị hủy</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="scrap_quantity" name="scrap_quantity" class="form-control" required>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Ngày kiểm kho gần nhất</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="stock_check" name="stock_check" class="form-control" required>
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
                     </div>

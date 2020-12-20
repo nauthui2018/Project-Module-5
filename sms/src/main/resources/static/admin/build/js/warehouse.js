@@ -1,6 +1,8 @@
 var warehouses = {} || warehouses;
 var products = {} || products;
 var productList = [];
+var stock_checks = {} || stock_checks;
+var stock_check_report = [];
 
 $(document).ready(function () {
     warehouses.init();
@@ -12,7 +14,7 @@ warehouses.init = function () {
 }
 
 warehouses.addNew = function () {
-    $('.modal-title').html("Thêm sản phẩm mới vào kho");
+    $('.modal-title').html("Tạo kho mới");
     warehouses.resetForm();
     $('#modalAddEdit').modal('show');
 }
@@ -20,11 +22,11 @@ warehouses.addNew = function () {
 warehouses.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#id').val('');
+    $('#name').val('');
     $('#product_quantity').val('');
     $('#coming_quantity').val('');
     $('#delivered_quantity').val('');
     $('#scrap_quantity').val('');
-    $('#stock_check').val('');
     $('#deleted').val('');
     $("#formAddEdit").validate().resetForm();
 }
@@ -32,15 +34,15 @@ warehouses.resetForm = function () {
 warehouses.initValidation = function () {
     $("#formAddEdit").validate({
         rules: {
-            product_quantity: {
+            name: {
                 required: true,
                 maxlength: 150,
             },
         },
         messages: {
             name: {
-                required: "Bạn chưa nhập nhóm khách hàng",
-                maxlength: "Tên nhóm quá dài. Bạn vui lòng kiểm tra lại!",
+                required: "Bạn chưa nhập tên kho",
+                maxlength: "Tên quá dài. Bạn vui lòng kiểm tra lại!",
             },
         },
     });
@@ -71,13 +73,13 @@ warehouses.intTable = function () {
                     return '<input type="checkbox" class="flat" name="table_records">';
                 }
             },
-            { data: "id", name: "ID", title: "ID", orderable: false},
-            { data: "product.name", name : "product" , title: "Tên sản phẩm", sortable: false},
+            { data: "product.id", name: "product_id", title: "ID Sản phẩm", orderable: false},
+            { data: "product.name", name : "product_name" , title: "Tên sản phẩm", sortable: false},
             { data: "product_quantity", name: "product_quantity", title: "Số lượng tồn kho", orderable: true},
             { data: "coming_quantity", name: "coming_quantity", title: "Hàng đang về", orderable: true},
             { data: "delivered_quantity", name: "delivered_quantity", title: "Hàng đang giao", orderable: true},
             { data: "scrap_quantity", name: "scrap_quantity", title: "Hàng lỗi", orderable: true},
-            { data: "stock_check", name: "stock_check", title: "Ngày kiểm kho", orderable: true},
+            { data: "stock_check.checking_date", name: "checking_date", title: "Ngày kiểm kho gần nhất", orderable: true},
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
                     var str = "<a href='javascript:' title='Cập nhật' onclick='warehouses.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
