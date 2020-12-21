@@ -3,7 +3,7 @@ var lineOfBusinesses = {} || lineOfBusinesses;
 lineOfBusinesses.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: 'http://localhost:8080/api/lobs/',
+            url: 'http://localhost:8080/api/lob/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -48,7 +48,7 @@ lineOfBusinesses.resetForm = function () {
 lineOfBusinesses.get = function (id) {
     console.log('get :' + id);
     $.ajax({
-        url: "http://localhost:8080/api/lobs/" + id,
+        url: "http://localhost:8080/api/lob/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (data) {
@@ -69,7 +69,7 @@ lineOfBusinesses.save = function () {
             lobObj.name = $('#name').val();
 
             $.ajax({
-                url: "http://localhost:8080/api/lobs/",
+                url: "http://localhost:8080/api/lob/",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -89,7 +89,7 @@ lineOfBusinesses.save = function () {
             lobObj.name = $('#name').val();
             lobObj.id = $('#id').val();
             $.ajax({
-                url: "http://localhost:8080/api/lobs/",
+                url: "http://localhost:8080/api/lob/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -125,7 +125,7 @@ lineOfBusinesses.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "http://localhost:8080/api/lobs/" + id,
+                    url: "http://localhost:8080/api/lob/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {

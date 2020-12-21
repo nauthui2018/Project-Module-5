@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/provinces")
+@RequestMapping(value = "/api/province")
 public class APIProvince {
     @Autowired
     ProvinceService provinceService;

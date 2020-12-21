@@ -6,7 +6,9 @@ import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +16,7 @@ import java.util.Set;
 @Table(name = "users")
 @Data
 @Where(clause = "deleted=false")
-public class User {
+public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "Bigserial")
@@ -26,21 +28,20 @@ public class User {
     private String user_gender;
     private String email;
     private String password;
-    private String user_avatar;
+    private String user_avatar="/admin/images/default/default-avatar.jpg";
     private String personal_code;
 
     @JsonFormat(pattern="dd/MM/yyyy")
-    private LocalDate dob;
+    private ZonedDateTime dob;
 
     @JsonFormat(pattern="dd/MM/yyyy")
-    private LocalDate starting_date;
+    private ZonedDateTime starting_date;
 
     private String role;
     private boolean deleted = false;
 
-    @OneToOne
-    @JoinColumn(name = "shop_id", referencedColumnName = "id")
-    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
     private Shop shop;
 
     @ManyToOne

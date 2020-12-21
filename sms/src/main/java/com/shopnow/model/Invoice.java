@@ -7,6 +7,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class Invoice {
     private Long total_amount;
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-    private LocalDate created_at= LocalDate.now();
+    private ZonedDateTime created_at = ZonedDateTime.now();
 
     @OneToMany(mappedBy = "invoice")
     @JsonIgnore

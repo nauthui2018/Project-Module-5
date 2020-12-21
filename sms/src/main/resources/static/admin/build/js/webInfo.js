@@ -6,7 +6,7 @@ webInfos.intTable = function () {
 
     $("#datatables").DataTable({
         ajax: {
-            url: 'http://localhost:8080/api/webInfos/',
+            url: 'http://localhost:8080/api/webInfo/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -50,7 +50,7 @@ webInfos.intTable = function () {
             {
                 data: "id", name: "Thao tác", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = `<a href='/webInfo/update/${data}' title='Sửa Web Info' style='color: orange'><i class="fas fa-edit"></i></a>
+                    var str = `<a href='/webInfos/update/${data}' title='Sửa Web Info' style='color: orange'><i class="fas fa-edit"></i></a>
                         <a href='javascript:' title='Xóa Web Info' onclick='webInfos.delete(${data})' style='color: red'><i class="fas fa-trash-alt"></i></a>`
                     return str;
                 }
@@ -77,7 +77,7 @@ webInfos.upload= function (field,idForm) {
     fd.append("id",$(".id").val()[0]);
     // use $.ajax() to upload file
     $.ajax({
-        url: "http://localhost:8080/api/webInfos/"+field,
+        url: "http://localhost:8080/api/webInfo/"+field,
         type: "POST",
         data: fd,
         enctype: 'multipart/form-data',
@@ -130,7 +130,7 @@ $("#imgBackground3").change(function() {
 webInfos.get = function (id) {
     console.log('get :' + id);
     $.ajax({
-        url: "http://localhost:8080/api/webInfos/" + id,
+        url: "http://localhost:8080/api/webInfo/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (data) {
@@ -158,7 +158,7 @@ webInfos.save = function () {
             webInfoObj.description_slogan = $('#description_slogan').val();
 
             $.ajax({
-                url: "http://localhost:8080/api/webInfos/",
+                url: "http://localhost:8080/api/webInfo/",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -188,7 +188,7 @@ webInfos.save = function () {
             webInfoObj.background2 = $('#imageBackground2').val();
             webInfoObj.background3 = $('#imageBackground3').val();
             $.ajax({
-                url: "http://localhost:8080/api/webInfos/",
+                url: "http://localhost:8080/api/webInfo/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -217,7 +217,7 @@ webInfos.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "http://localhost:8080/api/webInfos/" + id,
+                    url: "http://localhost:8080/api/webInfo/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {
