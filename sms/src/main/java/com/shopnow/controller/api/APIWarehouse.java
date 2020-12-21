@@ -33,7 +33,7 @@ public class APIWarehouse {
         if(warehouse != null) {
             return new ResponseEntity<>(warehouse, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(warehouse, HttpStatus.NO_CONTENT);
         }
     }
 

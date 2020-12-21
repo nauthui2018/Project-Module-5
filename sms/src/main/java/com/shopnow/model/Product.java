@@ -33,7 +33,7 @@ public class Product {
     private boolean deleted = false;
 
     @ManyToOne
-    @JoinColumn(name = "productype_id")
+    @JoinColumn(name = "productType_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ProductType productType;
 
@@ -46,5 +46,7 @@ public class Product {
     @JsonIgnore
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
-
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private Set<StockCheckDetail> stockCheckDetails;
 }
