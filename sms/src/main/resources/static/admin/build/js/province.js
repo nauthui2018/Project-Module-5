@@ -3,7 +3,7 @@ var provinces = {} || provinces;
 provinces.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: 'http://localhost:8080/api/provinces/',
+            url: 'http://localhost:8080/api/province/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -48,7 +48,7 @@ provinces.resetForm = function () {
 provinces.get = function (id) {
     console.log('get :' + id);
     $.ajax({
-        url: "http://localhost:8080/api/provinces/" + id,
+        url: "http://localhost:8080/api/province/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (data) {
@@ -69,7 +69,7 @@ provinces.save = function () {
             provinceObj.name = $('#name').val();
 
             $.ajax({
-                url: "http://localhost:8080/api/provinces/",
+                url: "http://localhost:8080/api/province/",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -89,7 +89,7 @@ provinces.save = function () {
             provinceObj.name = $('#name').val();
             provinceObj.id = $('#id').val();
             $.ajax({
-                url: "http://localhost:8080/api/provinces/",
+                url: "http://localhost:8080/api/province/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -125,7 +125,7 @@ provinces.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "http://localhost:8080/api/provinces/" + id,
+                    url: "http://localhost:8080/api/province/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {

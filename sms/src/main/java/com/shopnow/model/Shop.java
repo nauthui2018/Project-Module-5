@@ -1,17 +1,21 @@
 package com.shopnow.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-import org.hibernate.annotations.Where;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "shops")
-@Data
-@Where(clause = "deleted=false")
-public class Shop {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Shop{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,21 +23,23 @@ public class Shop {
     private String email;
     private String address;
     private String shop_name;
-    private String logo;
-    private boolean deleted=false;
+    private String logo="/admin/images/default/default-image.jpg";
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-    private LocalDate created_at=LocalDate.now();
+    private ZonedDateTime created_at;
 
-    @OneToOne(mappedBy= "shop")
-    private User user;
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private ZonedDateTime updated_at;
+
+    @OneToMany(mappedBy = "shop")
+    @JsonIgnore
+    private Set<User> users=new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "province_id", referencedColumnName = "id")
+    @JoinColumn(name = "province_id")
     private Province province;
 
     @ManyToOne
-    @JoinColumn(name = "line_of_business_id", referencedColumnName = "id")
+    @JoinColumn(name = "line_of_business_id")
     private LineOfBusiness lineOfBusiness;
-
 }

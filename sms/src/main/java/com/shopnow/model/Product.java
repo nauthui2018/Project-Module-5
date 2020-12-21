@@ -22,7 +22,7 @@ public class Product {
 
     private String name;
     private String brand;
-    private String image;
+    private String image="/admin/images/picture_default.png";
     private String unit;
     private String barcode;
     private String description;

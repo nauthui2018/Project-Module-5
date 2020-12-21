@@ -25,11 +25,11 @@ public class WebInfo {
     private String slogan;
     private String description_slogan;
     private String about_us;
-    private String background1;
-    private String background2;
-    private String background3;
-    private String logo1;
-    private String logo2;
+    private String background1="/admin/images/picture_default.png";
+    private String background2="/admin/images/picture_default.png";
+    private String background3="/admin/images/picture_default.png";
+    private String logo1="/admin/images/picture_default.png";
+    private String logo2="/admin/images/picture_default.png";
     private boolean deleted=false;
 
 }

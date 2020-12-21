@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/webInfos")
+@RequestMapping(value = "/api/webInfo")
 public class APIWebInfo {
     @Autowired
     WebInfoService webInfoService;

@@ -3,7 +3,7 @@ var users = {} || users;
 users.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: 'http://localhost:8080/api/users/',
+            url: 'http://localhost:8080/api/user/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -41,11 +41,6 @@ users.intTable = function () {
                 data: "role", name: "Role", title: "Role", orderable: false
             },
             {
-                data: "shop", name: "Shop", title: "Shop", orderable: false, "render": function (data) {
-                    return `${data.shop_name}`
-                }
-            },
-            {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
                     var str = "<a href='javascript:' title='Sửa User' onclick='users.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
@@ -73,7 +68,7 @@ users.resetForm = function () {
 users.get = function (id) {
     console.log('get :' + id);
     $.ajax({
-        url: "http://localhost:8080/api/users/" + id,
+        url: "http://localhost:8080/api/user/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (data) {
@@ -94,7 +89,7 @@ users.save = function () {
             userObj.name = $('#name').val();
 
             $.ajax({
-                url: "http://localhost:8080/api/users/",
+                url: "http://localhost:8080/api/user/",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -114,7 +109,7 @@ users.save = function () {
             userObj.name = $('#name').val();
             userObj.id = $('#id').val();
             $.ajax({
-                url: "http://localhost:8080/api/users/",
+                url: "http://localhost:8080/api/user/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -150,7 +145,7 @@ users.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "http://localhost:8080/api/users/" + id,
+                    url: "http://localhost:8080/api/user/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {
