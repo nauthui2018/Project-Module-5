@@ -15,7 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "stock_checks")
 @Data
-@Where(clause = "deleted=false")
+@Where(clause = "deleted = false")
 public class StockCheck {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class StockCheck {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Warehouse warehouse;
 
-    @OneToMany(mappedBy = "stock_check_detail")
+    @OneToMany(mappedBy = "stockCheck")
     @JsonIgnore
     private Set<StockCheckDetail> stockCheckDetails = new HashSet<>();
 }
