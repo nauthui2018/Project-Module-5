@@ -29,6 +29,7 @@ customer_groups.initValidation = function () {
         rules: {
             name: {
                 required: true,
+                minlength: 5,
                 maxlength: 150,
             },
         },
