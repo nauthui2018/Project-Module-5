@@ -1,10 +1,12 @@
 package com.shopnow.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Entity
@@ -17,6 +19,9 @@ public class Warehouse {
     private Long id;
     private String name;
     private String description;
+
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private ZonedDateTime creating_date = ZonedDateTime.now();
     private boolean deleted = false;
 
     @OneToMany(mappedBy = "warehouse")

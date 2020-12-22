@@ -12,11 +12,13 @@
             <div class="left_col scroll-view">
                 <th:block th:replace="admin/layout :: nav-title">
                 </th:block>
+                <hr style="height: 2px">
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section" th:replace="admin/layout :: user">
                     </div>
                 </div>
+                <hr>
                 <!-- /menu footer buttons -->
             </div>
         </div>
@@ -31,9 +33,24 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_content">
-                        <button type="button" class="btn-sm btn-success mb-3" onclick="warehouses.addNew()">
-                            Thêm mới
-                        </button>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <a href="/admin/settings">
+                                    <i class="fas fa-angle-left"></i>
+                                    <span>Cấu hình</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row mb-3" style="display: flex; align-items: center">
+                            <div class="col-md-6 col-sm-6" style="text-align: left">
+                                <h3>Quản lý kho</h3>
+                            </div>
+                            <div class="col-md-6 col-sm-6" style="text-align: right">
+                                <button type="button" class="btn-sm btn-success" onclick="warehouses.addNew()">
+                                    Thêm mới
+                                </button>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table id="datatables" class="table table-striped jambo_table bulk_action">
                             </table>
@@ -68,6 +85,7 @@
                 <form id="formAddEdit" th:name="formAddEdit">
                     <input type="hidden" name="id" id="id" class="form-control" required>
                     <input type="hidden" name="deleted" id="deleted" class="form-control" required>
+                    <input type="hidden" name="creating_date" id="creating_date" class="form-control" required>
                     <div class="row form-group">
                         <div class="col-3">
                             <label>Tên kho</label>
@@ -79,46 +97,10 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-3">
-                            <label>Số lượng ban đầu</label>
+                            <label>Mô tả</label>
                         </div>
                         <div class="col-9">
-                            <input type="number" id="product_quantity" name="product_quantity" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Số lượng đang về kho</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="number" id="coming_quantity" name="coming_quantity" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Số lượng đang giao cho khách</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="number" id="delivered_quantity" name="delivered_quantity" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Số lượng bị hủy</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="number" id="scrap_quantity" name="scrap_quantity" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Ngày kiểm kho gần nhất</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="number" id="stock_check" name="stock_check" class="form-control" required>
+                            <input type="text" id="description" name="description" class="form-control" required>
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
                     </div>
@@ -137,7 +119,7 @@
 
 <th:block th:replace="admin/layout :: block-dataTable"></th:block>
 
-<script src="/admin/build/js/product_type.js"></script>
+<script src="/admin/build/js/warehouse.js"></script>
 
 </body>
 </html>
