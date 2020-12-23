@@ -7,7 +7,6 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,7 +20,7 @@ public class ProductType {
     private String name;
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-    private ZonedDateTime creating_date = ZonedDateTime.now();
+    private ZonedDateTime creating_date;
 
     private Long wholesale_quantity;
     private boolean deleted = false;
