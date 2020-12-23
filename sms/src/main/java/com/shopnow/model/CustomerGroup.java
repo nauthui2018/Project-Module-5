@@ -19,9 +19,9 @@ public class CustomerGroup {
     private Long id;
     private String name;
 
-//    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-//    private ZonedDateTime creating_date = ZonedDateTime.now();
-    private String creating_date;
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private ZonedDateTime creating_date;
+
     private boolean deleted = false;
 
     @OneToMany(mappedBy = "customer_group")
