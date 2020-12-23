@@ -23,9 +23,9 @@ public class StockCheckDetail {
     private int scrap;
 
     @ManyToOne
-    @JoinColumn(name = "stockCheck_id")
+    @JoinColumn(name = "stock_check_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private StockCheck stockCheck;
+    private StockCheck stock_check;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
