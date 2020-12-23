@@ -70,8 +70,12 @@ stock_checks.intTable = function () {
             },
             { data: "id", name: "ID", title: "ID", sortable: false},
             { data: "warehouse.name", name: "warehouse", title: "Tên kho hàng", sortable: true},
-            { data: "creating_date", name: "creating_date", title: "Ngày tạo", sortable: true},
-            { data: "finished", name: "finished", title: "Trạng thái", sortable: false},
+            { data: "creating_date", name: "creating_date", title: "Ngày tạo phiếu kiểm", sortable: true},
+            { data: "finished", name: "finished", title: "Trạng thái", sortable: false,
+                "render": function (data) {
+                    return data ? "Đã hoàn thành" : "Chưa hoàn thành";
+                }
+            },
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
                 "render": function (data) {
                     var str = "<a href='javascript:' title='Cập nhật' onclick='stock_checks.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: #ffa500'><i class=\"fas fa-edit\"></i></a> " +
@@ -132,6 +136,7 @@ stock_checks.save = function () {
         var stock_check = {};
         stock_check.id = $('#id').val();
         stock_check.warehouse = warehouses.findById(parseInt($('#warehouse').val()));
+        stock_check.warehouse.creating_date = null;
         stock_check.finished = $('#finished').val();
         stock_check.deleted = $('#deleted').val();
         if ($('#id').val() === '') {
