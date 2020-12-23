@@ -20,7 +20,6 @@ product_types.resetForm = function () {
     $('#name').val('');
     $('#wholesale_quantity').val('');
     $('#id').val('');
-    $('#creating_date').val('');
     $('#deleted').val('');
     $("#formAddEdit").validate().resetForm();
 }
@@ -106,7 +105,6 @@ product_types.get = function (id) {
         $('#id').val(data.id);
         $('#name').val(data.name);
         $('#wholesale_quantity').val(data.wholesale_quantity);
-        $('#creating_date').val(data.creating_date);
         $('#deleted').val(data.deleted);
         $('#modalAddEdit').modal('show');
     });
@@ -117,16 +115,18 @@ product_types.get = function (id) {
 
 product_types.save = function () {
     if ($("#formAddEdit").valid()) {
+        var product_type = {};
+        product_type.id = $('#id').val();
+        product_type.name = $('#name').val();
+        product_type.wholesale_quantity = $('#wholesale_quantity').val();
+        product_type.deleted = $('#deleted').val();
         if ($('#id').val() === '') {
-            var new_product_type = {};
-            new_product_type.name = $('#name').val();
-            new_product_type.wholesale_quantity = $('#wholesale_quantity').val();
             var ajaxAdd = $.ajax({
                 url: "http://localhost:8080/api/product_type",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(new_product_type)
+                data: JSON.stringify(product_type)
             });
             ajaxAdd.done(function () {
                 $('#modalAddEdit').modal('hide');
@@ -139,12 +139,6 @@ product_types.save = function () {
                 toastr.error('Thêm không thành công', 'INFORMATION:');
             });
         } else {
-            var product_type = {};
-            product_type.id = $('#id').val();
-            product_type.name = $('#name').val();
-            product_type.wholesale_quantity = $('#wholesale_quantity').val();
-            product_type.creating_date = $('#creating_date').val();
-            product_type.deleted = $('#deleted').val();
             var ajaxUpdate = $.ajax({
                 url: "http://localhost:8080/api/product_type/",
                 method: "PUT",
