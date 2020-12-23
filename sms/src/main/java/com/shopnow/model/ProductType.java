@@ -26,7 +26,7 @@ public class ProductType {
     private Long wholesale_quantity;
     private boolean deleted = false;
 
-    @OneToMany(mappedBy = "productType")
+    @OneToMany(mappedBy = "product_type")
     @JsonIgnore
-    private Set<Product> products = new HashSet<>();
+    private Set<Product> products;
 }
