@@ -144,6 +144,7 @@ customers.save = function () {
         var customer = {};
         customer.customer_fullName = $('#customer_fullName').val();
         customer.customer_group = customer_groups.findById(parseInt($('#customer_group').val()));
+        customer.customer_group.creating_date = null;
         customer.customer_phone = $('#customer_phone').val();
         customer.customer_email = $('#customer_email').val();
         customer.customer_address = $('#customer_address').val();
