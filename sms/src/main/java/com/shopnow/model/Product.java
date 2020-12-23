@@ -8,6 +8,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,13 +30,13 @@ public class Product {
     private Long retail_price;
     private Long wholesale_price;
     private Long prime_cost;
-    private LocalDate creating_date;
+    private ZonedDateTime creating_date;
     private boolean deleted = false;
 
     @ManyToOne
-    @JoinColumn(name = "productType_id")
+    @JoinColumn(name = "product_type_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private ProductType productType;
+    private ProductType product_type;
 
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
@@ -44,9 +45,9 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
-    private Set<OrderDetail> orderDetails = new HashSet<>();
+    private Set<OrderDetail> order_details;
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
-    private Set<StockCheckDetail> stockCheckDetails;
+    private Set<StockCheckDetail> stock_check_details;
 }
