@@ -20,7 +20,6 @@ warehouses.resetForm = function () {
     $('#id').val('');
     $('#name').val('');
     $('#description').val('');
-    $('#creating_date').val('');
     $('#deleted').val('');
     $("#formAddEdit").validate().resetForm();
 }
@@ -56,7 +55,7 @@ $.validator.addMethod(
 warehouses.intTable = function () {
     $("#datatables").DataTable({
         destroy: true,
-        "lengthMenu": [[3, 5, 10, -1], [3, 5, 10, "All"]],
+        "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
         ajax: {
             url: 'http://localhost:8080/api/warehouse/',
             method: "GET",
@@ -96,7 +95,6 @@ warehouses.get = function (id) {
         $('#id').val(data.id);
         $('#name').val(data.name);
         $('#description').val(data.description);
-        $('#creating_date').val(data.creating_date);
         $('#deleted').val(data.deleted);
         $('#modalAddEdit').modal('show');
     });

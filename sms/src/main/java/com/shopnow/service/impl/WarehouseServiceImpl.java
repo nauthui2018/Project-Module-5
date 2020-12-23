@@ -1,5 +1,6 @@
 package com.shopnow.service.impl;
 
+import com.shopnow.model.CustomerGroup;
 import com.shopnow.model.Warehouse;
 import com.shopnow.repository.WarehouseRepository;
 import com.shopnow.service.WarehouseService;
@@ -21,8 +22,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Warehouse save(Warehouse object) {
-        ZonedDateTime creating_date = ZonedDateTime.now();
+        ZonedDateTime today = ZonedDateTime.now();
         if(object.getId() == null) {
+            object.setCreating_date(today);
+        } else {
+            Warehouse warehouse = findById(object.getId());
+            ZonedDateTime creating_date = warehouse.getCreating_date();
             object.setCreating_date(creating_date);
         }
         return warehouseRepository.save(object);
