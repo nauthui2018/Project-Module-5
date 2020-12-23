@@ -1,5 +1,6 @@
 package com.shopnow.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -23,15 +24,21 @@ public class Product {
 
     private String name;
     private String brand;
-    private String image="/admin/images/picture_default.png";
+    private String image = "/admin/images/picture_default.png";
     private String unit;
     private String barcode;
     private String description;
     private Long retail_price;
     private Long wholesale_price;
     private Long prime_cost;
-    private ZonedDateTime creating_date;
     private boolean deleted = false;
+    private int stock = 0;
+    private int incoming_quantity = 0;
+    private int delivering_quantity = 0;
+    private int scrap_quantity = 0;
+
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private ZonedDateTime creating_date;
 
     @ManyToOne
     @JoinColumn(name = "product_type_id")
@@ -50,4 +57,8 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private Set<StockCheckDetail> stock_check_details;
+
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private Set<InvoiceDetail> invoice_details;
 }
