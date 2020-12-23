@@ -6,6 +6,7 @@ import com.shopnow.service.CustomerGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -20,6 +21,14 @@ public class CustomerGroupServiceImpl implements CustomerGroupService {
 
     @Override
     public CustomerGroup save(CustomerGroup object) {
+        ZonedDateTime today = ZonedDateTime.now();
+        if(object.getId() == null) {
+            object.setCreating_date(today);
+        } else {
+            CustomerGroup oldGroup = findById(object.getId());
+            ZonedDateTime creating_date = oldGroup.getCreating_date();
+            object.setCreating_date(creating_date);
+        }
         return customerGroupRepository.save(object);
     }
 

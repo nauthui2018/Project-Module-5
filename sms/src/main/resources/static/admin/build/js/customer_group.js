@@ -19,7 +19,6 @@ customer_groups.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#name').val('');
     $('#id').val('');
-    $('#creating_date').val('');
     $('#deleted').val('');
     $("#formAddEdit").validate().resetForm();
 }
@@ -92,7 +91,6 @@ customer_groups.get = function (id) {
         $('.modal-title').html("Chỉnh sửa thông tin");
         $('#id').val(data.id);
         $('#name').val(data.name);
-        $('#creating_date').val(data.creating_date);
         $('#deleted').val(data.deleted);
         $('#modalAddEdit').modal('show');
     });
@@ -103,16 +101,16 @@ customer_groups.get = function (id) {
 
 customer_groups.save = function () {
     if ($("#formAddEdit").valid()) {
+        var customer_group = {};
+        customer_group.id = $('#id').val();
+        customer_group.name = $('#name').val();
         if ($('#id').val() === '') {
-            var new_customer_group = {};
-            new_customer_group.name = $('#name').val();
-            new_customer_group.creating_date = new Date().toLocaleString();
             var ajaxAdd = $.ajax({
                 url: "http://localhost:8080/api/customer_group",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(new_customer_group)
+                data: JSON.stringify(customer_group)
             });
             ajaxAdd.done(function () {
                 $('#modalAddEdit').modal('hide');
@@ -125,10 +123,6 @@ customer_groups.save = function () {
                 toastr.error('Thêm không thành công', 'INFORMATION:');
             });
         } else {
-            var customer_group = {};
-            customer_group.id = $('#id').val();
-            customer_group.name = $('#name').val();
-            customer_group.creating_date = $('#creating_date').val();
             customer_group.deleted = $('#deleted').val();
             var ajaxUpdate = $.ajax({
                 url: "http://localhost:8080/api/customer_group/",
@@ -143,7 +137,6 @@ customer_groups.save = function () {
                 toastr.info('Cập nhật thành công', 'INFORMATION:')
             });
             ajaxUpdate.fail(function () {
-                console.log("POST ");
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
                 toastr.error('Cập nhật không thành công', 'INFORMATION:')
