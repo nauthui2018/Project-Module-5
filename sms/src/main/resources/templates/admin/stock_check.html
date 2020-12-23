@@ -68,30 +68,14 @@
                 <form id="formAddEdit" th:name="formAddEdit">
                     <input type="hidden" name="id" id="id" class="form-control" required>
                     <input type="hidden" name="deleted" id="deleted" class="form-control" required>
+                    <input type="hidden" name="finished" id="finished" class="form-control" required>
                     <div class="row form-group">
                         <div class="col-3">
                             <label>Tên kho hàng</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="warehouse" name="warehouse" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Ngày kiểm</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="text" id="checking_date" name="checking_date" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Trạng thái</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="text" id="finished" name="finished" class="form-control" required>
+                            <select class="form-control" id="warehouse" name="warehouse">
+                            </select>
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
                     </div>

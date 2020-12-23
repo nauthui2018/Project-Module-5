@@ -9,7 +9,6 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,7 +30,7 @@ public class StockCheck {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Warehouse warehouse;
 
-    @OneToMany(mappedBy = "stockCheck")
-    @JsonIgnore
-    private Set<StockCheckDetail> stockCheckDetails = new HashSet<>();
+//    @OneToMany(mappedBy = "stock_check")
+//    @JsonIgnore
+//    private Set<StockCheckDetail> stock_check_details;
 }

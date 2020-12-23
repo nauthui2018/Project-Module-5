@@ -9,6 +9,7 @@ $(document).ready(function () {
 stock_checks.init = function () {
     stock_checks.intTable();
     stock_checks.initValidation();
+    warehouses.listWarehouse();
 }
 
 stock_checks.addNew = function () {
@@ -155,6 +156,9 @@ stock_checks.save = function () {
             });
         } else {
             stock_check.id = $('#id').val();
+            stock_check.checking_date = $('#checking_date').val();
+            stock_check.finished = $('#finished').val();
+            stock_check.deleted = $('#deleted').val();
             var ajaxUpdate = $.ajax({
                 url: "http://localhost:8080/api/stock_check/",
                 method: "PUT",

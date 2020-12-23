@@ -21,7 +21,7 @@ public class Warehouse {
     private String description;
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-    private ZonedDateTime creating_date = ZonedDateTime.now();
+    private ZonedDateTime creating_date;
     private boolean deleted = false;
 
     @OneToMany(mappedBy = "warehouse")

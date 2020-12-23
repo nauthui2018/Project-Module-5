@@ -6,6 +6,7 @@ import com.shopnow.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -20,6 +21,10 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Warehouse save(Warehouse object) {
+        ZonedDateTime creating_date = ZonedDateTime.now();
+        if(object.getId() == null) {
+            object.setCreating_date(creating_date);
+        }
         return warehouseRepository.save(object);
     }
 
