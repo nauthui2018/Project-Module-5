@@ -22,7 +22,6 @@ stock_checks.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#id').val('');
     $('#finished').val('');
-    $('#checking_date').val('');
     $('#deleted').val('');
     $("#formAddEdit").validate().resetForm();
 }
@@ -71,7 +70,7 @@ stock_checks.intTable = function () {
             },
             { data: "id", name: "ID", title: "ID", sortable: false},
             { data: "warehouse.name", name: "warehouse", title: "Tên kho hàng", sortable: true},
-            { data: "checking_date", name: "checking_date", title: "Ngày thực hiện", sortable: true},
+            { data: "creating_date", name: "creating_date", title: "Ngày tạo", sortable: true},
             { data: "finished", name: "finished", title: "Trạng thái", sortable: false},
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
                 "render": function (data) {
@@ -94,7 +93,6 @@ stock_checks.get = function (id) {
         $('#formAddEdit')[0].reset();
         $('#id').val(data.id);
         $('#finished').val(data.finished);
-        $('#checking_date').val(data.checking_date);
         $('#deleted').val(data.deleted);
         $('#warehouse').val(data.warehouse.id);
         $('#modalAddEdit').modal('show');
@@ -132,8 +130,8 @@ warehouses.findById = function (id) {
 stock_checks.save = function () {
     if ($("#formAddEdit").valid()) {
         var stock_check = {};
+        stock_check.id = $('#id').val();
         stock_check.warehouse = warehouses.findById(parseInt($('#warehouse').val()));
-        stock_check.checking_date = $('#checking_date').val();
         stock_check.finished = $('#finished').val();
         stock_check.deleted = $('#deleted').val();
         if ($('#id').val() === '') {
@@ -155,10 +153,6 @@ stock_checks.save = function () {
                 toastr.error('Tạo không thành công', 'INFORMATION:');
             });
         } else {
-            stock_check.id = $('#id').val();
-            stock_check.checking_date = $('#checking_date').val();
-            stock_check.finished = $('#finished').val();
-            stock_check.deleted = $('#deleted').val();
             var ajaxUpdate = $.ajax({
                 url: "http://localhost:8080/api/stock_check/",
                 method: "PUT",
@@ -172,7 +166,6 @@ stock_checks.save = function () {
                 toastr.info('Cập nhật thành công', 'INFORMATION:')
             });
             ajaxUpdate.fail(function () {
-                console.log("POST ");
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
                 toastr.error('Cập nhật không thành công', 'INFORMATION:')

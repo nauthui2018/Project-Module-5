@@ -1,5 +1,6 @@
 package com.shopnow.service.impl;
 
+import com.shopnow.model.ProductType;
 import com.shopnow.model.StockCheck;
 import com.shopnow.repository.StockCheckRepository;
 import com.shopnow.service.StockCheckService;
@@ -21,9 +22,13 @@ public class StockCheckServiceImpl implements StockCheckService {
 
     @Override
     public StockCheck save(StockCheck object) {
-        ZonedDateTime checking_date = ZonedDateTime.now();
+        ZonedDateTime today = ZonedDateTime.now();
         if(object.getId() == null) {
-            object.setCreating_date(checking_date);
+            object.setCreating_date(today);
+        } else {
+            StockCheck stock_check = findById(object.getId());
+            ZonedDateTime creating_date = stock_check.getCreating_date();
+            object.setCreating_date(creating_date);
         }
         return stockCheckRepository.save(object);
     }

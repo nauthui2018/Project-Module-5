@@ -30,7 +30,7 @@ public class StockCheck {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Warehouse warehouse;
 
-//    @OneToMany(mappedBy = "stock_check")
-//    @JsonIgnore
-//    private Set<StockCheckDetail> stock_check_details;
+    @OneToMany(mappedBy = "stock_check")
+    @JsonIgnore
+    private Set<StockCheckDetail> stock_check_details;
 }
