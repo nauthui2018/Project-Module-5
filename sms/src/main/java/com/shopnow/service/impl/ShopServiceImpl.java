@@ -42,6 +42,10 @@ public class ShopServiceImpl implements ShopService {
         return false;
     }
 
+    public void delete(Shop shop){
+        shopRepository.delete(shop);
+    }
+
     @Override
     public Shop findById(Long id) {
         return shopRepository.findById(id).orElse(null);

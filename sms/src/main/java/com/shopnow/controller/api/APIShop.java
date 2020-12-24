@@ -1,7 +1,9 @@
 package com.shopnow.controller.api;
 
 import com.shopnow.model.Shop;
+import com.shopnow.model.User;
 import com.shopnow.service.ShopService;
+import com.shopnow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

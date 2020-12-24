@@ -37,6 +37,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**", "/api/**").permitAll() // Cho phép tất cả mọi người truy cập vào 2 địa chỉ này
 //                .anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
                 .and()
+                .authorizeRequests().antMatchers("/blog").hasAnyRole("USER","ADMIN","MANAGER")
+                .and()
+                .authorizeRequests().antMatchers("/admin").hasRole("ADMIN")
+                .and()
+                .authorizeRequests().antMatchers("/manager").hasAnyRole("MANAGER","ADMIN")
+                .and()
                 .authorizeRequests().antMatchers("/blog").hasRole("USER")
                 .and()
                 .authorizeRequests().antMatchers("/tag").hasRole("USER")

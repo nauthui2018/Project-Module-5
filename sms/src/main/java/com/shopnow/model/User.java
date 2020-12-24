@@ -27,15 +27,15 @@ public class User{
     private String user_address;
     private String user_gender;
     private String email;
-    private String password;
+    private String password="Pa$$w0rd!";
     private String user_avatar="/admin/images/default/default-avatar.jpg";
     private String personal_code;
 
     @JsonFormat(pattern="dd/MM/yyyy")
     private ZonedDateTime dob;
 
-    @JsonFormat(pattern="dd/MM/yyyy")
-    private ZonedDateTime starting_date;
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private ZonedDateTime starting_date=ZonedDateTime.now();
 
     private String role;
     private boolean deleted = false;

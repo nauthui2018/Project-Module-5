@@ -16,13 +16,6 @@ public class ShopController {
 
     @GetMapping
     public String index(){
-        return "admin/shop";
-    }
-
-    @GetMapping(value = "/update/{id}")
-    public ModelAndView updateIndex(@PathVariable Long id){
-        ModelAndView modelAndView=new ModelAndView("admin/update_shop");
-        modelAndView.addObject("webInfo", shopService.findById(id));
-        return modelAndView;
+        return "admin/shop/shop";
     }
 }
