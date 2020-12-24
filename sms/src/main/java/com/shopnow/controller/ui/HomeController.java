@@ -1,9 +1,9 @@
 package com.shopnow.controller.ui;
 
-import com.shopnow.model.WebInfo;
-import com.shopnow.service.LineOfBusinessService;
-import com.shopnow.service.ProvinceService;
-import com.shopnow.service.WebInfoService;
+import com.shopnow.model.admin.WebInfo;
+import com.shopnow.service.InterfaceServiveAdmin.LineOfBusinessService;
+import com.shopnow.service.InterfaceServiveAdmin.ProvinceService;
+import com.shopnow.service.InterfaceServiveAdmin.WebInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
