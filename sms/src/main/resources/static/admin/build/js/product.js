@@ -65,6 +65,15 @@ products.intTable = function () {
     $("#datatables").DataTable({
         destroy: true,
         "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
+        "language": {
+            "emptyTable": "Không có sản phẩm nào!",
+            "lengthMenu": "Hiển thị _MENU_ sản phẩm",
+            "info": "Hiển thị _START_ đến _END_ của _TOTAL_ sản phẩm",
+            "paginate": {
+                "next": "Trang tiếp",
+                "previous": "Trang trước",
+            },
+        },
         ajax: {
             url: 'http://localhost:8080/api/product/',
             method: "GET",
