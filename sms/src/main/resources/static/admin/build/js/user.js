@@ -26,12 +26,6 @@ users.intTable = function () {
                 data: "user_fullname", name: "Tên", title: "Tên", orderable: true
             },
             {
-                data: "user_phone", name: "Số điện thoại", title: "Số điện thoại", orderable: false
-            },
-            {
-                data: "user_address", name: "Địa chỉ", title: "Địa chỉ", orderable: false
-            },
-            {
                 data: "email", name: "Email", title: "Email", orderable: false
             },
             {
@@ -43,8 +37,8 @@ users.intTable = function () {
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = "<a href='javascript:' title='Sửa User' onclick='users.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a href='javascript:' title='Xóa User' onclick='users.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
+                    var str = `<a href='/registers/user_detail/${data}' title='Xem chi tiết' style='color: orange'><i class="fas fa-eye"></i>
+                        <a href='javascript:' title='Xóa User' onclick=users.delete(${data}) style='color: red'><i class="fas fa-trash-alt"></i></a>`
                     return str;
                 }
             }
@@ -62,31 +56,22 @@ users.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#name').val('');
     $("#formAddEdit").validate().resetForm();
-}
-
-
-users.get = function (id) {
-    console.log('get :' + id);
-    $.ajax({
-        url: "http://localhost:8080/api/user/" + id,
-        method: "GET",
-        dataType: "json"
-    }).done(function (data) {
-        $('#formAddEdit')[0].reset();
-        $('#modalTitle').html("Chỉnh sửa User");
-        $('#id').val(data.id);
-        $('#name').val(data.name);
-        $('#modalAddEdit').modal('show');
-    }).fail(function () {
-        toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
-    });
+    myInput.onkeyup();
 }
 
 users.save = function () {
     if ($("#formAddEdit").valid()) {
         if ($('#id').val() == 0) {
             var userObj = {};
-            userObj.name = $('#name').val();
+            userObj.email = $('#email').val();
+            userObj.password = $('#password').val();
+            userObj.role = $('#role').val();
+            userObj.user_fullname = $('#user_fullname').val();
+            userObj.user_phone = $('#user_phone').val();
+            userObj.dob = $('#dob').val();
+            userObj.user_address = $('#user_address').val();
+            userObj.province = $('#province').val();
+            userObj.user_gender = $('#user_gender').val();
 
             $.ajax({
                 url: "http://localhost:8080/api/user/",
@@ -95,6 +80,7 @@ users.save = function () {
                 contentType: "application/json",
                 data: JSON.stringify(userObj)
             }).done(function () {
+                myInput.onkeyup();
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
                 toastr.info('Thêm thành công', 'INFORMATION:')
@@ -106,7 +92,15 @@ users.save = function () {
             });
         } else {
             var userObj = {};
-            userObj.name = $('#name').val();
+            userObj.email = $('#email').val();
+            userObj.password = $('#password').val();
+            userObj.role = $('#role').val();
+            userObj.user_fullname = $('#user_fullname').val();
+            userObj.user_phone = $('#user_phone').val();
+            userObj.dob = $('#dob').val();
+            userObj.user_address = $('#user_address').val();
+            userObj.province = $('#province').val();
+            userObj.user_gender = $('#user_gender').val();
             userObj.id = $('#id').val();
             $.ajax({
                 url: "http://localhost:8080/api/user/",
@@ -129,6 +123,7 @@ users.save = function () {
         return false;
     }
 }
+
 users.delete = function (id) {
     bootbox.confirm({
         message: "Bạn có muốn xóa user này không?",
@@ -145,7 +140,7 @@ users.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "http://localhost:8080/api/user/" + id,
+                    url: "/api/user/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {
@@ -160,29 +155,166 @@ users.delete = function (id) {
     })
 }
 
-
+users.remove = function (id) {
+    bootbox.confirm({
+        message: "Bạn có muốn xóa user này không?",
+        buttons: {
+            confirm: {
+                label: 'Có',
+                className: 'btn-success'
+            },
+            cancel: {
+                label: 'Không',
+                className: 'btn-danger'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                $.ajax({
+                    url: "/registers/delete/" + id,
+                    method: "DELETE",
+                    dataType: "json"
+                }).done(function () {
+                    console.log("DELETE SUCCESS");
+                    location.href ="/registers"
+                    toastr.info('Xóa thành công!', 'INFORMATION:')
+                }).fail(function () {
+                    toastr.error('Xóa không thành công!', 'INFORMATION:')
+                });
+            }
+        }
+    })
+}
 users.initValidation = function () {
+    $.validator.addMethod("PASSWORD",function(value,element){
+            return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+        },"Mật khẩu phải ít nhất 8 ký tự, phải bao gồm chữ cái in hoa, in thường và số");
     $("#formAddEdit").validate({
         rules: {
-            name: {
+            email: {
                 required: true,
-                maxlength: 150
+                maxlength: 60
+            },
+            password: {
+                required: true,
+                PASSWORD: true,
+            },
+            confirm_password: {
+                required: true,
+                equalTo: "#password"
             }
         },
         messages: {
-            name: {
-                required: "Vui lòng nhập Tiêu đề",
+            email: {
+                required: "Vui lòng nhập Email",
                 maxlength: 150
+            },
+            password: {
+                required:"Vui lòng nhập Mật khẩu"
+            },
+            confirm_password: {
+                required: "Vui lòng nhập xác nhận Mật khẩu",
+                equalTo: "Không khớp với mật khẩu ở trên"
             }
         }
     });
 }
 
+users.initProvince = function () {
+    $.ajax({
+        url: "http://localhost:8080/api/province/",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#provinces').empty();
+            $.each(data, function (i, v) {
+                $('#provinces').append(
+                    "<option value='" + v.id + "'>" + v.name + "</option>"
+                );
+            });
+        }
+    });
+};
+
+users.initShop = function () {
+    $.ajax({
+        url: "http://localhost:8080/api/shop/",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#shop').empty();
+            $.each(data, function (i, v) {
+                $('#shop').append(
+                    `<option value='${v.id}'>${v.shop_name}</option>`
+                );
+            })
+        }
+    });
+};
+
 users.init = function () {
     users.intTable();
     users.initValidation();
+    users.initProvince();
+    users.initShop();
 }
 
 $(document).ready(function () {
     users.init();
 });
+
+
+var myInput = document.getElementById("password");
+var letter = document.getElementById("letter");
+var capital = document.getElementById("capital");
+var number = document.getElementById("number");
+var length = document.getElementById("length");
+
+myInput.onfocus = function() {
+    document.getElementById("message").style.display = "block";
+}
+
+myInput.onblur = function() {
+    document.getElementById("message").style.display = "none";
+}
+
+myInput.onkeyup = function() {
+    // Validate lowercase letters
+    var lowerCaseLetters = /[a-z]/g;
+    if(myInput.value.match(lowerCaseLetters)) {
+        letter.classList.remove("invalid");
+        letter.classList.add("validated");
+    } else {
+        letter.classList.remove("validated");
+        letter.classList.add("invalid");
+    }
+
+    // Validate capital letters
+    var upperCaseLetters = /[A-Z]/g;
+    if(myInput.value.match(upperCaseLetters)) {
+        capital.classList.remove("invalid");
+        capital.classList.add("validated");
+    } else {
+        capital.classList.remove("validated");
+        capital.classList.add("invalid");
+    }
+
+    // Validate numbers
+    var numbers = /[0-9]/g;
+    if(myInput.value.match(numbers)) {
+        number.classList.remove("invalid");
+        number.classList.add("validated");
+    } else {
+        number.classList.remove("validated");
+        number.classList.add("invalid");
+    }
+
+    // Validate length
+    if(myInput.value.length >= 8) {
+        length.classList.remove("invalid");
+        length.classList.add("validated");
+    } else {
+        length.classList.remove("validated");
+        length.classList.add("invalid");
+    }
+}

@@ -16,12 +16,12 @@ public class WebInfoController {
 
     @GetMapping
     public String index(){
-        return "admin/web_info";
+        return "admin/webInfo/web_info";
     }
 
     @GetMapping(value = "/update/{id}")
     public ModelAndView updateIndex(@PathVariable Long id){
-        ModelAndView modelAndView=new ModelAndView("admin/update_web_info");
+        ModelAndView modelAndView=new ModelAndView("admin/webInfo/update_web_info");
         modelAndView.addObject("webInfo", webInfoService.findById(id));
         return modelAndView;
     }

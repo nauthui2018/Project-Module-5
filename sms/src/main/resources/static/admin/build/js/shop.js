@@ -60,6 +60,7 @@ shops.addNew = function () {
     $('#modalTitle').html("Thêm Shop mới");
     shops.resetForm();
     $('#modalAddEdit').modal('show');
+    $('#email').prop("disabled", false);
 }
 
 shops.resetForm = function () {
@@ -87,6 +88,7 @@ shops.get = function (id) {
         $('#shop_name').val(data.shop_name);
         $('#phone').val(data.phone);
         $('#email').val(data.email);
+        $('#email').prop("disabled", true);
         $('#address').val(data.address);
         $('#province').val(data.province.id);
         $('#lineOfBusiness').val(data.lineOfBusiness.id);
@@ -104,36 +106,56 @@ shops.save = function () {
             shopObj.phone = $('#phone').val();
             shopObj.email = $('#email').val();
             shopObj.address = $('#address').val();
-            var user = {};
-            user.id = $('#user').val();
-            shopObj.user = user;
             var province = {};
             province.id = $('#province').val();
             shopObj.province = province;
             var lob = {};
             lob.id = $('#lineOfBusiness').val();
             shopObj.lineOfBusiness = lob;
-            $.ajax({
-                url: "http://localhost:8080/api/shop/",
+            var addShop=$.ajax({
+                url: "http://localhost:8080/api/shop",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(shopObj)
-            }).done(function () {
+            });
+            addShop.done(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
-                toastr.info('Thêm thành công', 'INFORMATION:')
-            }).fail(function () {
+                toastr.info('Thêm Shop thành công', 'INFORMATION:')
+            });
+            addShop.fail(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
-                toastr.error('Thêm không thành công', 'INFORMATION:')
+                toastr.error('Thêm Shop không thành công', 'INFORMATION:')
+
+            });
+
+            var user = {};
+            user.email = $('#email').val();
+            user.role='SHOP_OWNER';
+            var addUser= $.ajax({
+                url: "http://localhost:8080/api/user",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(user)
+            });
+            addUser.done(function () {
+                $('#modalAddEdit').modal('hide');
+                $("#datatables").DataTable().ajax.reload();
+                toastr.info('Thêm User thành công', 'INFORMATION:')
+            });
+            addUser.fail(function () {
+                $('#modalAddEdit').modal('hide');
+                $("#datatables").DataTable().ajax.reload();
+                toastr.error('Thêm User không thành công', 'INFORMATION:')
 
             });
         } else {
             var shopObj = {};
             shopObj.shop_name = $('#shop_name').val();
             shopObj.phone = $('#phone').val();
-            shopObj.email = $('#email').val();
             shopObj.address = $('#address').val();
             var user = {};
             user.id = $('#user').val();
@@ -219,9 +241,6 @@ shops.initValidation = function () {
                 maxlength: 60,
                 minlength: 5
             },
-            user: {
-                required: true,
-            },
             province: {
                 required: true,
             },
@@ -247,9 +266,6 @@ shops.initValidation = function () {
                 required: "Vui lòng nhập Địa chỉ",
                 maxlength: "Nhập từ 5 đến 60 ký tự",
                 minlength: "Nhập từ 5 đến 60 ký tự"
-            },
-            user: {
-                required: "Vui lòng chọn chủ cửa hàng",
             },
             province: {
                 required: "Vui lòng chọn tỉnh thành",

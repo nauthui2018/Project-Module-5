@@ -3496,64 +3496,64 @@ span.section {
     border-bottom: 1px solid #e5e5e5
 }
 
-.form-control {
-    border-radius: 0;
-    width: 100%
-}
+/*.form-control {*/
+/*    border-radius: 0;*/
+/*    width: 100%*/
+/*}*/
 
-.form-horizontal .control-label {
-    padding-top: 8px
-}
+/*.form-horizontal .control-label {*/
+/*    padding-top: 8px*/
+/*}*/
 
-.form-control:focus {
-    border-color: #CCD0D7;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important
-}
+/*.form-control:focus {*/
+/*    border-color: #CCD0D7;*/
+/*    -webkit-box-shadow: none !important;*/
+/*    box-shadow: none !important*/
+/*}*/
 
-legend {
-    font-size: 18px;
-    color: inherit
-}
+/*legend {*/
+/*    font-size: 18px;*/
+/*    color: inherit*/
+/*}*/
 
-.form-horizontal .form-group {
-    margin-right: 0;
-    margin-left: 0
-}
+/*.form-horizontal .form-group {*/
+/*    margin-right: 0;*/
+/*    margin-left: 0*/
+/*}*/
 
-.form-control-feedback {
-    position: absolute;
-    margin-top: 8px;
-    height: 23px;
-    color: #bbb;
-    line-height: 24px;
-    font-size: 15px;
-    top: 0px;
-    width: 34px;
-    text-align: center
-}
+/*.form-control-feedback {*/
+/*    position: absolute;*/
+/*    margin-top: 8px;*/
+/*    height: 23px;*/
+/*    color: #bbb;*/
+/*    line-height: 24px;*/
+/*    font-size: 15px;*/
+/*    top: 0px;*/
+/*    width: 34px;*/
+/*    text-align: center*/
+/*}*/
 
-.form-control-feedback.left {
-    border-right: 1px solid #ccc;
-    left: 13px
-}
+/*.form-control-feedback.left {*/
+/*    border-right: 1px solid #ccc;*/
+/*    left: 13px*/
+/*}*/
 
-.form-control-feedback.right {
-    border-left: 1px solid #ccc;
-    right: 13px
-}
+/*.form-control-feedback.right {*/
+/*    border-left: 1px solid #ccc;*/
+/*    right: 13px*/
+/*}*/
 
-.form-control.has-feedback-left {
-    padding-left: 45px
-}
+/*.form-control.has-feedback-left {*/
+/*    padding-left: 45px*/
+/*}*/
 
-.form-control.has-feedback-right {
-    padding-right: 45px
-}
+/*.form-control.has-feedback-right {*/
+/*    padding-right: 45px*/
+/*}*/
 
-.form-group {
-    margin-bottom: 10px
-}
+/*.form-group {*/
+/*    margin-bottom: 10px*/
+/*}*/
 
 .validate {
     margin-top: 10px
@@ -6191,4 +6191,49 @@ ul.notifications {
 
 .error {
     color: red;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+#message p {
+    padding: 0px 35px;
+    font-size: 13px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.validated {
+    color: green;
+}
+
+.validated:before {
+    position: relative;
+    left: -35px;
+    content: "✔";
+}
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: "✖";
+}
+
+.info-detail {
+    font-size: 14px;
+    padding: 5px;
+    margin-bottom: 16px;
+    border: #D0D7DD solid 1px;
+    height: 32px;
+    color: black;
 }

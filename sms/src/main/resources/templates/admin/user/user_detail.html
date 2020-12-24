@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="">
+
+<header th:replace="admin/layout::header">
+</header>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- left_nav -->
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <th:block th:insert="admin/layout::nav-title"></th:block>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div th:replace="admin/layout::admin"></div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="admin/layout::top_nav"></div>
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_content" style="background-color: #ffffff; color: #3c3c3c; padding-top: 1em">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12">
+                                <img th:src="@{${user.user_avatar}}" alt="avatar">
+                            </div>
+
+                            <div class="col-md-8 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <h6>Tên nhân viên</h6>
+                                        <div class="info-detail" th:text="${user.user_fullname}"></div>
+                                        <h6>Số điện thoại</h6>
+                                        <div class="info-detail" th:text="${user.user_phone}"></div>
+                                        <h6>Địa chỉ</h6>
+                                        <div class="info-detail" th:text="${user.user_address}"></div>
+                                        <h6>Giới tính</h6>
+                                        <div class="info-detail" th:text="${user.user_gender}"></div>
+                                        <h6>Role</h6>
+                                        <div class="info-detail" th:text="${user.role}"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <h6>Email</h6>
+                                        <div class="info-detail" th:text="${user.email}"></div>
+                                        <h6>Ngày sinh</h6>
+                                        <div class="info-detail" th:text="${user.dob}"></div>
+                                        <h6>Tỉnh thành</h6>
+                                        <div class="info-detail" th:text="${user.province.name}"></div>
+                                        <h6>CMND</h6>
+                                        <div class="info-detail" th:text="${user.personal_code}"></div>
+                                        <h6>Shop</h6>
+                                        <div class="info-detail" th:text="${user.shop.shop_name}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a th:onclick="|users.remove(${user.id})|" class="btn btn-danger">Xóa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="admin/layout::footer"></footer>
+    </div>
+    <div th:insert="admin/layout::block-script">
+
+    </div>
+    <script src="/admin/build/js/user.js"></script>
+</div>
+</body>
+</html>
