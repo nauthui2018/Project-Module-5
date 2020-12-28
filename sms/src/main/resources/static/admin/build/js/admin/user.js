@@ -37,7 +37,7 @@ users.intTable = function () {
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = `<a href='/registers/user_detail/${data}' title='Xem chi tiết' style='color: orange'><i class="fas fa-eye"></i>
+                    var str = `<a href='/admin/registers/user_detail/${data}' title='Xem chi tiết' style='color: blue'><i class="fas fa-eye"></i></a>
                         <a href='javascript:' title='Xóa User' onclick=users.delete(${data}) style='color: red'><i class="fas fa-trash-alt"></i></a>`
                     return str;
                 }
@@ -54,25 +54,27 @@ users.addNew = function () {
 
 users.resetForm = function () {
     $('#formAddEdit')[0].reset();
-    $('#name').val('');
+    $('#email').val('');
+    $('#password').val('');
+    $('#confirm_password').val('');
+    $('#role').val('');
+    $('#shop').val('');
     $("#formAddEdit").validate().resetForm();
     myInput.onkeyup();
 }
 
 users.save = function () {
     if ($("#formAddEdit").valid()) {
-        if ($('#id').val() == 0) {
             var userObj = {};
             userObj.email = $('#email').val();
             userObj.password = $('#password').val();
             userObj.role = $('#role').val();
-            userObj.user_fullname = $('#user_fullname').val();
-            userObj.user_phone = $('#user_phone').val();
-            userObj.dob = $('#dob').val();
-            userObj.user_address = $('#user_address').val();
-            userObj.province = $('#province').val();
-            userObj.user_gender = $('#user_gender').val();
-
+            var shop = {}
+            shop.id=$('#shop').val();
+            userObj.shop = shop;
+            var province={}
+            province.id=$('#province').val();
+            userObj.province=province;
             $.ajax({
                 url: "/admin/api/user/",
                 method: "POST",
@@ -90,36 +92,6 @@ users.save = function () {
                 toastr.error('Thêm không thành công', 'INFORMATION:')
 
             });
-        } else {
-            var userObj = {};
-            userObj.email = $('#email').val();
-            userObj.password = $('#password').val();
-            userObj.role = $('#role').val();
-            userObj.user_fullname = $('#user_fullname').val();
-            userObj.user_phone = $('#user_phone').val();
-            userObj.dob = $('#dob').val();
-            userObj.user_address = $('#user_address').val();
-            userObj.province = $('#province').val();
-            userObj.user_gender = $('#user_gender').val();
-            userObj.id = $('#id').val();
-            $.ajax({
-                url: "/admin/api/user/",
-                method: "PUT",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(userObj)
-            }).done(function () {
-                $('#modalAddEdit').modal('hide');
-                $("#datatables").DataTable().ajax.reload();
-                toastr.info('Cập nhật thành công', 'INFORMATION:')
-            }).fail(function () {
-                console.log("POST ");
-                $('#modalAddEdit').modal('hide');
-                $("#datatables").DataTable().ajax.reload();
-                toastr.error('Cập nhật không thành công', 'INFORMATION:')
-
-            });
-        }
         return false;
     }
 }
@@ -226,10 +198,10 @@ users.initProvince = function () {
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $('#provinces').empty();
+            $('#province').empty();
             $.each(data, function (i, v) {
-                $('#provinces').append(
-                    "<option value='" + v.id + "'>" + v.name + "</option>"
+                $('#province').append(
+                    `<option value='${v.id}'>${v.name}</option>`
                 );
             });
         }

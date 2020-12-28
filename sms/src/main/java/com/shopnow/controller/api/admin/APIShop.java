@@ -45,4 +45,6 @@ public class APIShop {
     public ResponseEntity<Boolean> deleteShop(@PathVariable("id") Long id){
         return new ResponseEntity<>(shopService.deleteById(id), HttpStatus.OK);
     }
+
+
 }
