@@ -209,28 +209,28 @@
                 <img src="fe/ui/assets/images/roof-store.png">
             </div>
             <div class="modal-body"><h2>Đăng ký ngay</h2>
-                <form action="" id="trialForm" autocomplete="off"
-                      class="form-request" method="POST"
+                <form th:action="@{admin/registers}" id="trialForm" autocomplete="off"
+                      class="form-request" method="POST" th:object="${user}"
                       accept-charset="UTF-8">
                     <ul class="register-form-error"></ul>
                     <div class="form-group mdc-text-field">
-                        <input type="text" maxlength="60" id="FullName" class="form-control form-input" name="FullName"
-                               required="required" placeholder="Họ tên của bạn">
+                        <input type="text" maxlength="60" id="user_fullname" class="form-control form-input" name="user_fullname"
+                               required="required" placeholder="Họ tên của bạn" th:field="*{user_fullname}">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mdc-text-field">
-                                <input type="tel" pattern="^\d{8,11}$" maxlength="15"
-                                       id="PhoneNumber" class="form-control form-input" name="PhoneNumber"
-                                       required="required" placeholder="Số điện thoại của bạn">
+                                <input type="tel" maxlength="15"
+                                       id="user_phone" class="form-control form-input" name="user_phone"
+                                       required="required" placeholder="Số điện thoại của bạn" th:field="*{user_phone}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mdc-text-field">
                                 <input type="email"
                                        pattern="^([a-zA-Z0-9_\-\.\+]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
-                                       maxlength="50" id="Email" class="form-control form-input valid"
-                                       name="Email" required="required" placeholder="Email đăng ký">
+                                       maxlength="50" id="email" class="form-control form-input valid"
+                                       name="email" required="required" placeholder="Email đăng ký" th:field="*{email}">
                             </div>
                         </div>
                     </div>
@@ -238,16 +238,16 @@
                         <div class="col-md-6">
                             <div class="form-group mdc-text-field">
                                 <input type="text" pattern="^.{3,60}$" maxlength="60"
-                                       id="StoreName" class="form-control form-input"
-                                       name="StoreName" required="required"
+                                       id="shop_name" class="form-control form-input"
+                                       name="shop_name" required="required"
                                        title="Tên của hàng dài từ 3 đến 60 ký tự" placeholder="Tên cửa hàng của bạn">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mdc-text-field">
                                 <input type="password" pattern="^.{6,64}$" maxlength="64" id="Password"
-                                       class="form-control form-input valid" name="Password" required="required"
-                                       autocomplete="store-password" placeholder="Mật khẩu đăng nhập cửa hàng">
+                                       class="form-control form-input valid" name="password" required="required"
+                                       autocomplete="store-password" placeholder="Mật khẩu đăng nhập cửa hàng" th:field="*{password}">
                             </div>
                         </div>
                     </div>
@@ -268,7 +268,6 @@
                                         <option th:value="${lineOfBusiness.id}"
                                                 th:text="${lineOfBusiness.name}"></option>
                                     </th:block>
-
                                 </select>
                             </div>
                         </div>
