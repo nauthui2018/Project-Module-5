@@ -7,6 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,7 +34,7 @@ public class Shop{
 
     @OneToMany(mappedBy = "shop")
     @JsonIgnore
-    private Set<User> users=new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "province_id")

@@ -47,8 +47,10 @@ shops.intTable = function () {
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = "<a href='javascript:' title='Sửa Shop' onclick='shops.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a href='javascript:' title='Xóa Shop' onclick='shops.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
+                    var str = `<a href='javascript:' title='Sửa Shop' onclick='shops.get(data)' data-toggle="modal" data-target="#modalAddEdit" style='color: orange'><i class="fas fa-edit"></i></a>
+                        <a href='javascript:' title='Xóa Shop' onclick='shops.delete(data)' style='color: red'><i class="fas fa-trash-alt"></i></a>
+                        <a href='/admin/shops/shop_detail/${data}' title='Xem chi tiết' style='color: blue'><i class="fas fa-eye
+                        "></i></a>`
                     return str;
                 }
             }

@@ -81,10 +81,20 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-3">
+                                    <label>Tỉnh thành</label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="province" id="province" class="form-control" data-rule-required=true>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-3">
                                     <label>Role</label>
                                 </div>
                                 <div class="col-9">
                                     <select name="role" id="role" class="form-control" data-rule-required=true>
+                                        <option value="">Chọn Chức vụ</option>
                                         <option value="ADMIN">ADMIN</option>
                                         <option value="EMPLOYEE">EMPLOYEE</option>
                                         <option value="SHOP_OWNER">SHOP OWNER</option>
@@ -100,6 +110,7 @@
                                     </select>
                                 </div>
                             </div>
+
                         </form>
                         <div id="message">
                             <h6>Mật khẩu phải bao gồm:</h6>

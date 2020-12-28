@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="">
+
+<header th:replace="admin/layout::header">
+</header>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- left_nav -->
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <th:block th:insert="admin/layout::nav-title"></th:block>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div th:replace="admin/layout::admin"></div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="admin/layout::top_nav"></div>
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_content" style="background-color: #ffffff; color: #3c3c3c; padding-top: 1em">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12">
+                                <img th:src="@{${shop.logo}}" alt="logo" width="100%">
+                            </div>
+
+                            <div class="col-md-8 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <h6>Tên Shop</h6>
+                                        <div class="info-detail" th:text="${shop.shop_name}"></div>
+                                        <h6>Số điện thoại</h6>
+                                        <div class="info-detail" th:text="${shop.phone}"></div>
+                                        <h6>Địa chỉ</h6>
+                                        <div class="info-detail" th:text="${shop.address}"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <h6>Email</h6>
+                                        <div class="info-detail" th:text="${shop.email}"></div>
+                                        <h6>Ngày Tham gia</h6>
+                                        <div class="info-detail" th:text="${shop.created_at}"></div>
+                                        <h6>Tỉnh thành</h6>
+                                        <div class="info-detail" th:text="${shop.province.name}"></div>
+                                        <h6>Lĩnh vực kinh doanh</h6>
+                                        <div class="info-detail" th:text="${shop.lineOfBusiness.name}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h5>Danh sách nhân viên của Shop</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped jambo_table bulk_action">
+                                <tr>
+                                    <th>STT</th>
+                                    <th>ID</th>
+                                    <th>Họ tên</th>
+                                    <th>Chức vụ</th>
+                                </tr>
+                                <th:block th:each="user:${users}" th:with="count=0">
+                                    <tr th:with={count=count+1}>
+                                        <td th:text="${count}"></td>
+                                        <td th:text="${user.id}"></td>
+                                        <td th:text="${user.user_fullname}"></td>
+                                        <td th:text="${user.role}"></td>
+                                    </tr>
+                                </th:block>
+                            </table>
+                        </div>
+                        <a th:onclick="|shop.remove(${shop.id})|" class="btn btn-danger">Xóa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="admin/layout::footer"></footer>
+    </div>
+    <div th:insert="admin/layout::block-script">
+
+    </div>
+    <script src="/admin/build/js/admin/shop.js"></script>
+</div>
+</body>
+</html>
