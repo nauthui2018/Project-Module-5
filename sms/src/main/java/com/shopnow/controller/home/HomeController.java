@@ -1,5 +1,6 @@
 package com.shopnow.controller.home;
 
+import com.shopnow.model.User;
 import com.shopnow.model.WebInfo;
 import com.shopnow.service.LineOfBusinessService;
 import com.shopnow.service.ProvinceService;
@@ -27,6 +28,7 @@ public class HomeController {
         WebInfo webInfo=webInfoService.findById(1L);
         ModelAndView modelAndView = new ModelAndView("fe/ui/index","webInfo", webInfo);
         modelAndView.addObject("provinces", provinceService.findAll());
+        modelAndView.addObject("user", new User());
         modelAndView.addObject("lineOfBusinesses", lineOfBusinessService.findAll());
         return modelAndView;
     }

@@ -48,7 +48,7 @@ public class UserController {
             return "fe/login/register";
         }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        user.setRole("USER");
+        user.setRole("SHOP_OWNER");
         user.setDeleted(false);
         userService.save(user);
         return "fe/login/index";
