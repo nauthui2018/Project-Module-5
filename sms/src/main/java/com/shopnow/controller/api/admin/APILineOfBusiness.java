@@ -1,7 +1,7 @@
 package com.shopnow.controller.api.admin;
 
-import com.shopnow.model.admin.LineOfBusiness;
-import com.shopnow.service.InterfaceServiveAdmin.LineOfBusinessService;
+import com.shopnow.model.LineOfBusiness;
+import com.shopnow.service.LineOfBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

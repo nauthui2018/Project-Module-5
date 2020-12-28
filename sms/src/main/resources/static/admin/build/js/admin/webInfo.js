@@ -48,7 +48,7 @@ webInfos.intTable = function () {
             {
                 data: "id", name: "Thao tác", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = `<a href='/webInfos/update/${data}' title='Sửa Web Info' style='color: orange'><i class="fas fa-edit"></i></a>
+                    var str = `<a href='/admin/webInfos/update/${data}' title='Sửa Web Info' style='color: orange'><i class="fas fa-edit"></i></a>
                         <a href='javascript:' title='Xóa Web Info' onclick='webInfos.delete(${data})' style='color: red'><i class="fas fa-trash-alt"></i></a>`
                     return str;
                 }

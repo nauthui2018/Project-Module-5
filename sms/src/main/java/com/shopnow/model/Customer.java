@@ -1,7 +1,6 @@
 package com.shopnow.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.shopnow.model.admin.Province;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

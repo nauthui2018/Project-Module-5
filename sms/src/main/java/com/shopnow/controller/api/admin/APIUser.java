@@ -1,7 +1,7 @@
 package com.shopnow.controller.api.admin;
 
-import com.shopnow.model.admin.User;
-import com.shopnow.service.InterfaceServiveAdmin.UserService;
+import com.shopnow.model.User;
+import com.shopnow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

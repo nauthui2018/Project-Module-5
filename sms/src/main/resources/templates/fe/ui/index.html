@@ -68,7 +68,7 @@
                 <nav class="navbar navbar-expand-lg">
 
                     <a class="navbar-brand" href="#home">
-                        <img th:src="@{${webInfo.logo1}}" alt="Logo">
+                        <img src="/fe/ui/assets/images/logo.svg" alt="Logo">
                     </a>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTwo"
@@ -209,8 +209,8 @@
                 <img src="fe/ui/assets/images/roof-store.png">
             </div>
             <div class="modal-body"><h2>Đăng ký ngay</h2>
-                <form action="https:/www.sapo.vn/consultingrequest/registertrial" id="trialForm" autocomplete="off"
-                      class="form-request" onsubmit="return handleSubmit(event, 1)" method="POST"
+                <form action="" id="trialForm" autocomplete="off"
+                      class="form-request" method="POST"
                       accept-charset="UTF-8">
                     <ul class="register-form-error"></ul>
                     <div class="form-group mdc-text-field">
@@ -254,26 +254,22 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mdc-selectize">
-                                <select id="CityDistrict" name="CityDistrict" tabindex="-1" class="selectized">
+                                <select id="province" name="province" tabindex="-1" class="selectized">
                                     <th:block th:each="province : ${provinces}">
                                         <option th:value="${province.id}" th:text="${province.name}"></option>
                                     </th:block>
                                 </select>
-<!--                                <label>Bạn ở tỉnh/ thành phố nào?</label>-->
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mdc-text-field mdc-select-field">
-
-                                <select id="PackageType"
-                                        name="PackageType"
-                                        required="required">
+                                <select id="lob" name="lob" required="required">
                                     <th:block th:each="lineOfBusiness: ${lineOfBusinesses}">
-                                        <option th:value="${lineOfBusiness.id}" th:text="${lineOfBusiness.name}"></option>
+                                        <option th:value="${lineOfBusiness.id}"
+                                                th:text="${lineOfBusiness.name}"></option>
                                     </th:block>
 
                                 </select>
-<!--                                <label>Chọn sản phẩm bạn quan tâm</label>-->
                             </div>
                         </div>
                     </div>
@@ -408,7 +404,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="footer-logo text-center">
-                    <a class="mt-30" href="#home"><img th:src="@{${webInfo.logo1}}" alt="Logo"></a>
+                    <a class="mt-30" href="#home"><img src="/fe/ui/assets/images/logo.svg" alt="Logo"></a>
                 </div> <!-- footer logo -->
                 <div class="footer-support text-center">
                     <span class="number" th:text="${webInfo.hotline}"></span>

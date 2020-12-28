@@ -1,8 +1,8 @@
 package com.shopnow.controller.api.admin;
 
-import com.shopnow.model.admin.WebInfo;
+import com.shopnow.model.WebInfo;
 import com.shopnow.service.UploadFile.FileUploadService;
-import com.shopnow.service.InterfaceServiveAdmin.WebInfoService;
+import com.shopnow.service.WebInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

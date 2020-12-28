@@ -1,7 +1,7 @@
 package com.shopnow.controller.api.admin;
 
-import com.shopnow.model.admin.Province;
-import com.shopnow.service.InterfaceServiveAdmin.ProvinceService;
+import com.shopnow.model.Province;
+import com.shopnow.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
