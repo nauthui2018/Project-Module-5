@@ -1,6 +1,8 @@
 package com.shopnow.controller.api.admin;
 
+import com.shopnow.model.Shop;
 import com.shopnow.model.User;
+import com.shopnow.service.ShopService;
 import com.shopnow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,8 @@ import java.util.List;
 public class APIUser {
     @Autowired
     UserService userService;
+    @Autowired
+    ShopService shopService;
 
     @GetMapping
     public ResponseEntity<List<User>> listUser() {
@@ -23,6 +27,14 @@ public class APIUser {
 
     @PostMapping
     public ResponseEntity<User> saveUser(@RequestBody User user) {
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/{email}")
+    public ResponseEntity<User> saveUserByShop(@RequestBody User user, @PathVariable("email") String email) {
+        Shop shop= shopService.findByEmail(email);
+        user.setShop(shop);
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

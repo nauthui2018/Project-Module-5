@@ -6237,3 +6237,15 @@ ul.notifications {
     height: 32px;
     color: black;
 }
+
+.pos-container{
+    box-shadow: 3px 3px 5px 6px #ccc; ;
+}
+.content-bar {
+    background-color: #008787;
+    color: #FFFFFF;
+    font-size: 18px;
+    padding: 5px 15px;
+}
+
+

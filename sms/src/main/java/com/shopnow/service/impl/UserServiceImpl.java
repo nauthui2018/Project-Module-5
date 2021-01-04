@@ -1,8 +1,9 @@
 package com.shopnow.service.impl;
 
+import com.shopnow.model.Shop;
 import com.shopnow.model.User;
-import com.shopnow.repository.ShopRepository;
 import com.shopnow.repository.UserRepository;
+import com.shopnow.service.ShopService;
 import com.shopnow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    ShopRepository shopRepository;
+    ShopService shopService;
 
     @Override
     public List<User> findAll() {
@@ -35,9 +36,7 @@ public class UserServiceImpl implements UserService {
                 userRepository.save(user);
                 return true;
             } else if (user.getRole().equalsIgnoreCase("shop_owner")) {
-                user.setDeleted(true);
-                userRepository.save(user);
-                shopRepository.delete(user.getShop());
+                shopService.delete(user.getShop());
                 return true;
             }
         }  return false;
@@ -52,5 +51,11 @@ public class UserServiceImpl implements UserService {
         public User findByEmail (String email){
             User user = userRepository.findByEmail(email);
             return user;
+        }
+
+        @Override
+        public List<User> findAllByShop (Shop shop){
+            List<User> users = userRepository.findAllByShop(shop);
+            return users;
         }
     }

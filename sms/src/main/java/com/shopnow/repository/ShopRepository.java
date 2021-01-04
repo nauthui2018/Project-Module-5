@@ -6,4 +6,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface ShopRepository extends JpaRepository<Shop, Long> {
+    Shop findByEmail(String email);
 }
