@@ -19,11 +19,6 @@ shops.intTable = function () {
                 }
             },
             {
-                data: "logo", name: "Logo", title: "Logo", orderable: false, "render": function (data) {
-                    return str = `<img src="${data}" alt="avatar" width="100%"/>`
-                }
-            },
-            {
                 data: "id", name: "ID", title: "ID", orderable: false
             },
             {
@@ -47,10 +42,9 @@ shops.intTable = function () {
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = `<a href='javascript:' title='Sửa Shop' onclick='shops.get(data)' data-toggle="modal" data-target="#modalAddEdit" style='color: orange'><i class="fas fa-edit"></i></a>
-                        <a href='javascript:' title='Xóa Shop' onclick='shops.delete(data)' style='color: red'><i class="fas fa-trash-alt"></i></a>
-                        <a href='/admin/shops/shop_detail/${data}' title='Xem chi tiết' style='color: blue'><i class="fas fa-eye
-                        "></i></a>`
+                    var str = `<a href='javascript:' title='Sửa Shop' onclick='shops.get(${data})' data-toggle="modal" data-target="#modalAddEdit" style='color: orange'><i class="fas fa-edit"></i></a>
+                        <a href='javascript:' title='Xóa Shop' onclick='shops.delete(${data})' style='color: red'><i class="fas fa-trash-alt"></i></a>
+                        <a href='/admin/shops/shop_detail/${data}' title='Xem chi tiết' style='color: blue'><i class="fas fa-eye"></i></a>`
                     return str;
                 }
             }
@@ -133,27 +127,30 @@ shops.save = function () {
 
             });
 
-            var user = {};
-            user.email = $('#email').val();
-            user.role='SHOP_OWNER';
-            var addUser= $.ajax({
-                url: "/admin/api/user",
-                method: "POST",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(user)
-            });
-            addUser.done(function () {
-                $('#modalAddEdit').modal('hide');
-                $("#datatables").DataTable().ajax.reload();
-                toastr.info('Thêm User thành công', 'INFORMATION:')
-            });
-            addUser.fail(function () {
-                $('#modalAddEdit').modal('hide');
-                $("#datatables").DataTable().ajax.reload();
-                toastr.error('Thêm User không thành công', 'INFORMATION:')
+            setTimeout(function() {
+                var user = {};
+                user.email = $('#email').val();
+                user.role = 'SHOP_OWNER';
+                user.province=province;
+                var addUser = $.ajax({
+                    url: "/admin/api/user/" + user.email,
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(user)
+                });
+                addUser.done(function () {
+                    $('#modalAddEdit').modal('hide');
+                    $("#datatables").DataTable().ajax.reload();
+                    toastr.info('Thêm User thành công', 'INFORMATION:')
+                });
+                addUser.fail(function () {
+                    $('#modalAddEdit').modal('hide');
+                    $("#datatables").DataTable().ajax.reload();
+                    toastr.error('Thêm User không thành công', 'INFORMATION:')
 
-            });
+                });
+            },500);
         } else {
             var shopObj = {};
             shopObj.shop_name = $('#shop_name').val();
@@ -190,6 +187,11 @@ shops.save = function () {
         return false;
     }
 }
+
+shops.findByShopId=function (id){
+
+}
+
 shops.delete = function (id) {
     bootbox.confirm({
         message: "Bạn có muốn xóa Shop này không?",
@@ -221,6 +223,38 @@ shops.delete = function (id) {
     })
 }
 
+shops.remove = function (id) {
+    bootbox.confirm({
+        message: "Bạn có muốn xóa Shop này không?",
+        buttons: {
+            confirm: {
+                label: 'Có',
+                className: 'btn-success'
+            },
+            cancel: {
+                label: 'Không',
+                className: 'btn-danger'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                $.ajax({
+                    url: "/admin/shops/delete/" + id,
+                    method: "DELETE",
+                    dataType: "json"
+                }).done(function () {
+                    console.log("DELETE SUCCESS");
+                    setTimeout(function() {
+                        location.href ="/admin/shops"
+                    },1000);
+                    toastr.info('Xóa thành công!', 'INFORMATION:')
+                }).fail(function () {
+                    toastr.error('Xóa không thành công!', 'INFORMATION:')
+                });
+            }
+        }
+    })
+}
 
 shops.initValidation = function () {
     $("#formAddEdit").validate({

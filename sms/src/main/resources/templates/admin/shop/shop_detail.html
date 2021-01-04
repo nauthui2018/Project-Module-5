@@ -59,9 +59,9 @@
                                     <th>Họ tên</th>
                                     <th>Chức vụ</th>
                                 </tr>
-                                <th:block th:each="user:${users}" th:with="count=0">
-                                    <tr th:with={count=count+1}>
-                                        <td th:text="${count}"></td>
+                                <th:block th:each="user,iter :${users}">
+                                    <tr>
+                                        <td th:text="${iter.index+1}"></td>
                                         <td th:text="${user.id}"></td>
                                         <td th:text="${user.user_fullname}"></td>
                                         <td th:text="${user.role}"></td>
@@ -69,7 +69,7 @@
                                 </th:block>
                             </table>
                         </div>
-                        <a th:onclick="|shop.remove(${shop.id})|" class="btn btn-danger">Xóa</a>
+                        <a th:onclick="|shops.remove(${shop.id})|" class="btn btn-danger">Xóa</a>
                     </div>
                 </div>
             </div>

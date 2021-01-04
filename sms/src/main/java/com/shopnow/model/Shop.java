@@ -3,6 +3,7 @@ package com.shopnow.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Where(clause = "deleted=false")
 public class Shop{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,4 +45,6 @@ public class Shop{
     @ManyToOne
     @JoinColumn(name = "line_of_business_id")
     private LineOfBusiness lineOfBusiness;
+
+    private boolean deleted=false;
 }

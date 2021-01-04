@@ -15,11 +15,6 @@ users.intTable = function () {
                 }
             },
             {
-                data: "user_avatar", name: "Avatar", title: "Avatar", orderable: false, "render": function (data) {
-                return  str = `<img src="${data}" alt="avatar" width="30rem"/>`
-                }
-            },
-            {
                 data: "id", name: "ID", title: "ID", orderable: false
             },
             {
@@ -33,6 +28,11 @@ users.intTable = function () {
             },
             {
                 data: "role", name: "Role", title: "Role", orderable: false
+            },
+            {
+                data: "shop", name: "Shop", title: "Shop", orderable: true, "render":function (data){
+                    return `${data.shop_name}`;
+                }
             },
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
@@ -148,7 +148,9 @@ users.remove = function (id) {
                     dataType: "json"
                 }).done(function () {
                     console.log("DELETE SUCCESS");
-                    location.href ="/registers"
+                    setTimeout(function() {
+                        location.href ="/admin/registers"
+                    },1000);
                     toastr.info('Xóa thành công!', 'INFORMATION:')
                 }).fail(function () {
                     toastr.error('Xóa không thành công!', 'INFORMATION:')
@@ -157,6 +159,7 @@ users.remove = function (id) {
         }
     })
 }
+
 users.initValidation = function () {
     $.validator.addMethod("PASSWORD",function(value,element){
             return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
