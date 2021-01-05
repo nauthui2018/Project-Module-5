@@ -1,4 +1,6 @@
-var products = {} || products;
+let products = {} || products;
+var list_product = [];
+var list_order = [];
 var product_types = {} || product_types;
 var list_product_type = [];
 var warehouses = {} || warehouses;
@@ -263,5 +265,52 @@ products.delete = function (id) {
             }
         }
     })
+}
+
+products.addProductToOrderList = function () {
+    if ($("#formOrder").valid()) {
+        var product = {};
+        product.product = products.findById(parseInt($('#product').val()));
+        product.incoming_quantity = $('#quantity').val();
+        list_order.push(product);
+    }
+}
+
+products.showListOrder = function (list_order) {
+    $.each(list_order, function (i, v) {
+        $('#formOrder').append(
+            `<tr class="odd pointer"> 
+                <td class=" ">121000039</td>             
+                <td class=" ">121000039</td>
+                <td class=" ">May 23, 2014 11:30:12 PM</td>
+                <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i></td>
+            </tr>`
+        );
+    });
+}
+
+products.listProduct = function () {
+    $.ajax({
+        url: "http://localhost:8080/api/product",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            list_product = data;
+            $.each(data, function (i, v) {
+                $('#product').append(
+                    `<option value='${v.id}'>${v.name}</option>`
+                );
+            });
+        }
+    });
+}
+
+products.findById = function (id) {
+    for (let i = 0; i < list_product.length; i++) {
+        if (id === list_product[i].id) {
+            return list_product[i];
+        }
+    }
+    return null;
 }
 
