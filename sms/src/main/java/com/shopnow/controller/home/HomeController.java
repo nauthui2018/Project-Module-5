@@ -26,7 +26,7 @@ public class HomeController {
     @GetMapping
     public ModelAndView index(){
         WebInfo webInfo=webInfoService.findById(1L);
-        ModelAndView modelAndView = new ModelAndView("fe/ui/index","webInfo", webInfo);
+        ModelAndView modelAndView = new ModelAndView("fe/home/index","webInfo", webInfo);
         modelAndView.addObject("provinces", provinceService.findAll());
         modelAndView.addObject("user", new User());
         modelAndView.addObject("lineOfBusinesses", lineOfBusinessService.findAll());
