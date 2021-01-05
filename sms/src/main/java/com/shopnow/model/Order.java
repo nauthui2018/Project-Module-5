@@ -9,6 +9,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class Order {
     private Long total_amount;
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
-    private LocalDate ordered_date=LocalDate.now();
+    private ZonedDateTime ordered_date;
 
     private boolean finished = false;
     private boolean deleted = false;
@@ -37,5 +38,5 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     @JsonIgnore
-    private Set<OrderDetail> orderDetails = new HashSet<>();
+    private Set<OrderDetail> order_details;
 }

@@ -1,4 +1,5 @@
 var suppliers = {} || suppliers;
+var list_supplier = [];
 
 $(document).ready(function () {
     suppliers.init();
@@ -13,6 +14,31 @@ suppliers.addNew = function () {
     $('.modal-title').html("Thêm nhà cung cấp mới");
     suppliers.resetForm();
     $('#modalAddEdit').modal('show');
+}
+
+suppliers.listSupplier = function () {
+    $.ajax({
+        url: "http://localhost:8080/api/supplier",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            list_supplier = data;
+            $.each(data, function (i, v) {
+                $('#supplier').append(
+                    `<option value='${v.id}'>${v.name}</option>`
+                );
+            });
+        }
+    });
+}
+
+suppliers.findById = function (id) {
+    for (let i = 0; i < list_supplier.length; i++) {
+        if (id === list_supplier[i].id) {
+            return list_supplier[i];
+        }
+    }
+    return null;
 }
 
 suppliers.resetForm = function () {
