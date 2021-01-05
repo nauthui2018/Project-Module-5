@@ -1,0 +1,66 @@
+.list-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    overflow: hidden;
+    z-index: 1;
+    height: 40vh;
+    overflow-y: scroll;
+}
+
+.dropdown-content a {
+    color: black;
+    text-decoration: none;
+    display: block;
+}
+
+.list-dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+.hide {display: none;}
+
+#productList{
+    width: 27em;
+}
+
+.content-bar{
+    height: 48px;
+}
+
+.pos-container{
+    height: 85vh;
+}
+
+.grid, .grid-customer{
+    border: #b7b7b7 solid 1px;
+    font-size: 13px;
+}
+
+.grid-customer{
+    padding: 5px;
+}
+
+.price-product, .canSale{
+    text-align: right;
+}
+
+.extra-info{
+    font-size: 10px;
+    color: #3c3c3c;
+}
+
+.list-empty{
+    color: #1a1a1a;
+    padding: 10px;
+    font-size: 13px;
+}
+

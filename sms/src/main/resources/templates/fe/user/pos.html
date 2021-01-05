@@ -20,41 +20,185 @@
         <div th:replace="admin/layout::top_nav"></div>
         <div class="right_col" role="main">
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     <div class="pos-container">
                         <div class="content-bar">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <span>SẢN PHẨM</span>
                                 </div>
-                                <div class="col-sm-8">
-                                    <!-- Search form -->
-                                        <input class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Thêm sản phẩm vào đơn"
+                                <div class="col-sm-9">
+                                    <div class="list-dropdown">
+                                        <!-- Search form -->
+                                        <input class="form-control" type="text"
+                                               placeholder="Thêm sản phẩm vào đơn" id="productList"
+                                               onkeyup="filterProductFunction()"
+                                               onfocus="showProductListDropdown()" onblur="hideProductListDropdown()"
                                                aria-label="Search">
+
+                                        <div id="productDropdown" class="dropdown-content">
+                                            <p class="list-empty" th:if="${products.size()==0}">Chưa có sản phẩm nào</p>
+                                            <th:block th:each="product: ${products}">
+                                                <a href="#">
+                                                    <div class="row">
+                                                        <div class="col-2 grid">
+                                                            <img th:src="@{${product.image}}" alt="image"
+                                                                 width="100%">
+                                                        </div>
+                                                        <div class="col-10 grid">
+                                                            <div class="main-info">
+                                                                <div class="row">
+                                                                    <div class="col-8 name-product"
+                                                                         th:text="${product.name}"></div>
+                                                                    <div class="col-4 price-product"
+                                                                         th:text="${product.prime_cost}"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="extra-info">
+                                                                <div class="row">
+                                                                    <div class="col-8 code-product"
+                                                                         th:text="${product.barcode}"></div>
+                                                                    <div class="col-4 canSale"
+                                                                         th:text="'Có thể bán: '+${product.stock}"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </th:block>
+                                        </div>
+                                        <div class="cartItem">
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="list-product">
-
-
-                        </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <div class="pos-container">
-                        <div class="content-bar" style="height: 41px">
-                            <span>GIỎ HÀNG</span>
+                        <div class="content-bar">
+                            <div class="col-sm-4">
+                                <span>GIỎ HÀNG</span>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="list-dropdown">
+                                    <!-- Search form -->
+                                    <input class="form-control" type="text"
+                                           placeholder="Thêm khách hàng vào đơn" id="customerList"
+                                           onkeyup="filterCustomerFunction()"
+                                           onfocus="showCustomerListDropdown()" onblur="hideCustomerListDropdown()"
+                                           aria-label="Search">
+
+                                    <div id="customerDropdown" class="dropdown-content">
+                                        <p class="list-empty" th:if="${customers.size()==0}">Chưa có khách hàng nào</p>
+                                        <a class="grid-customer" onclick="customers.addNew()"> + Thêm khách hàng</a>
+                                        <div id="list-customer">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer th:replace="admin/layout::footer"></footer>
     </div>
-    <div th:insert="admin/layout::block-script">
-
-    </div>
-    <!--    <script src="/admin/build/js/admin/lineOfBusinesses.js"></script>-->
+    <footer th:replace="admin/layout::footer"></footer>
 </div>
+<div class="modal" id="modalAddEdit">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="customers.resetForm()"
+                        aria-label="Close">&times;
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="formAddEdit" th:name="formAddEdit">
+                    <input type="hidden" name="id" id="id" class="form-control" required>
+                    <input type="hidden" name="deleted" id="deleted" class="form-control" required>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Tên khách hàng</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="customer_fullName" name="customer_fullName" class="form-control"
+                                   required>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Giới tính</label>
+                        </div>
+                        <div class="col-9">
+                            <select class="form-control" id="gender" name="gender">
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Số điện thoại</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="customer_phone" name="customer_phone" class="form-control" required>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Nhóm khách hàng</label>
+                        </div>
+                        <div class="col-9">
+                            <select class="form-control" id="customer_group" name="customer_group">
+                            </select>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Địa chỉ</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="customer_address" name="customer_address" class="form-control">
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="customer_email" name="customer_email" class="form-control">
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" onclick="customers.save()">Lưu</a>
+                        <button type="button" class="btn btn-danger" onclick="customers.resetForm()"
+                                data-dismiss="modal" aria-label="Close">Hủy
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="admin/layout::block-script">
+</div>
+<script src="/fe/user/js/pos.js"></script>
 </body>
 </html>
