@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,12 +32,26 @@ public class UserServiceImpl implements UserService {
     public boolean deleteById(Long id) {
         User user = findById(id);
         if (user != null) {
+            Shop shop = user.getShop();
+            int countShopOwner=0;
+            Set<User> userList = shop.getUsers();
+
+            for(User userItem: userList){
+                if(userItem.getRole().equalsIgnoreCase("shop_owner")){
+                    countShopOwner++;
+                }
+            }
+
             if (!user.getRole().equalsIgnoreCase("shop_owner")) {
                 user.setDeleted(true);
                 userRepository.save(user);
                 return true;
-            } else if (user.getRole().equalsIgnoreCase("shop_owner")) {
-                shopService.delete(user.getShop());
+            } else if (user.getRole().equalsIgnoreCase("shop_owner")&&countShopOwner==1) {
+                shopService.delete(shop);
+                return true;
+            } else if(user.getRole().equalsIgnoreCase("shop_owner")&&countShopOwner>1){
+                user.setDeleted(true);
+                userRepository.save(user);
                 return true;
             }
         }  return false;

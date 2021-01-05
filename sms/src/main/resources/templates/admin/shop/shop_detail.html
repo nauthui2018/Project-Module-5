@@ -41,7 +41,7 @@
                                         <h6>Email</h6>
                                         <div class="info-detail" th:text="${shop.email}"></div>
                                         <h6>Ngày Tham gia</h6>
-                                        <div class="info-detail" th:text="${shop.created_at}"></div>
+                                        <div class="info-detail" th:text="${#temporals.format(shop.created_at,'dd/MM/yyyy HH:mm:ss')}"></div>
                                         <h6>Tỉnh thành</h6>
                                         <div class="info-detail" th:text="${shop.province.name}"></div>
                                         <h6>Lĩnh vực kinh doanh</h6>
