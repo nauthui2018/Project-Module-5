@@ -2,12 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="">
 
 <head th:replace="admin/layout :: header">
-    <style>
-        .modal-ku {
-            width: 750px;
-            margin: auto;
-        }
-    </style>
 </head>
 
 <body class="nav-md">
@@ -60,7 +54,7 @@
 
 <!--Modal-->
 <div class="modal" id="modalAddEdit">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -111,8 +105,11 @@
                                 <p style="color: red;display: none" class="ui-state-error-text"></p>
                             </div>
                             <div class="col-2">
-                                <a class="btn btn-outline-success ml-2" onclick="orders.save()" style="font-size: medium">
-                                    <i class="far fa-check" title="Lưu"></i> Chọn
+                                <a class="mt-3" onclick="orders.save()" style="font-size: x-large; color: dodgerblue">
+                                    <i class="far fa-check-square" title="Lưu"></i>
+                                </a>
+                                <a class="mt-3 ml-2" onclick="orders.save()" style="font-size: x-large; color: sandybrown">
+                                    <i class="fas fa-ban" title="Huỷ"></i>
                                 </a>
                             </div>
                         </div>
@@ -121,7 +118,7 @@
                         <div class="table-responsive">
                             <table class="table table-striped jambo_table bulk_action">
                                 <thead>
-                                <tr class="headings" style="background-color: #26B99A">
+                                <tr class="headings" style="background-color: lightseagreen">
                                     <th class="column-title">STT</th>
                                     <th class="column-title">Sản phẩm</th>
                                     <th class="column-title">Số lượng</th>
@@ -137,8 +134,8 @@
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <a class="btn btn-success" onclick="orders.save()">Lưu</a>
-                        <button type="button" class="btn btn-warning" onclick="orders.resetForm()" data-dismiss="modal" aria-label="Close">Hủy</button>
+                        <a class="btn btn-primary" onclick="orders.save()">Lưu</a>
+                        <button type="button" class="btn btn-danger" onclick="orders.resetForm()" data-dismiss="modal" aria-label="Close">Hủy</button>
                     </div>
                 </form>
             </div>
@@ -160,7 +157,7 @@
         orders.init();
         products.listProduct();
         suppliers.listSupplier();
-        order_details.getAllOrderDetail();
+        order_details.listOrderDetail();
     });
 </script>
 

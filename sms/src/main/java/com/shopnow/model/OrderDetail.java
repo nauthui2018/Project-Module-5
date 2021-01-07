@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "order_details")
 @Data
-@Where(clause = "deleted=false")
+@Where(clause = "deleted = false")
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
