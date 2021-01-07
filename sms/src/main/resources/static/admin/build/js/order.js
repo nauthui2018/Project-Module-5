@@ -2,18 +2,18 @@ var orders = {} || orders;
 
 orders.init = function () {
     orders.intTable();
-    orders.initValidation();
 }
 
 orders.addNew = function () {
-    $('.modal-title').html("Tạo đơn hàng mới");
+    $('.modal-title').html("Tạo đơn đặt hàng mới");
     orders.resetForm();
-    $('#modalAddEdit').modal('show');
+    $('#modalAddEdit').modal({
+        backdrop: 'static'
+    });
 }
 
 orders.resetForm = function () {
     $('#formAddEdit')[0].reset();
-    $('#id').val('');
     $('#finished').val('');
     $('#discount').val('');
     $('#supplier').val(0);
@@ -41,15 +41,16 @@ orders.intTable = function () {
             { data: "supplier.supplier_name", name: "supplier", title: "Nhà cung cấp", sortable: true},
             { data: "total_amount", name: "total_amount", title: "Tổng số lượng", sortable: true},
             { data: "discount", name: "discount", title: "Tổng số tiền được giảm", sortable: true},
-            { data: "null", name: "order_detail", title: "Chi tiết đơn hàng", sortable: false,
-                "render": function (data) {
-                var str = "";
-                    $.each(data, function (i, v) {
-                        str += "<a class='ml-3' href='javascript:' title='Chi tiết'>${v.name}</a><br>"
-                    });
-                    return str;
-                }
-            },
+            // { data: "id", name: "order_detail", title: "Chi tiết đơn hàng", sortable: false,
+            //     "render": function (data) {
+            //     var list_order_detail = order_details.findByOrderId(data);
+            //     var str = "";
+            //         $.each(list_order_detail, function (i, v) {
+            //             str += "<a class='ml-3' href='javascript:' title='Chi tiết'>${v.id}</a><br>"
+            //         });
+            //         return str;
+            //     }
+            // },
             { data: "finished", name: "finished", title: "Trạng thái", sortable: false,
                 "render": function (data) {
                     return data ? "Đã hoàn thành" : "Chưa hoàn thành";

@@ -8,9 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,7 +20,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private float discount;
     private Long total_amount;
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
