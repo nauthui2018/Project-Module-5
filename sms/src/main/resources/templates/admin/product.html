@@ -163,7 +163,14 @@
 
 <th:block th:replace="admin/layout :: block-dataTable"></th:block>
 
-<script src="/admin/build/js/product.js"></script>
+<script src="/admin/build/js/user/product_type.js"></script>
+<script src="/admin/build/js/user/warehouse.js"></script>
+<script src="/admin/build/js/user/product.js"></script>
+<script>
+    $(document).ready(function () {
+        products.init();
+    });
+</script>
 
 </body>
 </html>

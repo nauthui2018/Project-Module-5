@@ -1,7 +1,5 @@
 package com.shopnow.service.impl;
 
-import com.shopnow.model.Customer;
-import com.shopnow.model.CustomerGroup;
 import com.shopnow.model.Product;
 import com.shopnow.repository.ProductRepository;
 import com.shopnow.service.ProductService;

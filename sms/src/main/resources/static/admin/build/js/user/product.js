@@ -1,14 +1,6 @@
 let products = {} || products;
 var list_product = [];
 var list_order = [];
-var product_types = {} || product_types;
-var list_product_type = [];
-var warehouses = {} || warehouses;
-var list_warehouse = [];
-
-$(document).ready(function () {
-    products.init();
-});
 
 products.init = function () {
     products.intTable();
@@ -83,11 +75,6 @@ products.intTable = function () {
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">", orderable: false,
-                "render":function () {
-                    return '<input type="checkbox" class="flat" name="table_records">';
-                }
-            },
             { data: "id", name: "ID", title: "ID", orderable: false},
             { data: "image", name: "image", title: "Hình ảnh", orderable: false},
             { data: "name", name: "name", title: "Tên sản phẩm", orderable: true},
@@ -127,56 +114,6 @@ products.get = function (id) {
     ajaxGet.fail(function () {
         toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
     });
-}
-
-product_types.listProductType = function () {
-    $.ajax({
-        url: "http://localhost:8080/api/product_type",
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            list_product_type = data;
-            $.each(data, function (i, v) {
-                $('#product_type').append(
-                    `<option value='${v.id}'>${v.name}</option>`
-                );
-            });
-        }
-    });
-}
-
-product_types.findById = function (id) {
-    for (let i = 0; i < list_product_type.length; i++) {
-        if (id === list_product_type[i].id) {
-            return list_product_type[i];
-        }
-    }
-    return null;
-}
-
-warehouses.listWarehouse = function () {
-    $.ajax({
-        url: "http://localhost:8080/api/warehouse",
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            list_warehouse = data;
-            $.each(data, function (i, v) {
-                $('#warehouse').append(
-                    `<option value='${v.id}'>${v.name}</option>`
-                );
-            });
-        }
-    });
-}
-
-warehouses.findById = function (id) {
-    for (let i = 0; i < list_warehouse.length; i++) {
-        if (id === list_warehouse[i].id) {
-            return list_warehouse[i];
-        }
-    }
-    return null;
 }
 
 products.save = function () {

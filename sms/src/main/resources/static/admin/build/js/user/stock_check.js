@@ -1,45 +1,39 @@
-var warehouses = {} || warehouses;
+var stock_checks = {} || stock_checks;
 
-$(document).ready(function () {
-    warehouses.init();
-});
-
-warehouses.init = function () {
-    warehouses.intTable();
-    warehouses.initValidation();
+stock_checks.init = function () {
+    stock_checks.intTable();
+    stock_checks.initValidation();
+    warehouses.listWarehouse();
 }
 
-warehouses.addNew = function () {
-    $('.modal-title').html("Tạo kho mới");
-    warehouses.resetForm();
+stock_checks.addNew = function () {
+    $('.modal-title').html("Thêm phiếu kiểm kho mới");
+    stock_checks.resetForm();
     $('#modalAddEdit').modal('show');
 }
 
-warehouses.resetForm = function () {
+stock_checks.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#id').val('');
-    $('#name').val('');
-    $('#description').val('');
+    $('#finished').val('');
     $('#deleted').val('');
     $("#formAddEdit").validate().resetForm();
 }
 
-warehouses.initValidation = function () {
+stock_checks.initValidation = function () {
     $("#formAddEdit").validate({
-        rules: {
-            name: {
-                required: true,
-                minlength: 5,
-                maxlength: 150,
-            },
-        },
-        messages: {
-            name: {
-                required: "Bạn chưa nhập tên kho",
-                minlength: "Tên kho quá ngắn!",
-                maxlength: "Tên kho quá dài. Bạn vui lòng kiểm tra lại!",
-            },
-        },
+        // rules: {
+        //     customer_fullName: {
+        //         required: true,
+        //         maxlength: 150,
+        //     },
+        // },
+        // messages: {
+        //     name: {
+        //         required: "Bạn chưa nhập nhóm khách hàng",
+        //         maxlength: "Tên nhóm quá dài. Bạn vui lòng kiểm tra lại!",
+        //     },
+        // },
     });
 }
 
@@ -52,30 +46,34 @@ $.validator.addMethod(
     "Please check your input."
 );
 
-warehouses.intTable = function () {
+stock_checks.intTable = function () {
     $("#datatables").DataTable({
         destroy: true,
-        "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
         ajax: {
-            url: 'http://localhost:8080/api/warehouse/',
+            url: 'http://localhost:8080/api/stock_check/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">", orderable: false,
+            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">",
                 "render":function () {
                     return '<input type="checkbox" class="flat" name="table_records">';
                 }
             },
-            { data: "id", name: "id", title: "ID Kho", orderable: false},
-            { data: "name", name : "name" , title: "Tên kho", sortable: true},
-            { data: "description", name: "description", title: "Mô tả", orderable: true},
-            { data: "creating_date", name: "creating_date", title: "Ngày tạo", orderable: false},
+            { data: "id", name: "ID", title: "ID", sortable: false},
+            { data: "warehouse.name", name: "warehouse", title: "Tên kho hàng", sortable: true},
+            { data: "creating_date", name: "creating_date", title: "Ngày tạo phiếu kiểm", sortable: true},
+            { data: "finished", name: "finished", title: "Trạng thái", sortable: false,
+                "render": function (data) {
+                    return data ? "Đã hoàn thành" : "Chưa hoàn thành";
+                }
+            },
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
-                orderable: false, "render": function (data) {
-                    var str = "<a href='javascript:' title='Cập nhật' onclick='warehouses.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a class='ml-3' href='javascript:' title='Xóa' onclick='warehouses.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
+                "render": function (data) {
+                    var str = "<a href='javascript:' title='Cập nhật' onclick='stock_checks.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: #ffa500'><i class=\"fas fa-edit\"></i></a> " +
+                        "<a class='ml-3' href='javascript:' title='Xóa' onclick='stock_checks.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
                     return str;
                 }
             }
@@ -83,19 +81,18 @@ warehouses.intTable = function () {
     });
 }
 
-warehouses.get = function (id) {
+stock_checks.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/warehouse/" + id,
+        url: "http://localhost:8080/api/stock_check/" + id,
         method: "GET",
         dataType: "json"
     });
     ajaxGet.done(function (data) {
         $('#formAddEdit')[0].reset();
-        $('.modal-title').html("Chỉnh sửa thông tin");
         $('#id').val(data.id);
-        $('#name').val(data.name);
-        $('#description').val(data.description);
+        $('#finished').val(data.finished);
         $('#deleted').val(data.deleted);
+        $('#warehouse').val(data.warehouse.id);
         $('#modalAddEdit').modal('show');
     });
     ajaxGet.fail(function () {
@@ -103,37 +100,39 @@ warehouses.get = function (id) {
     });
 }
 
-warehouses.save = function () {
+stock_checks.save = function () {
     if ($("#formAddEdit").valid()) {
-        var warehouse = {};
-        warehouse.name = $('#name').val();
-        warehouse.description = $('#description').val();
+        var stock_check = {};
+        stock_check.id = $('#id').val();
+        stock_check.warehouse = warehouses.findById(parseInt($('#warehouse').val()));
+        stock_check.warehouse.creating_date = null;
+        stock_check.finished = $('#finished').val();
+        stock_check.deleted = $('#deleted').val();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/warehouse",
+                url: "http://localhost:8080/api/stock_check",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(warehouse)
+                data: JSON.stringify(stock_check)
             });
             ajaxAdd.done(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
-                toastr.info('Thêm thành công', 'INFORMATION:');
+                toastr.info('Tạo thành công', 'INFORMATION:');
             });
             ajaxAdd.fail(function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
-                toastr.error('Thêm không thành công', 'INFORMATION:');
+                toastr.error('Tạo không thành công', 'INFORMATION:');
             });
         } else {
-            warehouse.id = $('#id').val();
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/warehouse/",
+                url: "http://localhost:8080/api/stock_check/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(warehouse)
+                data: JSON.stringify(stock_check)
             });
             ajaxUpdate.done(function () {
                 $('#modalAddEdit').modal('hide');
@@ -151,9 +150,9 @@ warehouses.save = function () {
     }
 }
 
-warehouses.delete = function (id) {
+stock_checks.delete = function (id) {
     bootbox.confirm({
-        message: "Bạn có muốn xóa kho này không?",
+        message: "Bạn có muốn xóa phiếu kiểm kho này không?",
         buttons: {
             confirm: {
                 label: 'Có',
@@ -167,7 +166,7 @@ warehouses.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/warehouse/" + id,
+                    url: "http://localhost:8080/api/stock_check/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });

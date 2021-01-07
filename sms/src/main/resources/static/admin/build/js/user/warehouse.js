@@ -1,29 +1,31 @@
-var customer_groups = {} || customer_groups;
+var warehouses = {} || warehouses;
+var list_warehouse = [];
 
 $(document).ready(function () {
-    customer_groups.init();
+    warehouses.init();
 });
 
-customer_groups.init = function () {
-    customer_groups.intTable();
-    customer_groups.initValidation();
+warehouses.init = function () {
+    warehouses.intTable();
+    warehouses.initValidation();
 }
 
-customer_groups.addNew = function () {
-    $('.modal-title').html("Thêm nhóm khách hàng mới");
-    customer_groups.resetForm();
+warehouses.addNew = function () {
+    $('.modal-title').html("Tạo kho mới");
+    warehouses.resetForm();
     $('#modalAddEdit').modal('show');
 }
 
-customer_groups.resetForm = function () {
+warehouses.resetForm = function () {
     $('#formAddEdit')[0].reset();
-    $('#name').val('');
     $('#id').val('');
+    $('#name').val('');
+    $('#description').val('');
     $('#deleted').val('');
     $("#formAddEdit").validate().resetForm();
 }
 
-customer_groups.initValidation = function () {
+warehouses.initValidation = function () {
     $("#formAddEdit").validate({
         rules: {
             name: {
@@ -34,8 +36,9 @@ customer_groups.initValidation = function () {
         },
         messages: {
             name: {
-                required: "Bạn chưa nhập nhóm khách hàng",
-                maxlength: "Tên nhóm quá dài. Bạn vui lòng kiểm tra lại!",
+                required: "Bạn chưa nhập tên kho",
+                minlength: "Tên kho quá ngắn!",
+                maxlength: "Tên kho quá dài. Bạn vui lòng kiểm tra lại!",
             },
         },
     });
@@ -50,12 +53,12 @@ $.validator.addMethod(
     "Please check your input."
 );
 
-customer_groups.intTable = function () {
+warehouses.intTable = function () {
     $("#datatables").DataTable({
         destroy: true,
-        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+        "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
         ajax: {
-            url: 'http://localhost:8080/api/customer_group/',
+            url: 'http://localhost:8080/api/warehouse/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -66,13 +69,14 @@ customer_groups.intTable = function () {
                     return '<input type="checkbox" class="flat" name="table_records">';
                 }
             },
-            { data: "id", name: "ID", title: "ID", orderable: false},
-            { data: "name", name: "Nhóm khách hàng", title: "Nhóm khách hàng", orderable: true},
-            { data: "creating_date", name: "Ngày tạo", title: "Ngày tạo", orderable: true},
+            { data: "id", name: "id", title: "ID Kho", orderable: false},
+            { data: "name", name : "name" , title: "Tên kho", sortable: true},
+            { data: "description", name: "description", title: "Mô tả", orderable: true},
+            { data: "creating_date", name: "creating_date", title: "Ngày tạo", orderable: false},
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = "<a href='javascript:' title='Cập nhật' onclick='customer_groups.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a class='ml-3' href='javascript:' title='Xóa' onclick='customer_groups.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
+                    var str = "<a href='javascript:' title='Cập nhật' onclick='warehouses.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
+                        "<a class='ml-3' href='javascript:' title='Xóa' onclick='warehouses.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
                     return str;
                 }
             }
@@ -80,9 +84,9 @@ customer_groups.intTable = function () {
     });
 }
 
-customer_groups.get = function (id) {
+warehouses.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/customer_group/" + id,
+        url: "http://localhost:8080/api/warehouse/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -91,6 +95,7 @@ customer_groups.get = function (id) {
         $('.modal-title').html("Chỉnh sửa thông tin");
         $('#id').val(data.id);
         $('#name').val(data.name);
+        $('#description').val(data.description);
         $('#deleted').val(data.deleted);
         $('#modalAddEdit').modal('show');
     });
@@ -99,18 +104,18 @@ customer_groups.get = function (id) {
     });
 }
 
-customer_groups.save = function () {
+warehouses.save = function () {
     if ($("#formAddEdit").valid()) {
-        var customer_group = {};
-        customer_group.id = $('#id').val();
-        customer_group.name = $('#name').val();
+        var warehouse = {};
+        warehouse.name = $('#name').val();
+        warehouse.description = $('#description').val();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/customer_group",
+                url: "http://localhost:8080/api/warehouse",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(customer_group)
+                data: JSON.stringify(warehouse)
             });
             ajaxAdd.done(function () {
                 $('#modalAddEdit').modal('hide');
@@ -123,13 +128,13 @@ customer_groups.save = function () {
                 toastr.error('Thêm không thành công', 'INFORMATION:');
             });
         } else {
-            customer_group.deleted = $('#deleted').val();
+            warehouse.id = $('#id').val();
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/customer_group/",
+                url: "http://localhost:8080/api/warehouse/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(customer_group)
+                data: JSON.stringify(warehouse)
             });
             ajaxUpdate.done(function () {
                 $('#modalAddEdit').modal('hide');
@@ -147,9 +152,9 @@ customer_groups.save = function () {
     }
 }
 
-customer_groups.delete = function (id) {
+warehouses.delete = function (id) {
     bootbox.confirm({
-        message: "Bạn có muốn xóa nhóm khách hàng này không?",
+        message: "Bạn có muốn xóa kho này không?",
         buttons: {
             confirm: {
                 label: 'Có',
@@ -163,7 +168,7 @@ customer_groups.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/customer_group/" + id,
+                    url: "http://localhost:8080/api/warehouse/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });
@@ -177,5 +182,30 @@ customer_groups.delete = function (id) {
             }
         }
     })
+}
+
+warehouses.listWarehouse = function () {
+    $.ajax({
+        url: "http://localhost:8080/api/warehouse",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            list_warehouse = data;
+            $.each(data, function (i, v) {
+                $('#warehouse').append(
+                    `<option value='${v.id}'>${v.name}</option>`
+                );
+            });
+        }
+    });
+}
+
+warehouses.findById = function (id) {
+    for (let i = 0; i < list_warehouse.length; i++) {
+        if (id === list_warehouse[i].id) {
+            return list_warehouse[i];
+        }
+    }
+    return null;
 }
 
