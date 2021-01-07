@@ -8,9 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -28,14 +26,7 @@ public class Product {
     private String unit;
     private String barcode;
     private String description;
-    private Long retail_price;
-    private Long wholesale_price;
-    private Long prime_cost;
     private boolean deleted = false;
-    private int stock = 0;
-    private int incoming_quantity = 0;
-    private int delivering_quantity = 0;
-    private int scrap_quantity = 0;
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     private ZonedDateTime creating_date;

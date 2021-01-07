@@ -27,6 +27,7 @@ public class Order {
 
     private boolean finished = false;
     private boolean deleted = false;
+    private String remark;
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")

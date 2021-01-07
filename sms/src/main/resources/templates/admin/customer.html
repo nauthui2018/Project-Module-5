@@ -142,7 +142,14 @@
 
 <th:block th:replace="admin/layout :: block-dataTable"></th:block>
 
+<script src="/admin/build/js/customer_group.js"></script>
 <script src="/admin/build/js/customer.js"></script>
+<script>
+    $(document).ready(function () {
+        customers.init();
+    });
+</script>
+
 
 </body>
 </html>

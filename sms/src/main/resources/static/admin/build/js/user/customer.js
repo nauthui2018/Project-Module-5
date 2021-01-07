@@ -1,11 +1,4 @@
-var customer_groups = {} || customer_groups;
 var customers = {} || customers;
-var listCustomerGroup = [];
-
-
-$(document).ready(function () {
-    customers.init();
-});
 
 customers.init = function () {
     customers.intTable();
@@ -112,31 +105,6 @@ customers.get = function (id) {
     ajaxGet.fail(function () {
         toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
     });
-}
-
-customer_groups.listCustomerGroup = function () {
-    $.ajax({
-        url: "http://localhost:8080/api/customer_group",
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            listCustomerGroup = data;
-            $.each(data, function (i, v) {
-                $('#customer_group').append(
-                    `<option value='${v.id}'>${v.name}</option>`
-                );
-            });
-        }
-    });
-}
-
-customer_groups.findById = function (id) {
-    for (let i = 0; i < listCustomerGroup.length; i++) {
-        if (id === listCustomerGroup[i].id) {
-            return listCustomerGroup[i];
-        }
-    }
-    return null;
 }
 
 customers.save = function () {

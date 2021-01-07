@@ -16,10 +16,12 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long price_cost;
-    private float discount;
-    private int quantity;
+    private Long prime_cost;
+    private int order_quantity;
+    private int stock;
+    private int scrap;
     private boolean deleted = false;
+    private String remark;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
