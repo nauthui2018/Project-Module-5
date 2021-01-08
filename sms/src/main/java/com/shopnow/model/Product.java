@@ -26,6 +26,8 @@ public class Product {
     private String unit;
     private String barcode;
     private String description;
+    private int current_price;
+    private int current_prime_cost;
     private boolean deleted = false;
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
