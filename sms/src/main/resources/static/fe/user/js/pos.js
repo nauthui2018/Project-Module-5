@@ -267,8 +267,8 @@ function amountItem(i, value, price) {
 
 }
 
-function parseToNumber(str){
-    return  parseInt(str.replace(/,/g, "").replace(/-/g, ""));
+function parseToNumber(str) {
+    return parseInt(str.replace(/,/g, "").replace(/-/g, ""));
 }
 
 function amountMoneyItem() {
@@ -295,13 +295,24 @@ function formatCurrency(value) {
 }
 
 function showInvoiceInfo() {
-    customers.resetForm();
-    $('#invoice-info').modal('show');
-    drawListInvoiceDetail();
-    $('#discount-detail').html($('#discount').val());
-    $('#discount-detailPrint').html($('#discount').val());
-    $('#total-detail').html($('#totalFinal').html() + ' đ');
-    $('#total-detailPrint').html($('#totalFinal').html() + ' đ');
+    var check = true;
+    productArr.forEach(e => {
+        var checkStock = e.stock - $('#quantity').val();
+        if (checkStock < 0) {
+            toastr.error(`Số lượng ${e.name} không đủ bán. Chỉ còn ${e.stock} `, 'INFORMATION:');
+            check = false;
+        }
+    })
+
+    if (check) {
+        customers.resetForm();
+        $('#invoice-info').modal('show');
+        drawListInvoiceDetail();
+        $('#discount-detail').html($('#discount').val());
+        $('#discount-detailPrint').html($('#discount').val());
+        $('#total-detail').html($('#totalFinal').html() + ' đ');
+        $('#total-detailPrint').html($('#totalFinal').html() + ' đ');
+    }
 }
 
 drawListInvoiceDetail = function () {
@@ -363,13 +374,16 @@ function saveInvoice() {
     var user = {};
     user.id = $('#userId').val();
     var customer = {};
-    customer.id = $('#customerId').val();
+    var customerid = $('#customerId').val();
+    if(customerid=="") {
+        customer.id=1
+    } else customer.id=customerid;
     var invoice = {};
     invoice.user = user;
     invoice.customer = customer;
     invoice.discount = parseToNumber($('#discount').val());
     invoice.total_amount = parseToNumber($('#totalFinal').html());
-    var saveBill=$.ajax({
+    var saveBill = $.ajax({
         url: "/api/invoice",
         method: "POST",
         dataType: "json",
@@ -384,19 +398,19 @@ function saveInvoice() {
     });
 }
 
-function saveInvoiceDetail(invoice){
-    var invoiceObj={};
-    invoiceObj.id=invoice.id;
-    productArr.forEach(e=>{
-        var productObj={};
-        productObj.id=e.id;
-        var invoiceDetail={};
-        invoiceDetail.product=productObj;
-        invoiceDetail.quantity=e.count;
-        invoiceDetail.retail_price=e.current_price;
-        invoiceDetail.amount=e.amount;
-        invoiceDetail.invoice=invoiceObj;
-        var saveInvoiceDetail=$.ajax({
+function saveInvoiceDetail(invoice) {
+    var invoiceObj = {};
+    invoiceObj.id = invoice.id;
+    productArr.forEach(e => {
+        var productObj = {};
+        productObj.id = e.id;
+        var invoiceDetail = {};
+        invoiceDetail.product = productObj;
+        invoiceDetail.quantity = e.count;
+        invoiceDetail.retail_price = e.current_price;
+        invoiceDetail.amount = e.amount;
+        invoiceDetail.invoice = invoiceObj;
+        var saveInvoiceDetail = $.ajax({
             url: "/api/invoiceDetail",
             method: "POST",
             dataType: "json",
@@ -410,8 +424,20 @@ function saveInvoiceDetail(invoice){
             return toastr.error('Lưu hóa đơn không thành công', 'INFORMATION:');
         });
     })
+    clearData();
     return toastr.info('Lưu hóa đơn thành công', 'INFORMATION:');
+
 }
 
-
+function clearData(){
+    productArr=[];
+    $('#customer-nameF').html('');
+    $('#customer-nameFPrint').html('');
+    $('#customer-phone').html('');
+    $('#customer-phonePrint').html('');
+    $('#list-item').empty();
+    $('#amountMoney').html(0);
+    $('#discount').val(0);
+    $('#totalFinal').html(0);
+}
 

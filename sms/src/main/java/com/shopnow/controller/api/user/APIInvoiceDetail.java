@@ -1,7 +1,9 @@
 package com.shopnow.controller.api.user;
 
 import com.shopnow.model.InvoiceDetail;
+import com.shopnow.model.Product;
 import com.shopnow.service.InvoiceDetailService;
+import com.shopnow.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ public class APIInvoiceDetail {
     @Autowired
     InvoiceDetailService invoiceDetailService;
 
+    @Autowired
+    ProductService productService;
+
     @GetMapping
     public ResponseEntity<List<InvoiceDetail>> listInvoiceDetail() {
         List<InvoiceDetail> invoiceDetails = invoiceDetailService.findAll();
@@ -23,6 +28,10 @@ public class APIInvoiceDetail {
 
     @PostMapping
     public ResponseEntity<InvoiceDetail> saveInvoiceDetail(@RequestBody InvoiceDetail invoiceDetail) {
+        Product product= productService.findById(invoiceDetail.getProduct().getId());
+        int stock= product.getStock()-invoiceDetail.getQuantity();
+        product.setStock(stock);
+        productService.save(product);
         invoiceDetailService.save(invoiceDetail);
         return new ResponseEntity<>(invoiceDetail, HttpStatus.OK);
     }
