@@ -1,10 +1,6 @@
 var customer_groups = {} || customer_groups;
 var listCustomerGroup = [];
 
-$(document).ready(function () {
-    customer_groups.init();
-});
-
 customer_groups.init = function () {
     customer_groups.intTable();
     customer_groups.initValidation();

@@ -1,10 +1,6 @@
 var product_types = {} || product_types;
 var list_product_type = [];
 
-$(document).ready(function () {
-    product_types.init();
-});
-
 product_types.init = function () {
     product_types.intTable();
     product_types.initValidation();

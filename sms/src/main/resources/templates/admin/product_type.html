@@ -101,7 +101,12 @@
 
 <th:block th:replace="admin/layout :: block-dataTable"></th:block>
 
-<script src="/admin/build/js/product_type.js"></script>
+<script src="/admin/build/js/user/product_type.js"></script>
+<script>
+    $(document).ready(function () {
+        product_types.init();
+    });
+</script>
 
 </body>
 </html>
