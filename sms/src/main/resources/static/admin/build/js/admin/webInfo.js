@@ -11,15 +11,6 @@ webInfos.intTable = function () {
         },
         columns: [
             {
-                data: null,
-                name: "Checkbox",
-                title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">",
-                orderable: false,
-                "render": function () {
-                    return '<input type="checkbox" class="flat" name="table_records">';
-                }
-            },
-            {
                 data: "id", name: "ID", title: "ID", orderable: false
             },
             {

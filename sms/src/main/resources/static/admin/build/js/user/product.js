@@ -5,8 +5,8 @@ var list_order = [];
 products.init = function () {
     products.intTable();
     products.initValidation();
-    product_types.listProductType();
-    warehouses.listWarehouse();
+    products.listProductType();
+    products.listWarehouse();
 }
 
 products.addNew = function () {
@@ -21,6 +21,7 @@ products.resetForm = function () {
     $('#name').val('');
     $('#brand').val('');
     $('#image').val('');
+    $('#stock').val('');
     $('#unit').val('');
     $('#barcode').val('');
     $('#description').val('');
@@ -57,39 +58,34 @@ $.validator.addMethod(
 
 products.intTable = function () {
     $("#datatables").DataTable({
-        destroy: true,
-        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
-        "language": {
-            "emptyTable": "Không có sản phẩm nào!",
-            "lengthMenu": "Hiển thị _MENU_ sản phẩm",
-            "info": "Hiển thị _START_ đến _END_ của _TOTAL_ sản phẩm",
-            "paginate": {
-                "next": "Trang tiếp",
-                "previous": "Trang trước",
-            },
-        },
         ajax: {
-            url: 'http://localhost:8080/api/product/',
+            url: '/api/product/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
         },
         columns: [
-            { data: "id", name: "ID", title: "ID", orderable: false},
-            { data: "image", name: "image", title: "Hình ảnh", orderable: false},
-            { data: "name", name: "name", title: "Tên sản phẩm", orderable: true},
-            { data: "brand", name: "brand", title: "Nhãn hiệu", orderable: true},
-            { data: "description", name: "description", title: "Mô tả", orderable: false},
+            {
+                data: "id", name: "ID", title: "ID", orderable: false
+            },
+            {
+                data: "name", name: "Tên", title: "Tên", orderable: true
+            },
+            {
+                data: "brand", name: "Nhãn hiệu", title: "Nhãn hiệu", orderable: true
+            },
+            {
+                data: "stock", name: "Có thể bán", title: "Có thể bán", orderable: true
+            },
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = "<a href='javascript:' title='Cập nhật' onclick='products.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a class='ml-3' href='javascript:' title='Xóa' onclick='products.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
-                    return str;
+                    return `<a href='javascript:' title='Cập nhật' onclick='products.get(${data})' data-toggle="modal" data-target="#modalAddEdit" style='color: orange'><i class="fas fa-edit"></i></a>
+                        <a class='ml-3' href='javascript:' title='Xóa' onclick='products.delete(${data})' style='color: red'><i class="fas fa-trash-alt"></i></a>`;
                 }
             }
         ]
     });
-}
+};
 
 products.get = function (id) {
     var ajaxGet = $.ajax({
@@ -104,11 +100,13 @@ products.get = function (id) {
         $('#name').val(data.name);
         $('#brand').val(data.brand);
         $('#image').val(data.image);
+        $('#stock').val(data.stock);
+        $('#current_price').val(data.current_price);
         $('#unit').val(data.unit);
         $('#barcode').val(data.barcode);
         $('#description').val(data.description);
-        $('#product_type').val(0);
-        $('#warehouse').val(0);
+        $('#product_type').val(data.product_type.id);
+        $('#warehouse').val(data.warehouse.id);
         $('#modalAddEdit').modal('show');
     });
     ajaxGet.fail(function () {
@@ -121,15 +119,19 @@ products.save = function () {
         var product = {};
         product.id = $('#id').val();
         product.name = $('#name').val();
+        product.current_price = $('#current_price').val();
         product.brand = $('#brand').val();
         product.image = $('#image').val();
+        product.stock = $('#stock').val();
         product.unit = $('#unit').val();
         product.barcode = $('#barcode').val();
         product.description = $('#description').val();
-        product.product_type = product_types.findById(parseInt($('#product_type').val()));
-        product.product_type.creating_date = null;
-        product.warehouse = warehouses.findById(parseInt($('#warehouse').val()));
-        product.warehouse.creating_date = null;
+        var product_type = {};
+        product_type.id=$('#product_type').val();
+        product.product_type = product_type;
+        var warehouse={};
+        warehouse.id=$('#warehouse').val();
+        product.warehouse = warehouse;
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
                 url: "http://localhost:8080/api/product",
@@ -242,12 +244,35 @@ products.listProduct = function () {
     });
 }
 
-products.findById = function (id) {
-    for (let i = 0; i < list_product.length; i++) {
-        if (id === list_product[i].id) {
-            return list_product[i];
+products.listWarehouse = function () {
+    $.ajax({
+        url: "/api/warehouse",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#warehouse').empty();
+            $.each(data, function (i, v) {
+                $('#warehouse').append(
+                    "<option value='" + v.id + "'>" + v.name + "</option>"
+                );
+            });
         }
-    }
-    return null;
-}
+    });
+};
+
+products.listProductType = function () {
+    $.ajax({
+        url: "/api/product_type",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#product_type').empty();
+            $.each(data, function (i, v) {
+                $('#product_type').append(
+                    "<option value='" + v.id + "'>" + v.name + "</option>"
+                );
+            });
+        }
+    });
+};
 

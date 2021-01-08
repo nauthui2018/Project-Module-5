@@ -22,10 +22,11 @@ public class Product {
 
     private String name;
     private String brand;
-    private String image = "/admin/images/picture_default.png";
+    private String image = "/admin/images/default/default-image.jpg";
     private String unit;
     private String barcode;
     private String description;
+    private int stock;
     private int current_price;
     private int current_prime_cost;
     private boolean deleted = false;

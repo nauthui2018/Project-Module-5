@@ -1,3 +1,4 @@
+
 .list-dropdown {
     position: relative;
     display: inline-block;
@@ -36,6 +37,18 @@
     height: 48px;
 }
 
+.content-list{
+    height: 78vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.content-table{
+    height: 60vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 .pos-container{
     height: 85vh;
 }
@@ -64,3 +77,103 @@
     font-size: 13px;
 }
 
+.cartItem{
+    object-fit: cover;
+    position: relative;
+    min-height: 71vh;
+}
+
+.total-money{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: #0b0b0b;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 1em;
+}
+
+#discount{
+    width: 80%;
+    text-align: end;
+    border: none;
+    background-color: #F7F7F7;
+    color: red;
+    font-weight: bold;
+    padding-right: 0;
+}
+
+.total{
+    font-size: 16px;
+    color: blue;
+}
+
+.discount{
+    color: red;
+}
+
+.body-card{
+    margin: 5px;
+    overflow: hidden;
+}
+
+.product-name{
+    color: #008787;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.product-barcode{
+    color: #3c3c3c;
+    text-align: center;
+    margin-bottom: 5px !important;
+}
+
+.product-price{
+    color: darkblue;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0px !important;
+}
+
+.card-hover:hover{
+    border: #3DA0DB solid 1px !important;
+    box-shadow: #3DA0DB 0px 5px 15px !important;
+}
+
+tr:hover{
+    border: #3DA0DB solid 1px !important;
+    box-shadow: #3DA0DB 0px 5px 15px !important;
+}
+
+.empty-box{
+    height: 100%;
+    display: flex;
+    flex-direction: column;;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-div{
+    background-color: #1b7e5a;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+#customer-nameF, #customer-phone, #user-name, #invoiceDate{
+    color: darkblue;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.modal-headerPrint{
+    color: black;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(.3rem - 1px);
+    border-top-right-radius: calc(.3rem - 1px);
+}

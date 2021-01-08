@@ -27,6 +27,7 @@ public class Invoice {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    private Long discount;
     private Long total_amount;
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")

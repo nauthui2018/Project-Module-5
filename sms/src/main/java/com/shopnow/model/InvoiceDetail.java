@@ -21,8 +21,6 @@ public class InvoiceDetail {
     private int quantity;
     private Long retail_price;
 
-    private float discount;
-
     private Long amount;
 
     @ManyToOne

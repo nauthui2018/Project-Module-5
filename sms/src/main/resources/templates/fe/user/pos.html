@@ -39,7 +39,8 @@
                                         <div id="productDropdown" class="dropdown-content">
                                             <p class="list-empty" th:if="${products.size()==0}">Chưa có sản phẩm nào</p>
                                             <th:block th:each="product: ${products}">
-                                                <a href="#">
+                                                <a href="javascript:" th:id="${product.id}"
+                                                   onclick="addToCart(this.id)">
                                                     <div class="row">
                                                         <div class="col-2 grid">
                                                             <img th:src="@{${product.image}}" alt="image"
@@ -51,15 +52,14 @@
                                                                     <div class="col-8 name-product"
                                                                          th:text="${product.name}"></div>
                                                                     <div class="col-4 price-product"
-                                                                         th:text="${product.prime_cost}"></div>
+                                                                         th:text="${#numbers.formatDecimal(product.current_price, 0, 'COMMA', 0, 'POINT')}+' đ'"></div>
                                                                 </div>
                                                             </div>
                                                             <div class="extra-info">
                                                                 <div class="row">
                                                                     <div class="col-8 code-product"
                                                                          th:text="${product.barcode}"></div>
-                                                                    <div class="col-4 canSale"
-                                                                         th:text="'Có thể bán: '+${product.stock}"></div>
+                                                                    <div class="col-4 canSale"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -67,11 +67,35 @@
                                                 </a>
                                             </th:block>
                                         </div>
-                                        <div class="cartItem">
-
-                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="content-list">
+                            <th:block th:if="${products.size()}==0">
+                                <div class="empty-box">
+                                    <img class="w_20" src="/admin/images/default/box-empty.jpg">
+                                    <p class="text-center">Chưa có sản phẩm nào</p>
+                                </div>
+                            </th:block>
+                            <div class="row">
+                                <th:block th:each="product: ${products}">
+                                    <div class="col-sm-2 col-md-3">
+                                        <a href="javascript:" th:id="${product.id}"
+                                           onclick="addToCart(this.id)">
+                                            <div class="card-hover card m-1 shadow-sm bg-white rounded"
+                                                 style="height: 29vh;">
+                                                <img th:src="@{${product.image}}" class="card-img-top" alt="image">
+                                                <div class="body-card">
+                                                    <h6 class="product-name" th:text="${product.name}"></h6>
+                                                    <p class="product-barcode" th:text="${product.barcode}"></p>
+                                                    <p class="product-price"
+                                                       th:text="${#numbers.formatDecimal(product.current_price, 0, 'COMMA', 0, 'POINT')}+' đ'"></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </th:block>
                             </div>
                         </div>
                     </div>
@@ -83,21 +107,57 @@
                                 <span>GIỎ HÀNG</span>
                             </div>
                             <div class="col-sm-8">
-                                <div class="list-dropdown">
-                                    <!-- Search form -->
-                                    <input class="form-control" type="text"
-                                           placeholder="Thêm khách hàng vào đơn" id="customerList"
-                                           onkeyup="filterCustomerFunction()"
-                                           onfocus="showCustomerListDropdown()" onblur="hideCustomerListDropdown()"
-                                           aria-label="Search">
+                            </div>
+                        </div>
+                        <div class="cartItem">
+                            <div class="content-table">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th></th>
+                                                <th>Tên </th>
+                                                <th>SL</th>
+                                                <th>Giá</th>
+                                                <th>Tổng</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="list-item">
 
-                                    <div id="customerDropdown" class="dropdown-content">
-                                        <p class="list-empty" th:if="${customers.size()==0}">Chưa có khách hàng nào</p>
-                                        <a class="grid-customer" onclick="customers.addNew()"> + Thêm khách hàng</a>
-                                        <div id="list-customer">
-
-                                        </div>
+                                            </tbody>
+                                        </table>
                                     </div>
+                                </div>
+
+                            </div>
+                            <div class="total-money">
+                                <div class="row">
+                                    <div class="col-5 name-product grid">Tiền hàng</div>
+                                    <div class="col-6 price-product grid" id="amountMoney">0</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 name-product grid discount">Giảm giá</div>
+                                    <div class="col-6 price-product grid discount" id="discountMoney">
+                                        <input id="discount" type="text" value="0" onblur="formatCurrency(this.value)"
+                                               onchange="amountMoneyItem()">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 name-product grid total">Tổng cộng</div>
+                                    <div class="col-6 price-product grid total" id="totalFinal">0</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="confirm">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-danger w-100 mt-1">Hủy</button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-success w-100 mt-1" onclick="showInvoiceInfo()">Thanh toán
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -108,6 +168,200 @@
     </div>
     <footer th:replace="admin/layout::footer"></footer>
 </div>
+
+<!--Modal Invoice Info-->
+<div class="modal" id="invoice-info">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin hoá đơn</h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="customers.resetForm()"
+                        aria-label="Close">&times;
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="printModal">
+                <div class="customer-info mb-3">
+                    <div class="row mb-2 title-div">
+                        <div class="col-4">
+                            Thông tin khách hàng
+                        </div>
+                        <div class="list-dropdown col-8">
+                            <!-- Search form -->
+                            <input class="form-control" type="text"
+                                   placeholder="Thêm khách hàng vào đơn" id="customerList"
+                                   onkeyup="filterCustomerFunction()"
+                                   onfocus="showCustomerListDropdown()" onblur="hideCustomerListDropdown()"
+                                   aria-label="Search">
+
+                            <div id="customerDropdown" class="dropdown-content">
+                                <p class="list-empty" th:if="${customers.size()==0}">Chưa có khách hàng nào</p>
+                                <a class="grid-customer" onclick="customers.addNew()"> + Thêm khách hàng</a>
+                                <div id="list-customer">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span>Tên khách hàng: </span>
+                            <span id="customer-nameF"></span>
+                            <input type="hidden" id="customerId" value="">
+                        </div>
+                        <div class="col-6">
+                            <span>Số điện thoại: </span>
+                            <span id="customer-phone"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="invoice-detail mb-3">
+                    <div class="row mb-2 title-div">
+                        <div class="col-12">
+                            Thông tin đơn hàng
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table text-right">
+                                <thead>
+                                <th>STT</th>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Đơn giá</th>
+                                <th>Thành tiền</th>
+                                </thead>
+                                <tbody id="list-invoiceDetail">
+
+                                </tbody>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Giảm giá</th>
+                                    <th id="discount-detail"></th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Tổng tiền</th>
+                                    <th id="total-detail"></th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span>Nhân viên bán hàng: </span>
+                            <span id="user-name"> Đỗ Chánh Tín</span>
+                            <input type="hidden" name="idUser" id="userId" value="10">
+                        </div>
+                        <div class="col-6">
+                            <span>Ngày lập hóa đơn: </span>
+                            <span id="invoiceDate"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <button class="btn btn-success">Hủy</button>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-success" onclick="saveInvoice()">Thanh toán</button>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-success" onclick="printElement()">In hóa đơn</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--Modal Print-->
+<div class="modal" id="print-invoice">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-headerPrint">
+                <h4 style="font-weight: bold">Shop Now</h4>
+                <h5 th:text="'Số điện thoại: '+${webInfo.hotline}"></h5>
+                <h5 th:text="'Địa chỉ: '+${webInfo.address}"></h5>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" style="color: black">
+                <div class="customer-info mb-3">
+                    <div class="row mb-2">
+                        <div class="col-4" style="font-weight: bold">
+                            Thông tin khách hàng
+                        </div>
+                        <div class="list-dropdown col-8">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span>Tên khách hàng: </span>
+                            <span id="customer-nameFPrint"></span>
+                        </div>
+                        <div class="col-6">
+                            <span>Số điện thoại: </span>
+                            <span id="customer-phonePrint"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="invoice-detail mb-3">
+                    <div class="row mb-2">
+                        <div class="col-12" style="font-weight: bold">
+                            Thông tin đơn hàng
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table text-right">
+                                <thead>
+                                <th>STT</th>
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Đơn giá</th>
+                                <th>Thành tiền</th>
+                                </thead>
+                                <tbody id="list-invoiceDetailPrint">
+
+                                </tbody>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Giảm giá</th>
+                                    <th id="discount-detailPrint"></th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Tổng tiền</th>
+                                    <th id="total-detailPrint"></th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!--Modal Add Customer-->
 <div class="modal" id="modalAddEdit">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -130,7 +384,8 @@
                             <label>Tên khách hàng</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="customer_fullName" name="customer_fullName" class="form-control"
+                            <input type="text" id="customer_fullName" name="customer_fullName"
+                                   class="form-control"
                                    required>
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
@@ -153,7 +408,8 @@
                             <label>Số điện thoại</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="customer_phone" name="customer_phone" class="form-control" required>
+                            <input type="text" id="customer_phone" name="customer_phone" class="form-control"
+                                   required>
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
                     </div>
@@ -172,7 +428,8 @@
                             <label>Địa chỉ</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="customer_address" name="customer_address" class="form-control">
+                            <input type="text" id="customer_address" name="customer_address"
+                                   class="form-control">
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
                     </div>
@@ -200,5 +457,6 @@
 <div th:insert="admin/layout::block-script">
 </div>
 <script src="/fe/user/js/pos.js"></script>
+<script src="/fe/user/js/printArea.js"></script>
 </body>
 </html>
