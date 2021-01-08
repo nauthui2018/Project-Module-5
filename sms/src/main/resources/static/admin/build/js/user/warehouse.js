@@ -1,10 +1,6 @@
 var warehouses = {} || warehouses;
 var list_warehouse = [];
 
-$(document).ready(function () {
-    warehouses.init();
-});
-
 warehouses.init = function () {
     warehouses.intTable();
     warehouses.initValidation();

@@ -62,11 +62,6 @@ customers.intTable = function () {
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">",
-                "render":function () {
-                    return '<input type="checkbox" class="flat" name="table_records">';
-                }
-            },
             { data: "id", name: "ID", title: "ID", sortable: false},
             { data: "customer_fullName", name: "customer_fullName", title: "Tên khách hàng", sortable: true},
             { data: "customer_group.name", name: "customer_group", title: "Nhóm khách hàng", sortable: true},
