@@ -3730,19 +3730,6 @@ a.btn-danger {
     color: #fff
 }
 
-.btn-success {
-    background: #26B99A;
-    border: 1px solid #169F85
-}
-
-.btn-success:hover,
-.btn-success:focus,
-.btn-success:active,
-.btn-success.active,
-.open .dropdown-toggle.btn-success {
-    background: #169F85
-}
-
 .btn-dark {
     color: #E9EDEF;
     background-color: #4B5F71;

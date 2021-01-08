@@ -85,6 +85,15 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-3">
+                            <label>Đơn giá bán</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="current_price" name="current_price" class="form-control" required>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
                             <label>Nhãn hiệu</label>
                         </div>
                         <div class="col-9">
@@ -109,6 +118,15 @@
                         <div class="col-9">
                             <select class="form-control" id="warehouse" name="warehouse">
                             </select>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Có thể bán</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="stock" name="stock" class="form-control" required>
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
                     </div>
@@ -163,8 +181,6 @@
 
 <th:block th:replace="admin/layout :: block-dataTable"></th:block>
 
-<script src="/admin/build/js/user/product_type.js"></script>
-<script src="/admin/build/js/user/warehouse.js"></script>
 <script src="/admin/build/js/user/product.js"></script>
 <script>
     $(document).ready(function () {

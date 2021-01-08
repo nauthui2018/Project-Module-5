@@ -5,7 +5,7 @@ function showProductListDropdown() {
 function hideProductListDropdown() {
     setTimeout(() => {
         document.getElementById("productDropdown").style.display = 'none';
-    }, 100);
+    }, 200);
 }
 
 function filterProductFunction() {
@@ -87,11 +87,18 @@ customers.save = function () {
     }
 }
 
+var pos = {} || pos;
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 $(document).ready(function () {
-    customers.init();
+    pos.init();
 });
 
-customers.init = function () {
+pos.init = function () {
+    pos.initListProduct();
     customers.initValidation();
     customers.listCustomerGroup();
     customers.initListCustomer();
@@ -111,7 +118,6 @@ customers.resetForm = function () {
     $('#customer_email').val('');
     $('#customer_address').val('');
     $('#gender').val('');
-    $('#deleted').val('');
     $('#customer_group').val(0);
     $("#formAddEdit").validate().resetForm();
 }
@@ -149,15 +155,17 @@ customers.listCustomerGroup = function () {
     });
 }
 
+var listCustomer = [];
 customers.initListCustomer = function () {
     $.ajax({
         url: "/api/customer",
         method: "GET",
         dataType: "json",
         success: function (data) {
+            listCustomer = data;
             $.each(data, function (i, v) {
                 $('#list-customer').append(
-                    `<a href="#">
+                    `<a href="javascript:" onclick="customers.getInfoCustomer(${v.id})">
                        <div class="grid-customer">
                          <div class="main-info">${v.customer_fullName}</div>
                          <div class="extra-info">${v.customer_phone}</div>
@@ -168,5 +176,242 @@ customers.initListCustomer = function () {
         }
     });
 }
+
+customers.findCustomerById = function (id) {
+    for (let i = 0; i < listCustomer.length; i++) {
+        if (id == listCustomer[i].id) {
+            return listCustomer[i];
+        }
+    }
+    return null;
+}
+
+customers.getInfoCustomer = function (id) {
+    var customerObj = customers.findCustomerById(id);
+    $('#customerId').val(id);
+    $('#customer-nameF').html(customerObj.customer_fullName);
+    $('#customer-nameFPrint').html(customerObj.customer_fullName);
+    $('#customer-phone').html(customerObj.customer_phone);
+    $('#customer-phonePrint').html(customerObj.customer_phone);
+}
+
+var listProduct = [];
+
+pos.initListProduct = function () {
+    $.ajax({
+        url: "/api/product",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            listProduct = data;
+        }
+    });
+}
+
+pos.findProductById = function (id) {
+    for (let i = 0; i < listProduct.length; i++) {
+        if (id == listProduct[i].id) {
+            return listProduct[i];
+        }
+    }
+    return null;
+}
+
+var productArr = [];
+addToCart = function (id) {
+    var index = -1;
+    var productItem = pos.findProductById(id);
+    for (let i = 0; i < productArr.length; i++) {
+        if (productArr[i].id === productItem.id) index = i;
+    }
+    if (index !== -1) {
+        productArr[index].count++;
+        productArr[index].amount = productArr[index].current_price * productArr[index].count;
+        amountMoneyItem();
+    } else {
+        productItem.count = 1;
+        productItem.amount = productItem.current_price * productItem.count;
+        productArr.push(productItem);
+        amountMoneyItem();
+    }
+
+    drawListProductItem(productArr);
+}
+
+drawListProductItem = function (productArr) {
+    $('#list-item').empty();
+    $.each(productArr, function (i, v) {
+        $('#list-item').append(
+            `<tr>
+                <td>${i + 1}</td>
+                <td><a href="javascript:" onclick="removeProduct(${v.id})"><i class="fas fa-trash-alt"></i></a></td>
+                <td>${v.name}</td>
+                <td><input type="number" class="text-right" min="0" max="${v.stock}" step="1" id="quantity" value="${v.count}" 
+                onchange="amountItem(${i},this.value,${v.current_price})" style="width: 100%;"></td>
+                <td>${numberWithCommas(v.current_price)}</td>
+                <td id="amount${i}">${numberWithCommas(v.amount)}</td>
+            </tr>`
+        );
+    })
+}
+
+function amountItem(i, value, price) {
+
+    productArr[i].count = value;
+
+    productArr[i].amount = value * price;
+
+    $('#amount' + i).html(numberWithCommas(productArr[i].amount));
+
+    amountMoneyItem();
+
+}
+
+function parseToNumber(str){
+    return  parseInt(str.replace(/,/g, "").replace(/-/g, ""));
+}
+
+function amountMoneyItem() {
+    var amountMoney = 0;
+    $.each(productArr, function (i, v) {
+        amountMoney += v.amount;
+    })
+    $('#amountMoney').html(numberWithCommas(amountMoney));
+    var strDiscount = $('#discount').val().replace(/,/g, "");
+    var discount = parseInt(strDiscount.replace(/-/g, ""));
+    var totalMoney = amountMoney - discount;
+    $('#totalFinal').html(numberWithCommas(totalMoney));
+}
+
+function removeProduct(id) {
+    var productItem = pos.findProductById(id);
+    productArr = productArr.filter(item => item !== productItem);
+    drawListProductItem(productArr);
+    amountMoneyItem();
+}
+
+function formatCurrency(value) {
+    $('#discount').val('-' + numberWithCommas(value));
+}
+
+function showInvoiceInfo() {
+    customers.resetForm();
+    $('#invoice-info').modal('show');
+    drawListInvoiceDetail();
+    $('#discount-detail').html($('#discount').val());
+    $('#discount-detailPrint').html($('#discount').val());
+    $('#total-detail').html($('#totalFinal').html() + ' đ');
+    $('#total-detailPrint').html($('#totalFinal').html() + ' đ');
+}
+
+drawListInvoiceDetail = function () {
+    $('#list-invoiceDetail').empty();
+    var today = getToday();
+    $('#invoiceDate').html(today);
+    $.each(productArr, function (i, v) {
+        $('#list-invoiceDetail').append(
+            `<tr>
+                <td>${i + 1}</td>
+                <td>${v.name}</td>
+                <td>${numberWithCommas(v.count)}</td>
+                <td>${numberWithCommas(v.current_price)}</td>
+                <td>${numberWithCommas(v.amount)}</td>
+            </tr>`
+        );
+    })
+}
+
+drawListInvoiceDetailPrint = function () {
+    $('#list-invoiceDetailPrint').empty();
+    $.each(productArr, function (i, v) {
+        $('#list-invoiceDetailPrint').append(
+            `<tr>
+                <td>${i + 1}</td>
+                <td>${v.name}</td>
+                <td>${numberWithCommas(v.count)}</td>
+                <td>${numberWithCommas(v.current_price)}</td>
+                <td>${numberWithCommas(v.amount)}</td>
+            </tr>`
+        );
+    })
+}
+
+function getToday() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+    return today;
+}
+
+function printElement() {
+    drawListInvoiceDetailPrint();
+    $('#print-invoice').modal('show');
+    var mode = 'iframe';
+    var close = 'popup';
+    var options = {mode: mode, popClose: close};
+    $('div#print-invoice').printArea(options);
+    setTimeout(() => {
+        $('#print-invoice').modal('hide')
+    }, 100);
+}
+
+
+function saveInvoice() {
+    var user = {};
+    user.id = $('#userId').val();
+    var customer = {};
+    customer.id = $('#customerId').val();
+    var invoice = {};
+    invoice.user = user;
+    invoice.customer = customer;
+    invoice.discount = parseToNumber($('#discount').val());
+    invoice.total_amount = parseToNumber($('#totalFinal').html());
+    var saveBill=$.ajax({
+        url: "/api/invoice",
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(invoice)
+    });
+    saveBill.done(function (data) {
+        saveInvoiceDetail(data);
+    });
+    saveBill.fail(function () {
+        toastr.error('Lưu hóa đơn không thành công', 'INFORMATION:');
+    });
+}
+
+function saveInvoiceDetail(invoice){
+    var invoiceObj={};
+    invoiceObj.id=invoice.id;
+    productArr.forEach(e=>{
+        var productObj={};
+        productObj.id=e.id;
+        var invoiceDetail={};
+        invoiceDetail.product=productObj;
+        invoiceDetail.quantity=e.count;
+        invoiceDetail.retail_price=e.current_price;
+        invoiceDetail.amount=e.amount;
+        invoiceDetail.invoice=invoiceObj;
+        var saveInvoiceDetail=$.ajax({
+            url: "/api/invoiceDetail",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(invoiceDetail)
+        });
+        saveInvoiceDetail.done(function () {
+            $('#invoice-info').modal('hide');
+        });
+        saveInvoiceDetail.fail(function () {
+            return toastr.error('Lưu hóa đơn không thành công', 'INFORMATION:');
+        });
+    })
+    return toastr.info('Lưu hóa đơn thành công', 'INFORMATION:');
+}
+
 
 
