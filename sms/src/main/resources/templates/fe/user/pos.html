@@ -49,17 +49,17 @@
                                                         <div class="col-10 grid">
                                                             <div class="main-info">
                                                                 <div class="row">
-                                                                    <div class="col-8 name-product"
+                                                                    <div class="col-7 name-product"
                                                                          th:text="${product.name}"></div>
-                                                                    <div class="col-4 price-product"
+                                                                    <div class="col-5 price-product"
                                                                          th:text="${#numbers.formatDecimal(product.current_price, 0, 'COMMA', 0, 'POINT')}+' đ'"></div>
                                                                 </div>
                                                             </div>
                                                             <div class="extra-info">
                                                                 <div class="row">
-                                                                    <div class="col-8 code-product"
+                                                                    <div class="col-7 code-product"
                                                                          th:text="${product.barcode}"></div>
-                                                                    <div class="col-4 canSale"></div>
+                                                                    <div class="col-5 canSale" th:text="'Có thể bán: '+${product.stock}"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -153,7 +153,7 @@
                         <div class="confirm">
                             <div class="row">
                                 <div class="col-6">
-                                    <button class="btn btn-danger w-100 mt-1">Hủy</button>
+                                    <button class="btn btn-danger w-100 mt-1" onclick="clearData()">Hủy</button>
                                 </div>
                                 <div class="col-6">
                                     <button class="btn btn-success w-100 mt-1" onclick="showInvoiceInfo()">Thanh toán
@@ -267,13 +267,14 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            <button class="btn btn-success">Hủy</button>
+                            <button class="btn btn-danger w-100" onclick="customers.resetForm()"
+                                    data-dismiss="modal" aria-label="Close">Hủy</button>
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-success" onclick="saveInvoice()">Thanh toán</button>
+                            <button class="btn btn-success w-100" onclick="saveInvoice()">Thanh toán</button>
                         </div>
                         <div class="col-4">
-                            <button class="btn btn-success" onclick="printElement()">In hóa đơn</button>
+                            <button class="btn btn-primary w-100" onclick="printElement()">In hóa đơn</button>
                         </div>
                     </div>
                 </div>
@@ -445,7 +446,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <a class="btn btn-primary" onclick="customers.save()">Lưu</a>
-                        <button type="button" class="btn btn-danger" onclick="customers.resetForm()"
+                        <button class="btn btn-danger" onclick="customers.resetForm()"
                                 data-dismiss="modal" aria-label="Close">Hủy
                         </button>
                     </div>

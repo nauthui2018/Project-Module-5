@@ -7,13 +7,13 @@
 .dropdown-content {
     display: none;
     position: absolute;
+    height: 40vh;
     background-color: #f6f6f6;
     min-width: 230px;
     border: 1px solid #ddd;
     border-radius: 7px;
     overflow: hidden;
     z-index: 1;
-    height: 40vh;
     overflow-y: scroll;
 }
 
@@ -23,7 +23,11 @@
     display: block;
 }
 
-.list-dropdown a:hover {background-color: #ddd;}
+.list-dropdown a:hover {
+    background-color: lightblue;
+    color: blue;
+    font-weight: bold;
+}
 
 .show {display: block;}
 
@@ -54,7 +58,7 @@
 }
 
 .grid, .grid-customer{
-    border: #b7b7b7 solid 1px;
+    border: 1px solid #e5e5e5;
     font-size: 14px;
 }
 
@@ -176,4 +180,12 @@ tr:hover{
     border-bottom: 1px solid #dee2e6;
     border-top-left-radius: calc(.3rem - 1px);
     border-top-right-radius: calc(.3rem - 1px);
+}
+
+.main-info{
+    font-size: 16px;
+}
+
+.extra-info{
+    font-size: 13px;
 }
