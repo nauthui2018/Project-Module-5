@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/product_type")
+@RequestMapping(value = "/api/user/product_type")
 public class APIProductType {
     @Autowired
     ProductTypeService productTypeService;

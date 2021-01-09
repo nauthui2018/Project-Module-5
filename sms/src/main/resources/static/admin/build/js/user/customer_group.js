@@ -50,19 +50,14 @@ $.validator.addMethod(
 customer_groups.intTable = function () {
     $("#datatables").DataTable({
         destroy: true,
-        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
         ajax: {
-            url: 'http://localhost:8080/api/customer_group/',
+            url: "/api/user/customer_group/",
             method: "GET",
             datatype: "json",
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">", orderable: false,
-                "render":function () {
-                    return '<input type="checkbox" class="flat" name="table_records">';
-                }
-            },
             { data: "id", name: "ID", title: "ID", orderable: false},
             { data: "name", name: "Nhóm khách hàng", title: "Nhóm khách hàng", orderable: true},
             { data: "creating_date", name: "Ngày tạo", title: "Ngày tạo", orderable: true},
@@ -79,7 +74,7 @@ customer_groups.intTable = function () {
 
 customer_groups.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/customer_group/" + id,
+        url: "/api/user/customer_group/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -103,7 +98,7 @@ customer_groups.save = function () {
         customer_group.name = $('#name').val();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/customer_group",
+                url: "/api/user/customer_group",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -122,7 +117,7 @@ customer_groups.save = function () {
         } else {
             customer_group.deleted = $('#deleted').val();
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/customer_group/",
+                url: "/api/user/customer_group/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -160,7 +155,7 @@ customer_groups.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/customer_group/" + id,
+                    url: "/api/user/customer_group/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });
@@ -178,7 +173,7 @@ customer_groups.delete = function (id) {
 
 customer_groups.listCustomerGroup = function () {
     $.ajax({
-        url: "http://localhost:8080/api/customer_group",
+        url: "/api/user/customer_group",
         method: "GET",
         dataType: "json",
         success: function (data) {

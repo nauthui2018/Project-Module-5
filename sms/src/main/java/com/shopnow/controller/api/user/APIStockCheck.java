@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/stock_check")
+@RequestMapping(value = "/api/user/stock_check")
 public class APIStockCheck {
 
     @Autowired

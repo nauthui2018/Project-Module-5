@@ -26,17 +26,12 @@ orders.intTable = function () {
         destroy: true,
         "lengthMenu": [[5, 10, 20, -1], [5, 10, 50, "All"]],
         ajax: {
-            url: 'http://localhost:8080/api/order',
+            url: "/api/user/order",
             method: "GET",
             datatype: "json",
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">",
-                "render":function () {
-                    return '<input type="checkbox" class="flat" name="table_records">';
-                }
-            },
             { data: "id", name: "ID", title: "ID", sortable: false},
             { data: "supplier.supplier_name", name: "supplier", title: "Nhà cung cấp", sortable: true},
             { data: "total_amount", name: "total_amount", title: "Tổng số lượng", sortable: true},
@@ -69,7 +64,7 @@ orders.intTable = function () {
 
 orders.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/order/" + id,
+        url: "/api/user/order/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -97,7 +92,7 @@ orders.save = function () {
         order.total_amount = $('#total_amount').val();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/order",
+                url: "/api/user/order",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -115,7 +110,7 @@ orders.save = function () {
             });
         } else {
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/order/",
+                url: "/api/user/order/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -153,7 +148,7 @@ orders.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/order/" + id,
+                    url: "/api/user/order/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });

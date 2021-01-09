@@ -8,7 +8,7 @@ $(document).ready(function () {
 
 order_details.init = function () {
     order_details.intTable();
-    order_details.getAllOrderDetail();
+    order_details.listOrderDetail();
 }
 
 order_details.intTable = function () {
@@ -25,17 +25,12 @@ order_details.intTable = function () {
             },
         },
         ajax: {
-            url: 'http://localhost:8080/api/order_detail/',
+            url: "/api/user/order_detail/",
             method: "GET",
             datatype: "json",
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">", orderable: false,
-                "render":function () {
-                    return '<input type="checkbox" class="flat" name="table_records">';
-                }
-            },
             { data: "id", name: "ID", title: "ID", orderable: false},
             { data: "image", name: "image", title: "Hình ảnh", orderable: false},
             { data: "name", name: "name", title: "Tên sản phẩm", orderable: true},
@@ -54,7 +49,7 @@ order_details.intTable = function () {
 
 order_details.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/order_detail/" + id,
+        url: "/api/user/order_detail/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -73,9 +68,9 @@ order_details.get = function (id) {
     });
 }
 
-order_details.getAllOrderDetail = function () {
+order_details.listOrderDetail = function () {
     $.ajax({
-        url: "http://localhost:8080/api/order_detail",
+        url: "/api/user/order_detail",
         method: "GET",
         dataType: "json",
         success: function (data) {

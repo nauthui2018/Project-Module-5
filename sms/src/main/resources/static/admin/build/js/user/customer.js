@@ -1,4 +1,5 @@
 var customers = {} || customers;
+var listCustomer = [];
 
 customers.init = function () {
     customers.intTable();
@@ -56,7 +57,7 @@ customers.intTable = function () {
         destroy: true,
         "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
         ajax: {
-            url: 'http://localhost:8080/api/customer/',
+            url: "/api/user/customer/",
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -81,7 +82,7 @@ customers.intTable = function () {
 
 customers.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/customer/" + id,
+        url: "/api/user/customer/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -115,7 +116,7 @@ customers.save = function () {
         customer.deleted = $('#deleted').val();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/customer",
+                url: "/api/user/customer",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -134,7 +135,7 @@ customers.save = function () {
         } else {
             customer.id = $('#id').val();
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/customer/",
+                url: "/api/user/customer/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -173,7 +174,7 @@ customers.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/customer/" + id,
+                    url: "/api/user/customer/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });
@@ -187,5 +188,30 @@ customers.delete = function (id) {
             }
         }
     })
+}
+
+customers.listCustomer = function () {
+    $.ajax({
+        url: "/api/user/customer",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            listCustomer = data;
+            $.each(data, function (i, v) {
+                $('#customer').append(
+                    `<option value='${v.id}'>${v.name}</option>`
+                );
+            });
+        }
+    });
+}
+
+customers.findById = function (id) {
+    for (let i = 0; i < listCustomer.length; i++) {
+        if (id === listCustomer[i].id) {
+            return listCustomer[i];
+        }
+    }
+    return null;
 }
 
