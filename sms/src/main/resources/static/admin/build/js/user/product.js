@@ -1,12 +1,12 @@
 let products = {} || products;
-var list_product = [];
-var list_order = [];
+var listProduct = [];
+var listOrderedProduct = [];
 
 products.init = function () {
     products.intTable();
     products.initValidation();
-    products.listProductType();
-    products.listWarehouse();
+    product_types.listProductType();
+    warehouses.listWarehouse();
 }
 
 products.addNew = function () {
@@ -59,24 +59,16 @@ $.validator.addMethod(
 products.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: '/api/product/',
+            url: '/api/user/product/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
         },
         columns: [
-            {
-                data: "id", name: "ID", title: "ID", orderable: false
-            },
-            {
-                data: "name", name: "Tên", title: "Tên", orderable: true
-            },
-            {
-                data: "brand", name: "Nhãn hiệu", title: "Nhãn hiệu", orderable: true
-            },
-            {
-                data: "stock", name: "Có thể bán", title: "Có thể bán", orderable: true
-            },
+            { data: "id", name: "ID", title: "ID", orderable: false},
+            { data: "name", name: "Tên", title: "Tên", orderable: true},
+            { data: "brand", name: "Nhãn hiệu", title: "Nhãn hiệu", orderable: true},
+            { data: "stock", name: "Có thể bán", title: "Có thể bán", orderable: true},
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
                     return `<a href='javascript:' title='Cập nhật' onclick='products.get(${data})' data-toggle="modal" data-target="#modalAddEdit" style='color: orange'><i class="fas fa-edit"></i></a>
@@ -89,7 +81,7 @@ products.intTable = function () {
 
 products.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/product/" + id,
+        url: "/api/user/product/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -129,12 +121,12 @@ products.save = function () {
         var product_type = {};
         product_type.id=$('#product_type').val();
         product.product_type = product_type;
-        var warehouse={};
+        var warehouse = {};
         warehouse.id=$('#warehouse').val();
         product.warehouse = warehouse;
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/product",
+                url: "/api/user/product",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -152,7 +144,7 @@ products.save = function () {
             });
         } else {
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/product/",
+                url: "/api/user/product/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -190,7 +182,7 @@ products.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/product/" + id,
+                    url: "/api/user/product/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });
@@ -211,15 +203,16 @@ products.addProductToOrderList = function () {
         var product = {};
         product.product = products.findById(parseInt($('#product').val()));
         product.incoming_quantity = $('#quantity').val();
-        list_order.push(product);
+        listOrderedProduct.push(product);
     }
 }
 
-products.showListOrder = function (list_order) {
-    $.each(list_order, function (i, v) {
+products.showListOrder = function (data) {
+    data = listOrderedProduct
+    $.each(data, function (i, v) {
         $('#formOrder').append(
             `<tr class="odd pointer"> 
-                <td class=" ">121000039</td>             
+                <td class=" ">${v.name}</td>             
                 <td class=" ">121000039</td>
                 <td class=" ">May 23, 2014 11:30:12 PM</td>
                 <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i></td>
@@ -230,11 +223,11 @@ products.showListOrder = function (list_order) {
 
 products.listProduct = function () {
     $.ajax({
-        url: "http://localhost:8080/api/product",
+        url: "/api/user/product",
         method: "GET",
         dataType: "json",
         success: function (data) {
-            list_product = data;
+            listProduct = data;
             $.each(data, function (i, v) {
                 $('#product').append(
                     `<option value='${v.id}'>${v.name}</option>`
@@ -244,35 +237,13 @@ products.listProduct = function () {
     });
 }
 
-products.listWarehouse = function () {
-    $.ajax({
-        url: "/api/warehouse",
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            $('#warehouse').empty();
-            $.each(data, function (i, v) {
-                $('#warehouse').append(
-                    "<option value='" + v.id + "'>" + v.name + "</option>"
-                );
-            });
+products.findById = function (id) {
+    for (let i = 0; i < listProduct.length; i++) {
+        if (id === listProduct[i].id) {
+            return listProduct[i];
         }
-    });
-};
+    }
+    return null;
+}
 
-products.listProductType = function () {
-    $.ajax({
-        url: "/api/product_type",
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            $('#product_type').empty();
-            $.each(data, function (i, v) {
-                $('#product_type').append(
-                    "<option value='" + v.id + "'>" + v.name + "</option>"
-                );
-            });
-        }
-    });
-};
 

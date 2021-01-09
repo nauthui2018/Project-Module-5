@@ -1,5 +1,5 @@
 var warehouses = {} || warehouses;
-var list_warehouse = [];
+var listWarehouse = [];
 
 warehouses.init = function () {
     warehouses.intTable();
@@ -54,17 +54,12 @@ warehouses.intTable = function () {
         destroy: true,
         "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
         ajax: {
-            url: 'http://localhost:8080/api/warehouse/',
+            url: "/api/user/warehouse/",
             method: "GET",
             datatype: "json",
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">", orderable: false,
-                "render":function () {
-                    return '<input type="checkbox" class="flat" name="table_records">';
-                }
-            },
             { data: "id", name: "id", title: "ID Kho", orderable: false},
             { data: "name", name : "name" , title: "Tên kho", sortable: true},
             { data: "description", name: "description", title: "Mô tả", orderable: true},
@@ -82,7 +77,7 @@ warehouses.intTable = function () {
 
 warehouses.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/warehouse/" + id,
+        url: "/api/user/warehouse/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -107,7 +102,7 @@ warehouses.save = function () {
         warehouse.description = $('#description').val();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/warehouse",
+                url: "/api/user/warehouse",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -126,7 +121,7 @@ warehouses.save = function () {
         } else {
             warehouse.id = $('#id').val();
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/warehouse/",
+                url: "/api/user/warehouse/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -164,7 +159,7 @@ warehouses.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/warehouse/" + id,
+                    url: "/api/user/warehouse/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });
@@ -182,11 +177,11 @@ warehouses.delete = function (id) {
 
 warehouses.listWarehouse = function () {
     $.ajax({
-        url: "http://localhost:8080/api/warehouse",
+        url: "/api/user/warehouse",
         method: "GET",
         dataType: "json",
         success: function (data) {
-            list_warehouse = data;
+            listWarehouse = data;
             $.each(data, function (i, v) {
                 $('#warehouse').append(
                     `<option value='${v.id}'>${v.name}</option>`
@@ -197,9 +192,9 @@ warehouses.listWarehouse = function () {
 }
 
 warehouses.findById = function (id) {
-    for (let i = 0; i < list_warehouse.length; i++) {
-        if (id === list_warehouse[i].id) {
-            return list_warehouse[i];
+    for (let i = 0; i < listWarehouse.length; i++) {
+        if (id === listWarehouse[i].id) {
+            return listWarehouse[i];
         }
     }
     return null;

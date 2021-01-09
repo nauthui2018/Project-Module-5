@@ -1,5 +1,5 @@
 var product_types = {} || product_types;
-var list_product_type = [];
+var listProductType = [];
 
 product_types.init = function () {
     product_types.intTable();
@@ -62,19 +62,14 @@ $.validator.addMethod(
 product_types.intTable = function () {
     $("#datatables").DataTable({
         destroy: true,
-        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
         ajax: {
-            url: 'http://localhost:8080/api/product_type/',
+            url: "/api/user/product_type/",
             method: "GET",
             datatype: "json",
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">", orderable: false,
-                "render":function () {
-                    return '<input type="checkbox" class="flat" name="table_records">';
-                }
-            },
             { data: "id", name: "ID", title: "ID", orderable: false},
             { data: "name", name: "Dòng sản phẩm", title: "Dòng sản phẩm", orderable: true},
             { data: "wholesale_quantity", name: "Số lượng bán sỉ", title: "Số lượng bán sỉ", orderable: true},
@@ -92,7 +87,7 @@ product_types.intTable = function () {
 
 product_types.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/product_type/" + id,
+        url: "/api/user/product_type/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -119,7 +114,7 @@ product_types.save = function () {
         product_type.deleted = $('#deleted').val();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/product_type",
+                url: "/api/user/product_type",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -137,7 +132,7 @@ product_types.save = function () {
             });
         } else {
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/product_type/",
+                url: "/api/user/product_type/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -176,7 +171,7 @@ product_types.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/product_type/" + id,
+                    url: "/api/user/product_type/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });
@@ -194,11 +189,11 @@ product_types.delete = function (id) {
 
 product_types.listProductType = function () {
     $.ajax({
-        url: "http://localhost:8080/api/product_type",
+        url: "/api/user/product_type",
         method: "GET",
         dataType: "json",
         success: function (data) {
-            list_product_type = data;
+            listProductType = data;
             $.each(data, function (i, v) {
                 $('#product_type').append(
                     `<option value='${v.id}'>${v.name}</option>`
@@ -209,9 +204,9 @@ product_types.listProductType = function () {
 }
 
 product_types.findById = function (id) {
-    for (let i = 0; i < list_product_type.length; i++) {
-        if (id === list_product_type[i].id) {
-            return list_product_type[i];
+    for (let i = 0; i < listProductType.length; i++) {
+        if (id === listProductType[i].id) {
+            return listProductType[i];
         }
     }
     return null;

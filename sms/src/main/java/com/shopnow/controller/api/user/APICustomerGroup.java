@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/customer_group")
+@RequestMapping(value = "/api/user/customer_group")
 public class APICustomerGroup {
     @Autowired
     CustomerGroupService customerGroupService;

@@ -1,5 +1,5 @@
 var suppliers = {} || suppliers;
-var list_supplier = [];
+var listSupplier = [];
 
 $(document).ready(function () {
     suppliers.init();
@@ -18,11 +18,11 @@ suppliers.addNew = function () {
 
 suppliers.listSupplier = function () {
     $.ajax({
-        url: "http://localhost:8080/api/supplier",
+        url: "/api/user/supplier",
         method: "GET",
         dataType: "json",
         success: function (data) {
-            list_supplier = data;
+            listSupplier = data;
             $.each(data, function (i, v) {
                 $('#supplier').append(
                     `<option value='${v.id}'>${v.name}</option>`
@@ -33,9 +33,9 @@ suppliers.listSupplier = function () {
 }
 
 suppliers.findById = function (id) {
-    for (let i = 0; i < list_supplier.length; i++) {
-        if (id === list_supplier[i].id) {
-            return list_supplier[i];
+    for (let i = 0; i < listSupplier.length; i++) {
+        if (id === listSupplier[i].id) {
+            return listSupplier[i];
         }
     }
     return null;
@@ -81,19 +81,14 @@ $.validator.addMethod(
 suppliers.intTable = function () {
     $("#datatables").DataTable({
         destroy: true,
-        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
         ajax: {
-            url: 'http://localhost:8080/api/supplier/',
+            url: "/api/user/supplier/",
             method: "GET",
             datatype: "json",
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">", orderable: false,
-                "render":function () {
-                    return '<input type="checkbox" class="flat" name="table_records">';
-                }
-            },
             { data: "id", name: "ID", title: "ID", orderable: false},
             { data: "supplier_name", name: "supplier_name", title: "Nhà cung cấp", orderable: true},
             { data: "supplier_phone", name: "supplier_phone", title: "Số điện thoại", orderable: false},
@@ -112,7 +107,7 @@ suppliers.intTable = function () {
 
 suppliers.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/supplier/" + id,
+        url: "/api/user/supplier/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -141,7 +136,7 @@ suppliers.save = function () {
         supplier.supplier_address = $('#supplier_address').val();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/supplier",
+                url: "/api/user/supplier",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -160,7 +155,7 @@ suppliers.save = function () {
         } else {
             supplier.id = $('#id').val();
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/supplier/",
+                url: "/api/user/supplier/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -198,7 +193,7 @@ suppliers.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/supplier/" + id,
+                    url: "/api/user/supplier/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });

@@ -1,4 +1,5 @@
 var stock_checks = {} || stock_checks;
+var listStockCheck = [];
 
 stock_checks.init = function () {
     stock_checks.intTable();
@@ -49,19 +50,14 @@ $.validator.addMethod(
 stock_checks.intTable = function () {
     $("#datatables").DataTable({
         destroy: true,
-        "lengthMenu": [[5, 10, 20, 50, -1], [5, 10, 20, 50, "All"]],
+        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
         ajax: {
-            url: 'http://localhost:8080/api/stock_check/',
+            url: "/api/user/stock_check/",
             method: "GET",
             datatype: "json",
             dataSrc: ""
         },
         columns: [
-            { data: null, name: "Checkbox", title: "<input type=\"checkbox\" id=\"check-all\" class=\"flat\">",
-                "render":function () {
-                    return '<input type="checkbox" class="flat" name="table_records">';
-                }
-            },
             { data: "id", name: "ID", title: "ID", sortable: false},
             { data: "warehouse.name", name: "warehouse", title: "Tên kho hàng", sortable: true},
             { data: "creating_date", name: "creating_date", title: "Ngày tạo phiếu kiểm", sortable: true},
@@ -83,7 +79,7 @@ stock_checks.intTable = function () {
 
 stock_checks.get = function (id) {
     var ajaxGet = $.ajax({
-        url: "http://localhost:8080/api/stock_check/" + id,
+        url: "/api/user/stock_check/" + id,
         method: "GET",
         dataType: "json"
     });
@@ -110,7 +106,7 @@ stock_checks.save = function () {
         stock_check.deleted = $('#deleted').val();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
-                url: "http://localhost:8080/api/stock_check",
+                url: "/api/user/stock_check",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -128,7 +124,7 @@ stock_checks.save = function () {
             });
         } else {
             var ajaxUpdate = $.ajax({
-                url: "http://localhost:8080/api/stock_check/",
+                url: "/api/user/stock_check/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -166,7 +162,7 @@ stock_checks.delete = function (id) {
         callback: function (result) {
             if (result) {
                 var ajaxDelete = $.ajax({
-                    url: "http://localhost:8080/api/stock_check/" + id,
+                    url: "/api/user/stock_check/" + id,
                     method: "DELETE",
                     dataType: "json"
                 });
@@ -180,5 +176,30 @@ stock_checks.delete = function (id) {
             }
         }
     })
+}
+
+stock_checks.listStockCheck = function () {
+    $.ajax({
+        url: "/api/user/stock_check",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            listStockCheck = data;
+            $.each(data, function (i, v) {
+                $('#stock_check').append(
+                    `<option value='${v.id}'>${v.name}</option>`
+                );
+            });
+        }
+    });
+}
+
+stock_checks.findById = function (id) {
+    for (let i = 0; i < listStockCheck.length; i++) {
+        if (id === listStockCheck[i].id) {
+            return listStockCheck[i];
+        }
+    }
+    return null;
 }
 
