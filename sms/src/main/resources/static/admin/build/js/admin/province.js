@@ -3,7 +3,7 @@ var provinces = {} || provinces;
 provinces.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: '/admin/api/province/',
+            url: '/api/admin/province/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -43,7 +43,7 @@ provinces.resetForm = function () {
 provinces.get = function (id) {
     console.log('get :' + id);
     $.ajax({
-        url: "/admin/api/province/" + id,
+        url: "/api/admin/province/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (data) {
@@ -64,7 +64,7 @@ provinces.save = function () {
             provinceObj.name = $('#name').val();
 
             $.ajax({
-                url: "/admin/api/province/",
+                url: "/api/admin/province/",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -84,7 +84,7 @@ provinces.save = function () {
             provinceObj.name = $('#name').val();
             provinceObj.id = $('#id').val();
             $.ajax({
-                url: "/admin/api/province/",
+                url: "/api/admin/province/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -120,7 +120,7 @@ provinces.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "/admin/api/province/" + id,
+                    url: "/api/admin/province/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {

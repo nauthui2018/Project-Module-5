@@ -3,7 +3,7 @@ var lineOfBusinesses = {} || lineOfBusinesses;
 lineOfBusinesses.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: '/admin/api/lob/',
+            url: '/api/admin/lob/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -43,7 +43,7 @@ lineOfBusinesses.resetForm = function () {
 lineOfBusinesses.get = function (id) {
     console.log('get :' + id);
     $.ajax({
-        url: "/admin/api/lob/" + id,
+        url: "/api/admin/lob/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (data) {
@@ -64,7 +64,7 @@ lineOfBusinesses.save = function () {
             lobObj.name = $('#name').val();
 
             $.ajax({
-                url: "/admin/api/lob/",
+                url: "/api/admin/lob/",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -84,7 +84,7 @@ lineOfBusinesses.save = function () {
             lobObj.name = $('#name').val();
             lobObj.id = $('#id').val();
             $.ajax({
-                url: "/admin/api/lob/",
+                url: "/api/admin/lob/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -120,7 +120,7 @@ lineOfBusinesses.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "/admin/api/lob/" + id,
+                    url: "/api/admin/lob/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {

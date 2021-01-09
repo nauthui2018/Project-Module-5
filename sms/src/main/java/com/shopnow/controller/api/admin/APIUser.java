@@ -7,12 +7,13 @@ import com.shopnow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "admin/api/user")
+@RequestMapping(value = "/api/admin/user")
 public class APIUser {
     @Autowired
     UserService userService;
@@ -27,6 +28,11 @@ public class APIUser {
 
     @PostMapping
     public ResponseEntity<User> saveUser(@RequestBody User user) {
+        User userCheck = userService.findByEmail(user.getEmail());
+        if(userCheck!=null){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -34,6 +40,11 @@ public class APIUser {
     @PostMapping(value = "/{email}")
     public ResponseEntity<User> saveUserByShop(@RequestBody User user, @PathVariable("email") String email) {
         Shop shop= shopService.findByEmail(email);
+        User userCheck = userService.findByEmail(email);
+        if(userCheck!=null){
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setShop(shop);
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);

@@ -39,7 +39,11 @@
                                         <h6>Giới tính</h6>
                                         <div class="info-detail" th:text="${user.user_gender}"></div>
                                         <h6>Role</h6>
-                                        <div class="info-detail" th:text="${user.role}"></div>
+                                        <div th:switch="${user.role}">
+                                            <div th:case="'ADMIN'" class="info-detail">Quản trị website</div>
+                                            <div th:case="'SHOP_OWNER'" class="info-detail">Chủ shop</div>
+                                            <div th:case="'USER'" class="info-detail">Nhân viên của shop</div>
+                                        </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <h6>Email</h6>
@@ -47,16 +51,29 @@
                                         <h6>Ngày sinh</h6>
                                         <div class="info-detail" th:text="${user.dob}"></div>
                                         <h6>Tỉnh thành</h6>
-                                        <div class="info-detail" th:text="${user.province.name}"></div>
+                                        <div th:switch="${user.province}">
+                                            <div th:case="null" class="info-detail">Chưa có tỉnh thành</div>
+                                            <div th:case="*" class="info-detail" th:text="${user.province.name}"></div>
+                                        </div>
                                         <h6>CMND</h6>
                                         <div class="info-detail" th:text="${user.personal_code}"></div>
                                         <h6>Shop</h6>
-                                        <div class="info-detail" th:text="${user.shop.shop_name}"></div>
+                                        <div th:switch="${user.shop}">
+                                            <div th:case="null" class="info-detail">Không thuộc Shop nào trong hệ thống</div>
+                                            <div th:case="*" class="info-detail" th:text="${user.shop.shop_name}"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a th:onclick="|users.remove(${user.id})|" class="btn btn-danger">Xóa</a>
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="/admin/registers" class="btn btn-primary">Quay lại</a>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a th:onclick="|users.remove(${user.id})|" class="btn btn-danger">Xóa</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
