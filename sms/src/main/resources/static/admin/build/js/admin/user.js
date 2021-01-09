@@ -3,7 +3,7 @@ var users = {} || users;
 users.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: '/admin/api/user/',
+            url: '/api/admin/user/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -25,8 +25,11 @@ users.intTable = function () {
                 data: "role", name: "Role", title: "Role", orderable: false
             },
             {
-                data: "shop", name: "Shop", title: "Shop", orderable: true, "render":function (data){
-                    return `${data.shop_name}`;
+                data: "shop", name: "Shop", title: "Shop", orderable: true, "render": function (data) {
+                    if (data != null)
+                        return `${data.shop_name}`;
+                    else
+                        return 'Quản trị Website';
                 }
             },
             {
@@ -53,6 +56,7 @@ users.resetForm = function () {
     $('#password').val('');
     $('#confirm_password').val('');
     $('#role').val('');
+    $('#shop').prop('disable',false);
     $('#shop').val('');
     $("#formAddEdit").validate().resetForm();
     myInput.onkeyup();
@@ -60,33 +64,30 @@ users.resetForm = function () {
 
 users.save = function () {
     if ($("#formAddEdit").valid()) {
-            var userObj = {};
-            userObj.email = $('#email').val();
-            userObj.password = $('#password').val();
-            userObj.role = $('#role').val();
-            var shop = {}
-            shop.id=$('#shop').val();
-            userObj.shop = shop;
-            var province={}
-            province.id=$('#province').val();
-            userObj.province=province;
-            $.ajax({
-                url: "/admin/api/user/",
-                method: "POST",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(userObj)
-            }).done(function () {
-                myInput.onkeyup();
-                $('#modalAddEdit').modal('hide');
-                $("#datatables").DataTable().ajax.reload();
-                toastr.info('Thêm thành công', 'INFORMATION:')
-            }).fail(function () {
-                $('#modalAddEdit').modal('hide');
-                $("#datatables").DataTable().ajax.reload();
-                toastr.error('Thêm không thành công', 'INFORMATION:')
+        var userObj = {};
+        userObj.email = $('#email').val();
+        userObj.password = $('#password').val();
+        userObj.role = $('#role').val();
+        var shop = {}
+        shop.id = $('#shop').val();
+        userObj.shop = shop;
+        $.ajax({
+            url: "/api/admin/user/",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(userObj)
+        }).done(function () {
+            myInput.onkeyup();
+            $('#modalAddEdit').modal('hide');
+            $("#datatables").DataTable().ajax.reload();
+            toastr.info('Thêm thành công', 'INFORMATION:')
+        }).fail(function () {
+            $('#modalAddEdit').modal('hide');
+            $("#datatables").DataTable().ajax.reload();
+            toastr.error('Thêm không thành công', 'INFORMATION:')
 
-            });
+        });
         return false;
     }
 }
@@ -107,7 +108,7 @@ users.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "/admin/api/user/" + id,
+                    url: "/api/admin/user/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {
@@ -143,9 +144,9 @@ users.remove = function (id) {
                     dataType: "json"
                 }).done(function () {
                     console.log("DELETE SUCCESS");
-                    setTimeout(function() {
-                        location.href ="/admin/registers"
-                    },1000);
+                    setTimeout(function () {
+                        location.href = "/admin/registers"
+                    }, 1000);
                     toastr.info('Xóa thành công!', 'INFORMATION:')
                 }).fail(function () {
                     toastr.error('Xóa không thành công!', 'INFORMATION:')
@@ -156,9 +157,9 @@ users.remove = function (id) {
 }
 
 users.initValidation = function () {
-    $.validator.addMethod("PASSWORD",function(value,element){
-            return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
-        },"Mật khẩu phải ít nhất 8 ký tự, phải bao gồm chữ cái in hoa, in thường và số");
+    $.validator.addMethod("PASSWORD", function (value, element) {
+        return this.optional(element) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+    }, "Mật khẩu phải ít nhất 8 ký tự, phải bao gồm chữ cái in hoa, in thường và số");
     $("#formAddEdit").validate({
         rules: {
             email: {
@@ -172,7 +173,10 @@ users.initValidation = function () {
             confirm_password: {
                 required: true,
                 equalTo: "#password"
-            }
+            },
+            role: {
+                required: true
+            },
         },
         messages: {
             email: {
@@ -180,40 +184,34 @@ users.initValidation = function () {
                 maxlength: 150
             },
             password: {
-                required:"Vui lòng nhập Mật khẩu"
+                required: "Vui lòng nhập Mật khẩu"
             },
             confirm_password: {
                 required: "Vui lòng nhập xác nhận Mật khẩu",
                 equalTo: "Không khớp với mật khẩu ở trên"
-            }
+            },
+            role: {
+                required: "Vui lòng nhập chọn Quyền của User",
+            },
+            shop: {
+                required: "Vui lòng nhập chọn Shop của User",
+            },
         }
     });
 }
 
-users.initProvince = function () {
-    $.ajax({
-        url: "/admin/api/province/",
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            $('#province').empty();
-            $.each(data, function (i, v) {
-                $('#province').append(
-                    `<option value='${v.id}'>${v.name}</option>`
-                );
-            });
-        }
-    });
-};
-
 users.initShop = function () {
     $.ajax({
-        url: "/admin/api/shop/",
+        url: "/api/admin/shop/",
         method: "GET",
         dataType: "json",
         success: function (data) {
             $('#shop').empty();
+            $('#shop').append(
+                `<option value="">Chọn Shop</option>`
+            );
             $.each(data, function (i, v) {
+
                 $('#shop').append(
                     `<option value='${v.id}'>${v.shop_name}</option>`
                 );
@@ -225,7 +223,6 @@ users.initShop = function () {
 users.init = function () {
     users.intTable();
     users.initValidation();
-    users.initProvince();
     users.initShop();
 }
 
@@ -233,25 +230,24 @@ $(document).ready(function () {
     users.init();
 });
 
-
 var myInput = document.getElementById("password");
 var letter = document.getElementById("letter");
 var capital = document.getElementById("capital");
 var number = document.getElementById("number");
 var length = document.getElementById("length");
 
-myInput.onfocus = function() {
+myInput.onfocus = function () {
     document.getElementById("message").style.display = "block";
 }
 
-myInput.onblur = function() {
+myInput.onblur = function () {
     document.getElementById("message").style.display = "none";
 }
 
-myInput.onkeyup = function() {
+myInput.onkeyup = function () {
     // Validate lowercase letters
     var lowerCaseLetters = /[a-z]/g;
-    if(myInput.value.match(lowerCaseLetters)) {
+    if (myInput.value.match(lowerCaseLetters)) {
         letter.classList.remove("invalid");
         letter.classList.add("validated");
     } else {
@@ -261,7 +257,7 @@ myInput.onkeyup = function() {
 
     // Validate capital letters
     var upperCaseLetters = /[A-Z]/g;
-    if(myInput.value.match(upperCaseLetters)) {
+    if (myInput.value.match(upperCaseLetters)) {
         capital.classList.remove("invalid");
         capital.classList.add("validated");
     } else {
@@ -271,7 +267,7 @@ myInput.onkeyup = function() {
 
     // Validate numbers
     var numbers = /[0-9]/g;
-    if(myInput.value.match(numbers)) {
+    if (myInput.value.match(numbers)) {
         number.classList.remove("invalid");
         number.classList.add("validated");
     } else {
@@ -280,7 +276,7 @@ myInput.onkeyup = function() {
     }
 
     // Validate length
-    if(myInput.value.length >= 8) {
+    if (myInput.value.length >= 8) {
         length.classList.remove("invalid");
         length.classList.add("validated");
     } else {
@@ -288,3 +284,14 @@ myInput.onkeyup = function() {
         length.classList.add("invalid");
     }
 }
+
+$('#role').on('change', function () {
+    if(this.value=="ADMIN"){
+        $('#shop').val(null);
+        $( "#shop" ).prop( "disabled", true );
+        $("#shop").prop("required", false);
+    } else {
+        $("#shop").prop("disabled", false);
+        $("#shop").prop("required", true);
+    }
+});

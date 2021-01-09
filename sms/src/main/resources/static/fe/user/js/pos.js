@@ -66,7 +66,7 @@ customers.save = function () {
         customer.gender = $('#gender').val();
         customer.deleted = $('#deleted').val();
         var ajaxAdd = $.ajax({
-            url: "/api/customer",
+            url: "/api/user/customer",
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -141,7 +141,7 @@ customers.initValidation = function () {
 
 customers.listCustomerGroup = function () {
     $.ajax({
-        url: "/api/customer_group",
+        url: "/api/user/customer_group",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -158,7 +158,7 @@ customers.listCustomerGroup = function () {
 var listCustomer = [];
 customers.initListCustomer = function () {
     $.ajax({
-        url: "/api/customer",
+        url: "/api/user/customer",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -199,7 +199,7 @@ var listProduct = [];
 
 pos.initListProduct = function () {
     $.ajax({
-        url: "/api/product",
+        url: "/api/user/product",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -367,6 +367,7 @@ function printElement() {
     setTimeout(() => {
         $('#print-invoice').modal('hide')
     }, 100);
+    saveInvoice();
 }
 
 
@@ -384,7 +385,7 @@ function saveInvoice() {
     invoice.discount = parseToNumber($('#discount').val());
     invoice.total_amount = parseToNumber($('#totalFinal').html());
     var saveBill = $.ajax({
-        url: "/api/invoice",
+        url: "/api/user/invoice",
         method: "POST",
         dataType: "json",
         contentType: "application/json",
@@ -411,7 +412,7 @@ function saveInvoiceDetail(invoice) {
         invoiceDetail.amount = e.amount;
         invoiceDetail.invoice = invoiceObj;
         var saveInvoiceDetail = $.ajax({
-            url: "/api/invoiceDetail",
+            url: "/api/user/invoiceDetail",
             method: "POST",
             dataType: "json",
             contentType: "application/json",

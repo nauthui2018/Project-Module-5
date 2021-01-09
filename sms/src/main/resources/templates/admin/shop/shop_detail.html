@@ -69,7 +69,14 @@
                                 </th:block>
                             </table>
                         </div>
-                        <a th:onclick="|shops.remove(${shop.id})|" class="btn btn-danger">Xóa</a>
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="/admin/shops" class="btn btn-primary">Quay lại</a>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a th:onclick="|shops.remove(${shop.id})|" class="btn btn-danger">Xóa</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

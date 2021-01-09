@@ -25,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User object) {
+        if(object.getRole().equalsIgnoreCase("ADMIN")){
+            object.setShop(null);
+        }
         return userRepository.save(object);
     }
 
@@ -32,9 +35,16 @@ public class UserServiceImpl implements UserService {
     public boolean deleteById(Long id) {
         User user = findById(id);
         if (user != null) {
+            if (user.getRole().equalsIgnoreCase("ADMIN")) {
+                user.setDeleted(true);
+                userRepository.save(user);
+                return true;
+            }
+
             Shop shop = user.getShop();
             int countShopOwner=0;
             Set<User> userList = shop.getUsers();
+
 
             for(User userItem: userList){
                 if(userItem.getRole().equalsIgnoreCase("shop_owner")){

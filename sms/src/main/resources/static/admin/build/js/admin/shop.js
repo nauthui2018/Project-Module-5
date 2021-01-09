@@ -3,7 +3,7 @@ var shops = {} || shops;
 shops.intTable = function () {
     $("#datatables").DataTable({
         ajax: {
-            url: '/admin/api/shop/',
+            url: '/api/admin/shop/',
             method: "GET",
             datatype: "json",
             dataSrc: ""
@@ -65,7 +65,7 @@ shops.resetForm = function () {
 shops.get = function (id) {
     console.log('get :' + id);
     $.ajax({
-        url: "/admin/api/shop/" + id,
+        url: "/api/admin/shop/" + id,
         method: "GET",
         dataType: "json"
     }).done(function (data) {
@@ -100,7 +100,7 @@ shops.save = function () {
             lob.id = $('#lineOfBusiness').val();
             shopObj.lineOfBusiness = lob;
             var addShop=$.ajax({
-                url: "/admin/api/shop",
+                url: "/api/admin/shop",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -124,7 +124,7 @@ shops.save = function () {
                 user.role = 'SHOP_OWNER';
                 user.province=province;
                 var addUser = $.ajax({
-                    url: "/admin/api/user/" + user.email,
+                    url: "/api/admin/user/" + user.email,
                     method: "POST",
                     dataType: "json",
                     contentType: "application/json",
@@ -158,7 +158,7 @@ shops.save = function () {
             shopObj.lineOfBusiness = lob;
             shopObj.id = $('#id').val();
             $.ajax({
-                url: "/admin/api/shop/",
+                url: "/api/admin/shop/",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -199,7 +199,7 @@ shops.delete = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "/admin/api/shop/" + id,
+                    url: "/api/admin/shop/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {
@@ -306,7 +306,7 @@ shops.initValidation = function () {
 
 shops.initProvince = function () {
     $.ajax({
-        url: "/admin/api/province/",
+        url: "/api/admin/province/",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -322,7 +322,7 @@ shops.initProvince = function () {
 
 shops.initUser = function () {
     $.ajax({
-        url: "/admin/api/user/",
+        url: "/api/admin/user/",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -338,7 +338,7 @@ shops.initUser = function () {
 
 shops.initLineOfBusiness = function () {
     $.ajax({
-        url: "/admin/api/lob/",
+        url: "/api/admin/lob/",
         method: "GET",
         dataType: "json",
         success: function (data) {
