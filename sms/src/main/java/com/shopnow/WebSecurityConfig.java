@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         //check login
         auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("SELECT email, password, user_fullname as username, user_avatar as avatar, enable FROM users WHERE email = ?")
+                .usersByUsernameQuery("SELECT email, password, enable FROM users WHERE email = ?")
                 .authoritiesByUsernameQuery("SELECT  email, concat('ROLE_',role) as roles FROM users WHERE email = ?")
                 .passwordEncoder(encoder());
     }
@@ -38,9 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Các trang không yêu cầu login như vậy ai cũng có thể vào được admin hay user hoặc guest có thể vào các trang
         http.authorizeRequests().antMatchers("/", "/login/**", "/logout/**").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/user/**","/api/user/**").hasAnyRole("USER","SHOP_OWNER")
+                .authorizeRequests().antMatchers("/user/**").hasAnyRole("USER","SHOP_OWNER")
                 .and()
-                .authorizeRequests().antMatchers("/admins/**","/api/admin/**").hasRole("ADMIN")
+                .authorizeRequests().antMatchers("/admins/**").hasRole("ADMIN")
+                .and()
+                .authorizeRequests().antMatchers("/api/**").hasAnyRole("USER","SHOP_OWNER","ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")

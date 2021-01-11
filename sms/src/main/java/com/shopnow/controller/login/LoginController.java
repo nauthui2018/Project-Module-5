@@ -21,7 +21,7 @@ public class LoginController {
     @GetMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request) {
         if (request.isUserInRole("ADMIN")) {
-            return "redirect:/admin/";
+            return "redirect:/admins/";
         } else {
             return "redirect:/user/";
         }
