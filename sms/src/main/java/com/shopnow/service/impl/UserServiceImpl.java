@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         User user = findById(id);
         if (user != null) {
             if (user.getRole().equalsIgnoreCase("ADMIN")) {
-                user.setDeleted(true);
+                user.setEnable(false);
                 userRepository.save(user);
                 return true;
             }
@@ -53,14 +53,14 @@ public class UserServiceImpl implements UserService {
             }
 
             if (!user.getRole().equalsIgnoreCase("shop_owner")) {
-                user.setDeleted(true);
+                user.setEnable(false);
                 userRepository.save(user);
                 return true;
             } else if (user.getRole().equalsIgnoreCase("shop_owner")&&countShopOwner==1) {
                 shopService.delete(shop);
                 return true;
             } else if(user.getRole().equalsIgnoreCase("shop_owner")&&countShopOwner>1){
-                user.setDeleted(true);
+                user.setEnable(false);
                 userRepository.save(user);
                 return true;
             }

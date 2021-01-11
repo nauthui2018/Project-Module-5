@@ -43,7 +43,7 @@ public class ShopServiceImpl implements ShopService {
         if(shop!=null){
             List<User> users = userService.findAllByShop(shop);
             for (User user: users) {
-                user.setDeleted(true);
+                user.setEnable(false);
                 userService.save(user);
             }
             shop.setDeleted(true);
@@ -57,7 +57,7 @@ public class ShopServiceImpl implements ShopService {
     public boolean delete(Shop shop){
         List<User> users = userService.findAllByShop(shop);
         for (User user: users) {
-            user.setDeleted(true);
+            user.setEnable(false);
             userService.save(user);
         }
         shop.setDeleted(true);

@@ -30,10 +30,14 @@
 
     <!--====== Style CSS ======-->
     <link rel="stylesheet" href="/fe/ui/assets/css/style.css">
+    <link rel="stylesheet" href="/fe/ui/assets/css/custom.css">
 
     <!--====== Font Awesome ======-->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <!--    Toastr-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
 </head>
 
 <body>
@@ -87,7 +91,7 @@
 
                     <div class="navbar-btn d-none d-sm-inline-block">
                         <ul>
-                            <li><a class="solid" data-toggle="modal" data-target="#pos-login">Đăng nhập</a></li>
+                            <li><a class="solid" href="/login">Đăng nhập</a></li>
                         </ul>
                     </div>
                 </nav> <!-- navbar -->
@@ -119,7 +123,7 @@
                                 <ul class="slider-btn rounded-buttons">
                                     <li><a class="main-btn rounded-one" data-toggle="modal" data-target="#myModal">ĐĂNG
                                         KÝ</a></li>
-                                    <li><a class="main-btn rounded-two" data-toggle="modal" data-target="#pos-login">ĐĂNG
+                                    <li><a class="main-btn rounded-two" href="/login">ĐĂNG
                                         NHẬP</a></li>
                                 </ul>
                             </div>
@@ -181,10 +185,10 @@
         </div>
 
         <a class="carousel-control-prev" href="#carouselThree" role="button" data-slide="prev">
-            <i class="lni lni-arrow-left"></i>
+            <i class="fas fa-chevron-left"></i>
         </a>
         <a class="carousel-control-next" href="#carouselThree" role="button" data-slide="next">
-            <i class="lni lni-arrow-right"></i>
+            <i class="fas fa-chevron-right"></i>
         </a>
     </div>
 </section>
@@ -194,8 +198,8 @@
 <!--====== MODAL SIGN UP ======-->
 <div id="myModal" class="modal fade modal-register modal-register-default" role="dialog" aria-modal="true"
      style="padding-right: 17px; display: block; background-color: rgba(0, 0, 0, 0.6); padding-top: 6%; ">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="shops.resetForm()">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
              viewBox="0 0 512.001 512.001" xml:space="preserve"><g><path d="M284.286,256.002L506.143,34.144c7.811-7.811,
                      7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717 L34.143,
                      5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,
@@ -209,20 +213,22 @@
                 <img src="fe/ui/assets/images/roof-store.png">
             </div>
             <div class="modal-body"><h2>Đăng ký ngay</h2>
-                <form th:action="@{admin/registers}" id="trialForm" autocomplete="off"
+                <form th:action="@{/sign-in}" id="trialForm" autocomplete="off"
                       class="form-request" method="POST" th:object="${user}"
                       accept-charset="UTF-8">
                     <ul class="register-form-error"></ul>
                     <div class="form-group mdc-text-field">
                         <input type="text" maxlength="60" id="user_fullname" class="form-control form-input" name="user_fullname"
-                               required="required" placeholder="Họ tên của bạn" th:field="*{user_fullname}">
+                               required="required" th:field="*{user_fullname}">
+                        <label>Họ tên của bạn</label>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mdc-text-field">
                                 <input type="tel" maxlength="15"
                                        id="user_phone" class="form-control form-input" name="user_phone"
-                                       required="required" placeholder="Số điện thoại của bạn" th:field="*{user_phone}">
+                                       required="required" th:field="*{user_phone}">
+                                <label>Số điện thoại của bạn</label>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -230,7 +236,8 @@
                                 <input type="email"
                                        pattern="^([a-zA-Z0-9_\-\.\+]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
                                        maxlength="50" id="email" class="form-control form-input valid"
-                                       name="email" required="required" placeholder="Email đăng ký" th:field="*{email}">
+                                       name="email" required="required" th:field="*{email}">
+                                <label>Email đăng ký</label>
                             </div>
                         </div>
                     </div>
@@ -240,40 +247,46 @@
                                 <input type="text" pattern="^.{3,60}$" maxlength="60"
                                        id="shop_name" class="form-control form-input"
                                        name="shop_name" required="required"
-                                       title="Tên của hàng dài từ 3 đến 60 ký tự" placeholder="Tên cửa hàng của bạn">
+                                       title="Tên của hàng dài từ 3 đến 60 ký tự">
+                                <label>Tên cửa hàng của bạn</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mdc-text-field">
-                                <input type="password" pattern="^.{6,64}$" maxlength="64" id="Password"
+                                <input type="password" pattern="^.{6,64}$" maxlength="64" id="password"
                                        class="form-control form-input valid" name="password" required="required"
-                                       autocomplete="store-password" placeholder="Mật khẩu đăng nhập cửa hàng" th:field="*{password}">
+                                       autocomplete="store-password" th:field="*{password}">
+                                <label>Mật khẩu đăng nhập cửa hàng</label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group mdc-selectize">
-                                <select id="province" name="province" tabindex="-1" class="selectized">
+                            <div class="form-group mdc-text-field">
+                                <select id="province" name="province" required="required">
+                                    <option value=""></option>
                                     <th:block th:each="province : ${provinces}">
                                         <option th:value="${province.id}" th:text="${province.name}"></option>
                                     </th:block>
                                 </select>
+                                <label>Tỉnh thành</label>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group mdc-text-field mdc-select-field">
+                            <div class="form-group mdc-text-field">
                                 <select id="lob" name="lob" required="required">
+                                    <option value=""></option>
                                     <th:block th:each="lineOfBusiness: ${lineOfBusinesses}">
                                         <option th:value="${lineOfBusiness.id}"
                                                 th:text="${lineOfBusiness.name}"></option>
                                     </th:block>
                                 </select>
+                                <label>Mặt hàng kinh doanh</label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group mdc-text-field">
-                        <button type="submit" class="btn-registration"><span>Đăng ký</span>
+                        <button type="button" class="btn-registration" onclick="shops.save()"><span>Đăng ký</span>
                         </button>
                     </div>
                 </form>
@@ -282,54 +295,6 @@
     </div>
 </div>
 
-<!--====== MODAL LOG IN ======-->
-<div id="pos-login" class="modal fade modal-login" role="dialog" aria-modal="true"
-     style="padding-right: 17px; display: block; background-color: rgba(0, 0, 0, 0.6); padding-top: 6%;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close"></span>
-            </button>
-            <div class="modal-body login-form">
-                <h4 class="modal-title">
-                    <img th:src="@{${webInfo.logo2}}" height="40" class="fade show">
-                    <span>Đăng nhập vào cửa hàng của bạn</span>
-                </h4>
-                <form id="pos-login-form" method="post" action="">
-                    <div class="form-group margin-bottom errors">
-                        <ul class="has-error px-0"></ul>
-                    </div>
-                    <div class="form-login-info">
-                        <div class="form-group">
-                            <input class="form-input" data-val="true" data-val-required="Nhập vào Email"
-                                   data-val-email="Email không đúng định dạng" name="Email" placeholder="Địa chỉ email"
-                                   type="text" value="" aria-required="true" aria-invalid="true"
-                                   aria-describedby="Email-error">
-                            <div class="has-error padding-md-left padding-sm-top">
-                                <span class="help-block"><span class="help-block field-validation-valid"
-                                                               data-valmsg-for="Email"
-                                                               data-valmsg-replace="true"></span></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input name="Password" class="form-input" type="password" placeholder="Mật khẩu"
-                                   data-val-required="Nhập vào mật khẩu" aria-required="true" data-val="true"
-                                   data-val-length="Mật khẩu dài từ 6 đến 50 ký tự" data-val-length-max="50"
-                                   data-val-length-min="6">
-                            <div class="has-error padding-md-left padding-sm-top">
-                                <span class="help-block"><span class="help-block field-validation-valid"
-                                                               data-valmsg-for="Password"
-                                                               data-valmsg-replace="true"></span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center" style="clear:both">
-                        <button class="btn-registration" onclick="return loginPos();" type="button">Đăng nhập</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <!--====== ABOUT PART ======-->
 
 <section id="about" class="features-area">
@@ -421,7 +386,7 @@
 
 <!--====== BACK TOP TOP PART START ======-->
 
-<a href="#" class="back-to-top"><i class="lni lni-chevron-up"></i></a>
+<a href="#" class="back-to-top"><i class="fas fa-chevron-up"></i></a>
 
 <!--====== BACK TOP TOP PART ENDS ======-->
 
@@ -452,13 +417,18 @@
 
 <!--====== Main js ======-->
 <script src="/fe/ui/assets/js/main.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#myModal").hide();
-        $("#pos-login").hide();
-    })
+<script src="/fe/ui/assets/js/home.js"></script>
 
-</script>
+<!--    Validation-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"
+        integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg=="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.js"></script>
+
+<!--    Toastr-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

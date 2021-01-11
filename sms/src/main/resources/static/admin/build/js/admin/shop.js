@@ -33,9 +33,9 @@ shops.intTable = function () {
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = `<a href='javascript:' title='Sửa Shop' onclick='shops.get(${data})' data-toggle="modal" data-target="#modalAddEdit" style='color: orange'><i class="fas fa-edit"></i></a>
+                    var str = `
                         <a href='javascript:' title='Xóa Shop' onclick='shops.delete(${data})' style='color: red'><i class="fas fa-trash-alt"></i></a>
-                        <a href='/admin/shops/shop_detail/${data}' title='Xem chi tiết' style='color: blue'><i class="fas fa-eye"></i></a>`
+                        <a href='/admins/shops/shop_detail/${data}' title='Xem chi tiết' style='color: blue'><i class="fas fa-eye"></i></a>`
                     return str;
                 }
             }
@@ -56,8 +56,8 @@ shops.resetForm = function () {
     $('#phone').val('');
     $('#email').val('');
     $('#address').val('');
-    $('#province').val('Chọn tỉnh thành');
-    $('#lineOfBusiness').val('Chọn mặt hàng kinh doanh');
+    $('#province').val('');
+    $('#lineOfBusiness').val('');
     $("#formAddEdit").validate().resetForm();
 }
 
@@ -69,18 +69,21 @@ shops.get = function (id) {
         method: "GET",
         dataType: "json"
     }).done(function (data) {
-        $('#formAddEdit')[0].reset();
-        $('#modalTitle').html("Chỉnh sửa Shop");
-        $('#id').val(data.id);
-        $('#shop_name').val(data.shop_name);
-        $('#phone').val(data.phone);
-        $('#email').val(data.email);
-        $('#email').prop("disabled", true);
-        $('#address').val(data.address);
-        $('#province').val(data.province.id);
-        $('#lineOfBusiness').val(data.lineOfBusiness.id);
-        $('#modalAddEdit').modal('show');
-    }).fail(function () {
+            $('#formAddEdit')[0].reset();
+            $('#modalTitle').html("Chỉnh sửa Shop");
+            $('#id').val(data.id);
+            $('#shop_name').val(data.shop_name);
+            $('#phone').val(data.phone);
+            $('#email').val(data.email);
+            if (data.email != null) {
+                $('#email').prop("disabled", true);
+            } else $('#email').prop("disabled", false);
+            $('#address').val(data.address);
+            $('#province').val(data.province.id);
+            $('#lineOfBusiness').val(data.lineOfBusiness.id);
+            $('#modalAddEdit').modal('show');
+        }
+    ).fail(function () {
         toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
     });
 }
@@ -99,57 +102,36 @@ shops.save = function () {
             var lob = {};
             lob.id = $('#lineOfBusiness').val();
             shopObj.lineOfBusiness = lob;
-            var addShop=$.ajax({
+            var addShop = $.ajax({
                 url: "/api/admin/shop",
                 method: "POST",
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(shopObj)
             });
-            addShop.done(function () {
+            addShop.done(function (data) {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
                 toastr.info('Thêm Shop thành công', 'INFORMATION:')
+                setTimeout(() => {
+                    shops.addUser(data.id)
+                }, 500);
             });
-            addShop.fail(function () {
-                $('#modalAddEdit').modal('hide');
-                $("#datatables").DataTable().ajax.reload();
-                toastr.error('Thêm Shop không thành công', 'INFORMATION:')
-
+            addShop.fail(function (xhr) {
+                if (xhr.status == 404) {
+                    toastr.error('Email này đã được sử dụng', 'INFORMATION:')
+                }
             });
 
-            setTimeout(function() {
-                var user = {};
-                user.email = $('#email').val();
-                user.role = 'SHOP_OWNER';
-                user.province=province;
-                var addUser = $.ajax({
-                    url: "/api/admin/user/" + user.email,
-                    method: "POST",
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify(user)
-                });
-                addUser.done(function () {
-                    $('#modalAddEdit').modal('hide');
-                    $("#datatables").DataTable().ajax.reload();
-                    toastr.info('Thêm User thành công', 'INFORMATION:')
-                });
-                addUser.fail(function () {
-                    $('#modalAddEdit').modal('hide');
-                    $("#datatables").DataTable().ajax.reload();
-                    toastr.error('Thêm User không thành công', 'INFORMATION:')
-
-                });
-            },500);
         } else {
             var shopObj = {};
             shopObj.shop_name = $('#shop_name').val();
+            shopObj.email = $('#email').val();
             shopObj.phone = $('#phone').val();
             shopObj.address = $('#address').val();
             var user = {};
             user.id = $('#user').val();
-            shopObj.user=user;
+            shopObj.user = user;
             var province = {};
             province.id = $('#province').val();
             shopObj.province = province;
@@ -172,15 +154,38 @@ shops.save = function () {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
                 toastr.error('Cập nhật không thành công', 'INFORMATION:')
-
             });
         }
         return false;
     }
 }
 
-shops.findByShopId=function (id){
-
+shops.addUser = function (idShop) {
+    var province = {};
+    province.id = $('#province').val();
+    var user = {};
+    user.email = $('#email').val();
+    user.role = 'SHOP_OWNER';
+    user.province = province;
+    var shop = {}
+    shop.id = idShop;
+    user.shop = shop;
+    var addUser = $.ajax({
+        url: "/api/admin/user/",
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(user)
+    });
+    addUser.done(function () {
+        $("#datatables").DataTable().ajax.reload();
+        toastr.info('Thêm User thành công', 'INFORMATION:')
+    });
+    addUser.fail(function (xhr) {
+        if (xhr.status = 404) {
+            toastr.error('Email này đã được sử dụng', 'INFORMATION:')
+        }
+    });
 }
 
 shops.delete = function (id) {
@@ -230,14 +235,14 @@ shops.remove = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "/admin/shops/delete/" + id,
+                    url: "/admins/shops/delete/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {
                     console.log("DELETE SUCCESS");
-                    setTimeout(function() {
-                        location.href ="/admin/shops"
-                    },1000);
+                    setTimeout(function () {
+                        location.href = "/admins/shops"
+                    }, 1000);
                     toastr.info('Xóa thành công!', 'INFORMATION:')
                 }).fail(function () {
                     toastr.error('Xóa không thành công!', 'INFORMATION:')
@@ -287,7 +292,7 @@ shops.initValidation = function () {
             },
             email: {
                 required: "Vui lòng nhập Email",
-                maxlength:  "Không quá 60 ký tự"
+                maxlength: "Không quá 60 ký tự"
             },
             address: {
                 required: "Vui lòng nhập Địa chỉ",
@@ -311,6 +316,7 @@ shops.initProvince = function () {
         dataType: "json",
         success: function (data) {
             $('#province').empty();
+            $('#province').append(`<option value="">Chọn tỉnh thành</option>`);
             $.each(data, function (i, v) {
                 $('#province').append(
                     "<option value='" + v.id + "'>" + v.name + "</option>"
@@ -327,6 +333,7 @@ shops.initUser = function () {
         dataType: "json",
         success: function (data) {
             $('#user').empty();
+            $('#user').append(`<option value="">Chọn User</option>`);
             $.each(data, function (i, v) {
                 $('#user').append(
                     "<option value='" + v.id + "'>" + v.user_fullname + "</option>"
@@ -343,6 +350,7 @@ shops.initLineOfBusiness = function () {
         dataType: "json",
         success: function (data) {
             $('#lineOfBusiness').empty();
+            $('#lineOfBusiness').append(`<option value="">Chọn mặt hàng kinh doanh</option>`);
             $.each(data, function (i, v) {
                 $('#lineOfBusiness').append(
                     "<option value='" + v.id + "'>" + v.name + "</option>"

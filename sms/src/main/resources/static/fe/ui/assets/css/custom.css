@@ -1,0 +1,44 @@
+label.error{
+    position: absolute;
+    color: red !important;
+    top: 40px!important;
+    font-size: 13px !important;
+}
+
+.form-group{
+    position: relative !important;
+}
+
+label {
+    color: #999;
+    font-size: 14px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 21px;
+    top: 10px;
+    transition: 0.5s ease all;
+    -moz-transition: 0.5s ease all;
+    -webkit-transition: 0.5s ease all;
+}
+
+input:focus, input:valid, select:focus, select:valid{
+    padding: 20px 20px 5px 20px !important;
+}
+
+input:focus ~ label, select:focus ~ label,
+input:valid ~ label, select:valid ~ label,
+input:hover ~ label, select:hover ~ label {
+    top: -1px;
+    font-size: 14px;
+    color: #4285f4;
+}
+
+.form-control:focus, .form-control:hover {
+    border-color: #0e90d2 !important;
+    box-shadow: #3DA0DB 0px 5px 15px !important;
+}
+
+.btn-registration:hover{
+    box-shadow: blue 0px 5px 15px !important;
+}

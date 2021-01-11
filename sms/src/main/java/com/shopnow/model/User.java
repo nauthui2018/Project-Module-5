@@ -16,7 +16,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Where(clause = "deleted=false")
+@Where(clause = "enable=true")
 public class User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +39,7 @@ public class User{
     private ZonedDateTime starting_date=ZonedDateTime.now();
 
     private String role;
-    private boolean deleted = false;
+    private boolean enable = true;
 
     @ManyToOne
     @JoinColumn(name = "shop_id")

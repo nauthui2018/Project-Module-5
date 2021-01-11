@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
-@RequestMapping(value = "admin/registers")
+@RequestMapping(value = "admins/registers")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -33,24 +35,4 @@ public class UserController {
         return new ResponseEntity<>(userService.deleteById(id), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/sign_in")
-    public ModelAndView getViewRegister(){
-        return new ModelAndView("fe/login/register","user",new User());
-    }
-
-    @PostMapping
-    public String createUser(@ModelAttribute("user") User user, Model model){
-        //Ma hoa password
-        User userCheck = userService.findByEmail(user.getEmail());
-        if(userCheck!=null){
-            model.addAttribute("message", "User name already exists");
-            model.addAttribute("user",user);
-            return "fe/login/register";
-        }
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        user.setRole("SHOP_OWNER");
-        user.setDeleted(false);
-        userService.save(user);
-        return "fe/login/index";
-    }
 }

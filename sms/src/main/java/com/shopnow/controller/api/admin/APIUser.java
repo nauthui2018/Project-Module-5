@@ -27,25 +27,15 @@ public class APIUser {
     }
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
+    public ResponseEntity<User> saveUserByShop(@RequestBody User user) {
         User userCheck = userService.findByEmail(user.getEmail());
         if(userCheck!=null){
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        if(user.getPassword()==null){
+            user.setPassword("Pa$$w0rd!");
         }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/{email}")
-    public ResponseEntity<User> saveUserByShop(@RequestBody User user, @PathVariable("email") String email) {
-        Shop shop= shopService.findByEmail(email);
-        User userCheck = userService.findByEmail(email);
-        if(userCheck!=null){
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        user.setShop(shop);
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -67,5 +57,14 @@ public class APIUser {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Boolean> deleteUser(@PathVariable("id") Long id){
         return new ResponseEntity<>(userService.deleteById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/find/{email}")
+    public ResponseEntity<User> findUserByEmail(@PathVariable("email") String email){
+        User user = userService.findByEmail(email);
+        if(user!=null)
+        return new ResponseEntity<>(user, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 }

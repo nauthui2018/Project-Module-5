@@ -2,7 +2,6 @@ package com.shopnow.controller.admin;
 
 import com.shopnow.model.Shop;
 import com.shopnow.model.User;
-import com.shopnow.repository.UserRepository;
 import com.shopnow.service.ShopService;
 import com.shopnow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "admin/shops")
+@RequestMapping(value = "admins/shops")
 public class ShopController {
     @Autowired
     ShopService shopService;
