@@ -1,6 +1,5 @@
 let order_details = {} || order_details;
 var listOrderDetail = [];
-var listOrderDetailByOrderId = [];
 
 order_details.init = function () {
     order_details.intTable();
@@ -90,34 +89,6 @@ order_details.findById = function (id) {
         }
     }
     return null;
-}
-
-order_details.listOrderedProduct = function () {
-    if ($("#formOrder").valid()) {
-        var order_detail = {};
-        var order_quantity = $('#order_quantity').val();
-        var product_id = parseInt($('#product').val());
-        var index = listOrderedProduct.indexOf(product_id);
-        if (index !== -1) {
-            order_detail = listOrderedProduct[index];
-            var newOrderQuantity = order_detail.order_quantity + order_quantity;
-            order_detail.order_quantity = newOrderQuantity;
-            listOrderedProduct.splice(index, 1, order_detail);
-        } else {
-            order_detail.prime_cost = $('#prime_cost').val();
-            order_detail.order_quantity = order_quantity;
-            order_detail.product = products.findById(product_id);
-            listOrderedProduct.push(order_detail);
-        }
-    }
-}
-
-order_details.removeProductOutOfOrderedList = function (product_id) {
-    var index = listOrderedProduct.indexOf(product_id);
-    if (index !== -1) {
-        listOrderedProduct.splice(index, 1);
-    }
-    return listOrderedProduct;
 }
 
 order_details.save = function () {

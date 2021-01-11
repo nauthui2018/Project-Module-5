@@ -1,25 +1,157 @@
 var orders = {} || orders;
 var listOrder = [];
+var listNewOrderDetail = [];
+var supplier;
 
 orders.init = function () {
     orders.intTable();
     products.listProduct();
     suppliers.listSupplier();
     order_details.listOrderDetail();
+    $(function(){
+        $('#prime_cost, #order_quantity').keyup(function(){
+            var prime_cost = parseFloat($('#prime_cost').val()) || 0;
+            var order_quantity = parseFloat($('#order_quantity').val()) || 0;
+            $('#amount').val(prime_cost*order_quantity);
+        });
+    });
 }
 
-orders.addNew = function () {
-    $('.modal-title').html("Tạo đơn đặt hàng mới");
-    orders.resetForm();
-    $('#modalAddEdit').modal({
+orders.openModalSelectSupplier = function () {
+    orders.resetFormSelectSupplier();
+    $('#modalSelectSupplier').modal({
         backdrop: 'static'
     });
 }
 
-orders.resetForm = function () {
-    $('#formAddEdit')[0].reset();
-    $('#id').val('');
-    $("#formAddEdit").validate().resetForm();
+orders.resetFormSelectSupplier = function () {
+    $('#formSelectSupplier')[0].reset();
+    $('#supplier').val(0);
+}
+
+orders.selectSupplier = function () {
+    if ($("#formSelectSupplier").valid()) {
+        var supplier_id = $('#supplier').val();
+        supplier = suppliers.findById(supplier_id);
+    }
+    orders.openModalAddEditOrder();
+    $('#modalSelectSupplier').modal('hide');
+}
+
+orders.openModalAddEditOrder = function () {
+    orders.resetFormAddOrderDetail();
+    $('.modalAddEditOrder-title').html("Thêm sản phẩm vào đơn hàng");
+    $('#modalAddEditOrder').modal({
+        backdrop: 'static'
+    });
+}
+
+orders.resetFormAddOrderDetail = function () {
+    $('#formAddOrderDetail')[0].reset();
+    $('#product').val(0);
+    $('#prime_cost').val('');
+    $('#order_quantity').val('');
+    $('#amount').val('');
+    $('#remark').val('');
+    $("#formAddOrderDetail").validate().resetForm();
+}
+
+orders.resetFormAddEditOrder = function () {
+    orders.resetFormAddOrderDetail();
+    listNewOrderDetail = [];
+}
+
+orders.addNewOrderDetail = function () {
+    if ($("#formAddOrderDetail").valid()) {
+        var order_detail = {};
+        var order_quantity = $('#order_quantity').val();
+        var product_id = parseInt($('#product').val());
+        var index = listNewOrderDetail.indexOf(product_id);
+        if (index !== -1) {
+            order_detail = listNewOrderDetail[index];
+            var newOrderQuantity = order_detail.order_quantity + order_quantity;
+            order_detail.order_quantity = newOrderQuantity;
+            listNewOrderDetail.splice(index, 1, order_detail);
+        } else {
+            order_detail.prime_cost = $('#prime_cost').val();
+            order_detail.remark = $('#remark').val();
+            order_detail.order_quantity = order_quantity;
+            order_detail.product = products.findById(product_id);
+            listNewOrderDetail.push(order_detail);
+        }
+        orders.showListOrderDetail(listNewOrderDetail);
+    }
+}
+
+orders.findOrderDetail = function (product_id) {
+    for (let i = 0; i < listNewOrderDetail.length; i++) {
+        if (product_id === listNewOrderDetail[i].product.id) {
+            return listNewOrderDetail[i];
+        }
+    }
+    return null;
+}
+
+orders.openModalUpdateOrderDetail = function (product_id) {
+    var orderDetail = orders.findOrderDetail(product_id);
+    $('#formUpdateOrderDetail')[0].reset();
+    $('#new_product').val(product_id);
+    $('#new_prime_cost').val(orderDetail.prime_cost);
+    $('#new_order_quantity').val(orderDetail.order_quantity);
+    var amount = orderDetail.prime_cost*orderDetail.order_quantity;
+    $('#new_amount').val(amount);
+    $('#new_remark').val(orderDetail.remark);
+    var index = listNewOrderDetail.indexOf(product_id);
+    $('#index').val(index);
+    $('#modalUpdateOrderDetail').modal({
+        backdrop: 'static'
+    });
+}
+
+orders.updateOrderDetail = function () {
+    if ($("#formUpdateOrderDetail").valid()) {
+        var orderDetail = {};
+        var product_id = parseInt($('#new_product').val());
+        orderDetail.prime_cost = $('#new_prime_cost').val();
+        orderDetail.order_quantity = $('#new_order_quantity').val();
+        orderDetail.remark = $('#new_remark').val();
+        orderDetail.product = products.findById(product_id);
+        var index = parseInt($('#index').val());
+        listNewOrderDetail.splice(index, 1, orderDetail);
+        orders.showListOrderDetail(listNewOrderDetail);
+    }
+}
+
+orders.removeOrderDetail = function (product_id) {
+    var index = listNewOrderDetail.indexOf(product_id);
+    if (index !== -1) {
+        listNewOrderDetail.splice(index, 1);
+    }
+    orders.showListOrderDetail(listNewOrderDetail);
+}
+
+orders.showListOrderDetail = function (listNewOrderDetail) {
+    var dataTable = $('#orderTable').DataTable();
+    dataTable.clear();
+    dataTable.draw();
+    dataTable.destroy();
+    $.each(listNewOrderDetail, function (i, v) {
+        var total_amount = v.order_quantity*v.prime_cost;
+        $('#orderDetail').append(
+            `<tr class="odd pointer"> 
+                <td>${v.product.name}</td>  
+                <td>${v.prime_cost}</td>           
+                <td>${v.order_quantity}</td>
+                <td>${total_amount}</td>
+                <td>${v.remark}</td>
+                <td>
+                    <a href='javascript:' title='Cập nhật' onclick='orders.openModalUpdateOrderDetail(${v.product.id})' data-toggle="modal" data-target="#modalOrder" style='color: orange'><i class="fas fa-edit"></i></a>
+                    <a class='ml-3' href='javascript:' title='Xóa' onclick='orders.removeOrderDetail(${v.product.id})' style='color: red'><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>`
+        );
+    });
+    orders.resetFormAddOrderDetail();
 }
 
 orders.intTable = function () {
@@ -34,15 +166,18 @@ orders.intTable = function () {
         },
         columns: [
             { data: "id", name: "id", title: "ID", sortable: false},
-            // { data: "supplier.name", name: "supplier", title: "Nhà cung cấp", sortable: true},
+            // { data: "order_detail.product.name", name: "product", title: "Tên sản phẩm", sortable: true},
+            { data: "supplier.name", name: "supplier", title: "Nhà cung cấp", sortable: true},
             { data: "total_amount", name: "total_amount", title: "Tổng số lượng", sortable: true},
-            // { data: "id", name: "order_detail", title: "Chi tiết đơn hàng", sortable: false,
+            { data: "ordered_date", name: "ordered_date", title: "Ngày đặt hàng", sortable: true},
+            // { data: "order_detail", name: "order_detail", title: "Đơn hàng chi tiết", sortable: false,
             //     "render": function (data) {
-            //     var list_order_detail = order_details.findByOrderId(data);
-            //     var str = "";
-            //         $.each(list_order_detail, function (i, v) {
-            //             str += "<a class='ml-3' href='javascript:' title='Chi tiết'>${v.id}</a><br>"
-            //         });
+            //         var listOrderDetailByOrderId = order_details.listOrderDetailByOrderId(data);
+            //         var str = "";
+            //         for (let i = 0; i < listOrderDetailByOrderId.length; i++) {
+            //             var orderDetailId = listOrderDetailByOrderId[i].id;
+            //             str += "<a class='ml-3' href='javascript:' title='Chi tiết'>${orderDetailId}</a><br>"
+            //         }
             //         return str;
             //     }
             // },
@@ -186,26 +321,6 @@ orders.findById = function (id) {
         }
     }
     return null;
-}
-
-
-
-orders.showListOrderedProduct = function (data) {
-    data = listOrderedProduct
-    $.each(data, function (i, v) {
-        $('#formOrder').append(
-            `<tr class="odd pointer"> 
-                <td>${v.product.name}</td>             
-                <td>${v.order_quantity}</td>
-                <td>${v.prime_cost}</td>
-                <td>${v.order_quantity}*${v.prime_cost}</td>
-                <td>
-                    <a href='javascript:' title='Cập nhật' onclick='products.get(${data})' data-toggle="modal" data-target="#modalAddEdit" style='color: orange'><i class="fas fa-edit"></i></a>
-                    <a class='ml-3' href='javascript:' title='Xóa' onclick='products.delete(${data})' style='color: red'><i class="fas fa-trash-alt"></i></a>
-                </td>
-            </tr>`
-        );
-    });
 }
 
 
