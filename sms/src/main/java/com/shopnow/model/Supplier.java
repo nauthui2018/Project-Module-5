@@ -16,10 +16,10 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String supplier_name;
-    private String supplier_phone;
-    private String supplier_email;
-    private String supplier_address;
+    private String name;
+    private String phone;
+    private String email;
+    private String address;
     private boolean deleted = false;
 
     @OneToMany(mappedBy = "supplier")

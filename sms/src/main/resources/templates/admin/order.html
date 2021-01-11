@@ -2,12 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="">
 
 <head th:replace="admin/layout :: header">
-    <style>
-        .modal-ku {
-            width: 750px;
-            margin: auto;
-        }
-    </style>
 </head>
 
 <body class="nav-md">
@@ -71,13 +65,12 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form id="formAddEdit" th:name="formAddEdit">
-                    <input type="hidden" name="id" id="id" class="form-control" required>
+                <form  id="formOrder" th:name="formOrder">
                     <div class="row form-group">
-                        <div class="col-3">
+                        <div class="col-2">
                             <label style="font-size: larger">Nhà cung cấp</label>
                         </div>
-                        <div class="col-9 form-label-group">
+                        <div class="col-10 form-label-group">
                             <select class="form-control" id="supplier" name="supplier">
                             </select>
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
@@ -85,60 +78,88 @@
                     </div>
                     <hr>
                     <div class="row form-group">
-                        <div class="col-3">
-                            <label style="font-size: larger">Thêm sản phẩm</label>
+                        <div class="col-2">
+                            <label style="font-size: larger; margin-bottom: 0">Thêm sản phẩm</label>
                         </div>
-                        <div class="col-5">
-                            <label style="font-size: larger">Tên sản phẩm</label>
+                        <div class="col-4">
+                            <label style="font-size: larger; margin-bottom: 0">Tên sản phẩm</label>
                         </div>
                         <div class="col-2">
-                            <label style="font-size: larger">Số lượng</label>
+                            <label style="font-size: larger; margin-bottom: 0">Số lượng</label>
                         </div>
                         <div class="col-2">
-                            <label style="font-size: larger">Xác nhận</label>
+                            <label style="font-size: larger; margin-bottom: 0">Đơn giá</label>
+                        </div>
+                        <div class="col-2">
+                            <label style="font-size: larger; margin-bottom: 0">Thành tiền</label>
                         </div>
                     </div>
-                    <form  id="formOrder" th:name="formOrder">
-                        <div class="row form-group">
-                            <div class="col-3"></div>
-                            <div class="col-5">
-                                <select class="form-control" id="product" name="product">
-                                </select>
-                                <p style="color: red;display: none" class="ui-state-error-text"></p>
-                            </div>
-                            <div class="col-2">
-                                <input type="number" id="quantity" name="quantity" class="form-control" required>
-                                <p style="color: red;display: none" class="ui-state-error-text"></p>
-                            </div>
-                            <div class="col-2">
-                                <a class="btn btn-outline-success ml-2" onclick="orders.save()" style="font-size: medium">
-                                    <i class="far fa-check" title="Lưu"></i> Chọn
-                                </a>
-                            </div>
+                    <div class="row form-group mt-1">
+                        <div class="col-2"></div>
+                        <div class="col-4">
+                            <select class="form-control" id="product" name="product">
+                            </select>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
-                    </form>
+                        <div class="col-2">
+                            <input type="number" id="order_quantity" name="quantity" class="form-control" required>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="prime_cost" name="quantity" class="form-control" required>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="amount" name="quantity" class="form-control" required>
+                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-10">
+                            <label style="font-size: larger; margin-bottom: 0">Ghi chú</label>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-10">
+                            <textarea id="summernote" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-12" style="text-align: right">
+                            <a class="btn btn-outline-success ml-2" onclick="order_details.save()" style="font-size: medium">
+                                <i class="far fa-check" title="Thêm"></i> Thêm vào đơn đặt hàng
+                            </a>
+                        </div>
+                    </div>
+                </form>
                     <div class="row form-group">
                         <div class="table-responsive">
                             <table class="table table-striped jambo_table bulk_action">
                                 <thead>
                                 <tr class="headings" style="background-color: #26B99A">
-                                    <th class="column-title">STT</th>
                                     <th class="column-title">Sản phẩm</th>
                                     <th class="column-title">Số lượng</th>
+                                    <th class="column-title">Đơn giá</th>
+                                    <th class="column-title">Thành tiền</th>
                                     <th class="column-title no-link last"><span class="nobr">Thao tác</span></th>
                                 </tr>
                                 </thead>
                                 <tbody id="orderTable" >
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
                     <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <a class="btn btn-success" onclick="orders.save()">Lưu</a>
-                        <button type="button" class="btn btn-warning" onclick="orders.resetForm()" data-dismiss="modal" aria-label="Close">Hủy</button>
+                <form id="formAddEdit" th:name="formAddEdit">
+                    <input type="hidden" name="id" id="id" class="form-control" required>
+                    <div class="modal-footer" style="text-align: center">
+                        <a class="btn btn-success" onclick="orders.save()">Tạo đơn hàng</a>
+                        <a class="btn btn-warning" onclick="orders.resetForm()" data-dismiss="modal" aria-label="Close">Huỷ</a>
                     </div>
                 </form>
             </div>
@@ -158,9 +179,6 @@
 <script>
     $(document).ready(function () {
         orders.init();
-        products.listProduct();
-        suppliers.listSupplier();
-        order_details.getAllOrderDetail();
     });
 </script>
 
