@@ -16,7 +16,7 @@ public class APIOrder {
     OrderService orderService;
 
     @GetMapping
-    public ResponseEntity<List<Order>> listOrders() {
+    public ResponseEntity<List<Order>> listOrder() {
         List<Order> orders = orderService.findAll();
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }

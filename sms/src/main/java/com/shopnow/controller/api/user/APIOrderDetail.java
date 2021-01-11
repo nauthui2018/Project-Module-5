@@ -1,7 +1,9 @@
 package com.shopnow.controller.api.user;
 
+import com.shopnow.model.Order;
 import com.shopnow.model.OrderDetail;
 import com.shopnow.service.OrderDetailService;
+import com.shopnow.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,8 @@ public class APIOrderDetail {
 
     @GetMapping
     public ResponseEntity<List<OrderDetail>> listOrderDetail() {
-        List<OrderDetail> order_details = orderDetailService.findAll();
-        return new ResponseEntity<>(order_details, HttpStatus.OK);
+        List<OrderDetail> orderDetails = orderDetailService.findAll();
+        return new ResponseEntity<>(orderDetails, HttpStatus.OK);
     }
 
     @PostMapping

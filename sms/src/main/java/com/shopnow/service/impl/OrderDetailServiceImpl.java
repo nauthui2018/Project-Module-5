@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-class OrderDetailServiceImpl implements OrderDetailService {
+public class OrderDetailServiceImpl implements OrderDetailService {
     @Autowired
     OrderDetailRepository orderDetailRepository;
 
@@ -25,10 +25,10 @@ class OrderDetailServiceImpl implements OrderDetailService {
 
     @Override
     public boolean deleteById(Long id) {
-        OrderDetail order_detail = findById(id);
-        if(order_detail != null){
-            order_detail.setDeleted(true);
-            orderDetailRepository.save(order_detail);
+        OrderDetail orderDetail = findById(id);
+        if(orderDetail != null){
+            orderDetail.setDeleted(true);
+            orderDetailRepository.save(orderDetail);
             return true;
         }
         return false;
