@@ -35,7 +35,7 @@ users.intTable = function () {
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = `<a href='/admin/registers/user_detail/${data}' title='Xem chi tiết' style='color: blue'><i class="fas fa-eye"></i></a>
+                    var str = `<a href='/admins/registers/user_detail/${data}' title='Xem chi tiết' style='color: blue'><i class="fas fa-eye"></i></a>
                         <a href='javascript:' title='Xóa User' onclick=users.delete(${data}) style='color: red'><i class="fas fa-trash-alt"></i></a>`
                     return str;
                 }
@@ -82,11 +82,10 @@ users.save = function () {
             $('#modalAddEdit').modal('hide');
             $("#datatables").DataTable().ajax.reload();
             toastr.info('Thêm thành công', 'INFORMATION:')
-        }).fail(function () {
-            $('#modalAddEdit').modal('hide');
-            $("#datatables").DataTable().ajax.reload();
-            toastr.error('Thêm không thành công', 'INFORMATION:')
-
+        }).fail(function (xhr) {
+            if(xhr.status=404){
+                toastr.error('Email này đã được sử dụng', 'INFORMATION:')
+            }
         });
         return false;
     }
@@ -139,13 +138,13 @@ users.remove = function (id) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: "/admin/registers/delete/" + id,
+                    url: "/admins/registers/delete/" + id,
                     method: "DELETE",
                     dataType: "json"
                 }).done(function () {
                     console.log("DELETE SUCCESS");
                     setTimeout(function () {
-                        location.href = "/admin/registers"
+                        location.href = "/admins/registers"
                     }, 1000);
                     toastr.info('Xóa thành công!', 'INFORMATION:')
                 }).fail(function () {

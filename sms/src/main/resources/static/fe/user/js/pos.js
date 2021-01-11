@@ -442,3 +442,5 @@ function clearData(){
     $('#totalFinal').html(0);
 }
 
+
+

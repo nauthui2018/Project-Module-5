@@ -23,6 +23,10 @@ public class APIShop {
 
     @PostMapping
     public ResponseEntity<Shop> saveShop(@RequestBody Shop shop) {
+        Shop shopCheck = shopService.findByEmail(shop.getEmail());
+        if(shopCheck!=null){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
         shopService.save(shop);
         return new ResponseEntity<>(shop, HttpStatus.OK);
     }

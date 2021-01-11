@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value = {"admin","admin/webInfos"})
+@RequestMapping(value = {"admins","admins/webInfos"})
 public class WebInfoController {
     @Autowired
     WebInfoService webInfoService;
