@@ -38,11 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Các trang không yêu cầu login như vậy ai cũng có thể vào được admin hay user hoặc guest có thể vào các trang
         http.authorizeRequests().antMatchers("/", "/login/**", "/logout/**").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/user/**").hasAnyRole("USER","SHOP_OWNER")
+                .authorizeRequests().antMatchers("/user/**").hasAnyRole("EMPLOYEE","SHOP_OWNER")
                 .and()
                 .authorizeRequests().antMatchers("/admins/**").hasRole("ADMIN")
                 .and()
-                .authorizeRequests().antMatchers("/api/**").hasAnyRole("USER","SHOP_OWNER","ADMIN")
+                .authorizeRequests().antMatchers("/api/**").hasAnyRole("EMPLOYEE","SHOP_OWNER","ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
