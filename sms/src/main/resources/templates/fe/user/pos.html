@@ -209,12 +209,12 @@
                     <div class="row">
                         <div class="col-6">
                             <span>Tên khách hàng: </span>
-                            <span id="customer-nameF"></span>
-                            <input type="hidden" id="customerId" value="">
+                            <span class="customer-nameF"></span>
+                            <input type="hidden" id="customerId">
                         </div>
                         <div class="col-6">
                             <span>Số điện thoại: </span>
-                            <span id="customer-phone"></span>
+                            <span class="customer-phone"></span>
                         </div>
                     </div>
                 </div>
@@ -226,6 +226,10 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
+                            <span>
+                                Ship hàng:
+                            </span>
+                            <input type="checkbox" id="isShip">
                             <table class="table text-right">
                                 <thead>
                                 <th>STT</th>
@@ -242,14 +246,14 @@
                                     <th></th>
                                     <th></th>
                                     <th>Giảm giá</th>
-                                    <th id="discount-detail"></th>
+                                    <th class="discount-detail"></th>
                                 </tr>
                                 <tr>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                     <th>Tổng tiền</th>
-                                    <th id="total-detail"></th>
+                                    <th class="total-detail"></th>
                                 </tr>
                             </table>
                         </div>
@@ -257,12 +261,11 @@
                     <div class="row">
                         <div class="col-6">
                             <span>Nhân viên bán hàng: </span>
-                            <span id="user-name"> Đỗ Chánh Tín</span>
-                            <input type="hidden" name="idUser" id="userId" value="10">
+                            <span class="username"></span>
                         </div>
                         <div class="col-6">
                             <span>Ngày lập hóa đơn: </span>
-                            <span id="invoiceDate"></span>
+                            <span class="invoiceDate"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -307,11 +310,11 @@
                     <div class="row">
                         <div class="col-6">
                             <span>Tên khách hàng: </span>
-                            <span id="customer-nameFPrint"></span>
+                            <span class="customer-nameF"></span>
                         </div>
                         <div class="col-6">
                             <span>Số điện thoại: </span>
-                            <span id="customer-phonePrint"></span>
+                            <span class="customer-phone"></span>
                         </div>
                     </div>
                 </div>
@@ -339,16 +342,26 @@
                                     <th></th>
                                     <th></th>
                                     <th>Giảm giá</th>
-                                    <th id="discount-detailPrint"></th>
+                                    <th class="discount-detail"></th>
                                 </tr>
                                 <tr>
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                     <th>Tổng tiền</th>
-                                    <th id="total-detailPrint"></th>
+                                    <th class="total-detail"></th>
                                 </tr>
                             </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span>Nhân viên bán hàng: </span>
+                            <span class="username"></span>
+                        </div>
+                        <div class="col-6">
+                            <span>Ngày lập hóa đơn: </span>
+                            <span class="invoiceDate"></span>
                         </div>
                     </div>
                 </div>

@@ -97,14 +97,17 @@
     margin-left: 1em;
 }
 
-#discount{
+#discount, #ship{
     width: 80%;
     text-align: end;
     border: none;
     background-color: #F7F7F7;
-    color: red;
-    font-weight: bold;
     padding-right: 0;
+}
+
+#discount{
+    font-weight: bold;
+    color: red;
 }
 
 .total{
@@ -168,7 +171,7 @@ tr:hover{
     padding: 5px;
 }
 
-#customer-nameF, #customer-phone, #user-name, #invoiceDate{
+.customer-nameF, .customer-phone, .username, .invoiceDate{
     color: darkblue;
     font-weight: bold;
     font-size: 13px;

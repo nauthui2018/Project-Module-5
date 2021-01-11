@@ -17,7 +17,9 @@ function getUser() {
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $('#username').html(data.user_fullname);
+            $('.username').html(data.user_fullname);
+            $('#userId').val(data.id);
+            $("#userAvatar").attr("src",data.user_avatar);
         }
     })
 }

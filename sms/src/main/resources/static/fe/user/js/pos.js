@@ -189,10 +189,8 @@ customers.findCustomerById = function (id) {
 customers.getInfoCustomer = function (id) {
     var customerObj = customers.findCustomerById(id);
     $('#customerId').val(id);
-    $('#customer-nameF').html(customerObj.customer_fullName);
-    $('#customer-nameFPrint').html(customerObj.customer_fullName);
-    $('#customer-phone').html(customerObj.customer_phone);
-    $('#customer-phonePrint').html(customerObj.customer_phone);
+    $('.customer-nameF').html(customerObj.customer_fullName);
+    $('.customer-phone').html(customerObj.customer_phone);
 }
 
 var listProduct = [];
@@ -295,6 +293,10 @@ function formatCurrency(value) {
 }
 
 function showInvoiceInfo() {
+    if(productArr.length==0){
+        return toastr.error('Không có gì để thanh toán','INFORMATION:')
+    }
+
     var check = true;
     productArr.forEach(e => {
         var checkStock = e.stock - $('#quantity').val();
@@ -308,17 +310,15 @@ function showInvoiceInfo() {
         customers.resetForm();
         $('#invoice-info').modal('show');
         drawListInvoiceDetail();
-        $('#discount-detail').html($('#discount').val());
-        $('#discount-detailPrint').html($('#discount').val());
-        $('#total-detail').html($('#totalFinal').html() + ' đ');
-        $('#total-detailPrint').html($('#totalFinal').html() + ' đ');
+        $('.discount-detail').html($('#discount').val());
+        $('.total-detail').html($('#totalFinal').html() + ' đ');
     }
 }
 
 drawListInvoiceDetail = function () {
     $('#list-invoiceDetail').empty();
     var today = getToday();
-    $('#invoiceDate').html(today);
+    $('.invoiceDate').html(today);
     $.each(productArr, function (i, v) {
         $('#list-invoiceDetail').append(
             `<tr>
@@ -358,6 +358,11 @@ function getToday() {
 }
 
 function printElement() {
+    var idCustomer = $('#customerId').val();
+    var checkShip = $('#isShip').is(":checked");
+    if (checkShip && idCustomer == "") {
+        return toastr.error('Nhập thông tin khách hàng cần Ship', 'INFORMATION:');
+    }
     drawListInvoiceDetailPrint();
     $('#print-invoice').modal('show');
     var mode = 'iframe';
@@ -372,18 +377,22 @@ function printElement() {
 
 
 function saveInvoice() {
+    var checkShip = $('#isShip').is(":checked");
     var user = {};
     user.id = $('#userId').val();
     var customer = {};
     var customerid = $('#customerId').val();
-    if(customerid=="") {
-        customer.id=1
-    } else customer.id=customerid;
+    if (customerid == "") {
+        customer.id = 1
+    } else customer.id = customerid;
     var invoice = {};
     invoice.user = user;
     invoice.customer = customer;
     invoice.discount = parseToNumber($('#discount').val());
     invoice.total_amount = parseToNumber($('#totalFinal').html());
+    if (!checkShip) {
+        invoice.finished = true;
+    }
     var saveBill = $.ajax({
         url: "/api/user/invoice",
         method: "POST",
@@ -430,16 +439,15 @@ function saveInvoiceDetail(invoice) {
 
 }
 
-function clearData(){
-    productArr=[];
-    $('#customer-nameF').html('');
-    $('#customer-nameFPrint').html('');
-    $('#customer-phone').html('');
-    $('#customer-phonePrint').html('');
+function clearData() {
+    productArr = [];
+    $('.customer-nameF').html('');
+    $('.customer-phone').html('');
     $('#list-item').empty();
     $('#amountMoney').html(0);
     $('#discount').val(0);
     $('#totalFinal').html(0);
+    $('#isShip').prop('checked', false);
 }
 
 
