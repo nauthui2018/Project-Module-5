@@ -18,8 +18,8 @@ public class OrderDetail {
 
     private Long prime_cost;
     private int order_quantity;
-    private int stock;
-    private int scrap;
+    private int stock = 0;
+    private int scrap = 0;
     private boolean deleted = false;
     private String remark;
 

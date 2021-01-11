@@ -1,10 +1,6 @@
 var suppliers = {} || suppliers;
 var listSupplier = [];
 
-$(document).ready(function () {
-    suppliers.init();
-});
-
 suppliers.init = function () {
     suppliers.intTable();
     suppliers.initValidation();
@@ -44,10 +40,10 @@ suppliers.findById = function (id) {
 suppliers.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#id').val('');
-    $('#supplier_name').val('');
-    $('#supplier_phone').val('');
-    $('#supplier_email').val('');
-    $('#supplier_address').val('');
+    $('#name').val('');
+    $('#phone').val('');
+    $('#email').val('');
+    $('#address').val('');
     $('#deleted').val('');
     $("#formAddEdit").validate().resetForm();
 }
@@ -90,10 +86,10 @@ suppliers.intTable = function () {
         },
         columns: [
             { data: "id", name: "ID", title: "ID", orderable: false},
-            { data: "supplier_name", name: "supplier_name", title: "Nhà cung cấp", orderable: true},
-            { data: "supplier_phone", name: "supplier_phone", title: "Số điện thoại", orderable: false},
-            { data: "supplier_address", name: "supplier_address", title: "Địa chỉ", orderable: true},
-            { data: "supplier_email", name: "supplier_email", title: "Email", orderable: false},
+            { data: "name", name: "name", title: "Nhà cung cấp", orderable: true},
+            { data: "phone", name: "phone", title: "Số điện thoại", orderable: false},
+            { data: "address", name: "address", title: "Địa chỉ", orderable: true},
+            { data: "email", name: "email", title: "Email", orderable: false},
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
                     var str = "<a href='javascript:' title='Cập nhật' onclick='suppliers.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
@@ -115,10 +111,10 @@ suppliers.get = function (id) {
         $('#formAddEdit')[0].reset();
         $('.modal-title').html("Chỉnh sửa thông tin");
         $('#id').val(data.id);
-        $('#supplier_name').val(data.supplier_name);
-        $('#supplier_phone').val(data.supplier_phone);
-        $('#supplier_email').val(data.supplier_email);
-        $('#supplier_address').val(data.supplier_address);
+        $('#name').val(data.name);
+        $('#phone').val(data.phone);
+        $('#email').val(data.email);
+        $('#address').val(data.address);
         $('#deleted').val(data.deleted);
         $('#modalAddEdit').modal('show');
     });
@@ -130,10 +126,10 @@ suppliers.get = function (id) {
 suppliers.save = function () {
     if ($("#formAddEdit").valid()) {
         var supplier = {};
-        supplier.supplier_name = $('#supplier_name').val();
-        supplier.supplier_phone = $('#supplier_phone').val();
-        supplier.supplier_email = $('#supplier_email').val();
-        supplier.supplier_address = $('#supplier_address').val();
+        supplier.name = $('#name').val();
+        supplier.phone = $('#phone').val();
+        supplier.email = $('#email').val();
+        supplier.address = $('#address').val();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
                 url: "/api/user/supplier",

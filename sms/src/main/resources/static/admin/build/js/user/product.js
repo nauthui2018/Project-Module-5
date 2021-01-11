@@ -198,29 +198,6 @@ products.delete = function (id) {
     })
 }
 
-products.addProductToOrderList = function () {
-    if ($("#formOrder").valid()) {
-        var product = {};
-        product.product = products.findById(parseInt($('#product').val()));
-        product.incoming_quantity = $('#quantity').val();
-        listOrderedProduct.push(product);
-    }
-}
-
-products.showListOrder = function (data) {
-    data = listOrderedProduct
-    $.each(data, function (i, v) {
-        $('#formOrder').append(
-            `<tr class="odd pointer"> 
-                <td class=" ">${v.name}</td>             
-                <td class=" ">121000039</td>
-                <td class=" ">May 23, 2014 11:30:12 PM</td>
-                <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i></td>
-            </tr>`
-        );
-    });
-}
-
 products.listProduct = function () {
     $.ajax({
         url: "/api/user/product",

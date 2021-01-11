@@ -1,14 +1,12 @@
 let order_details = {} || order_details;
-var list_order_detail = [];
-var all_order_detail = [];
-
-$(document).ready(function () {
-    order_details.init();
-});
+var listOrderDetail = [];
+var listOrderDetailByOrderId = [];
 
 order_details.init = function () {
     order_details.intTable();
-    order_details.listOrderDetail();
+    products.listProduct();
+    suppliers.listSupplier();
+    orders.listOrder();
 }
 
 order_details.intTable = function () {
@@ -31,16 +29,15 @@ order_details.intTable = function () {
             dataSrc: ""
         },
         columns: [
-            { data: "id", name: "ID", title: "ID", orderable: false},
-            { data: "image", name: "image", title: "Hình ảnh", orderable: false},
-            { data: "name", name: "name", title: "Tên sản phẩm", orderable: true},
-            { data: "brand", name: "brand", title: "Nhãn hiệu", orderable: true},
-            { data: "description", name: "description", title: "Mô tả", orderable: false},
-            { data: "id", name: "Action", title: "Thao tác", sortable: false,
-                orderable: false, "render": function (data) {
-                    var str = "<a href='javascript:' title='Cập nhật' onclick='products.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a class='ml-3' href='javascript:' title='Xóa' onclick='products.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
-                    return str;
+            { data: "id", name: "ID", title: "ID", sortable: false},
+            { data: "product.name", name: "product", title: "Sản phẩm", sortable: true},
+            { data: "order_quantity", name: "order_quantity", title: "Số lượng đặt hàng", sortable: false},
+            { data: "prime_cost", name: "prime_cost", title: "Giá nhập", sortable: false},
+            { data: "order.ordered_date", name: "ordered_date", title: "Ngày đặt hàng", sortable: false},
+            { data: "supplier.name", name: "supplier", title: "Nhà cung cấp", sortable: false},
+            { data: "order.finished", name: "finished", title: "Trạng thái", sortable: false,
+                "render": function (data) {
+                    return data ? "Đã hoàn thành" : "Chưa hoàn thành";
                 }
             }
         ]
@@ -57,10 +54,12 @@ order_details.get = function (id) {
         $('#formAddEdit')[0].reset();
         $('.modal-title').html("Chỉnh sửa thông tin");
         $('#id').val(data.id);
-        $('#name').val(data.name);
-        $('#description').val(data.description);
-        $('#product_type').val(0);
-        $('#warehouse').val(0);
+        $('#prime_cost').val(data.prime_cost);
+        $('#order_quantity').val(data.order_quantity);
+        $('#stock').val(data.stock);
+        $('#scrap').val(data.scrap);
+        $('#deleted').val(data.deleted);
+        $('#remark').val(data.remark);
         $('#modalAddEdit').modal('show');
     });
     ajaxGet.fail(function () {
@@ -74,7 +73,7 @@ order_details.listOrderDetail = function () {
         method: "GET",
         dataType: "json",
         success: function (data) {
-            all_order_detail = data;
+            listOrderDetail = data;
             $.each(data, function (i, v) {
                 $('#order_detail').append(
                     `<option value='${v.id}'>${v.name}</option>`
@@ -85,21 +84,52 @@ order_details.listOrderDetail = function () {
 }
 
 order_details.findById = function (id) {
-    for (let i = 0; i < all_order_detail.length; i++) {
-        if (id === all_order_detail[i].id) {
-            return all_order_detail[i];
+    for (let i = 0; i < listOrderDetail.length; i++) {
+        if (id === listOrderDetail[i].id) {
+            return listOrderDetail[i];
         }
     }
     return null;
 }
 
-order_details.findByOrderId = function (id) {
-    for (let i = 0; i < all_order_detail.length; i++) {
-        if (id === all_order_detail[i].order.id) {
-            list_order_detail.push(all_order_detail[i]);
+order_details.listOrderedProduct = function () {
+    if ($("#formOrder").valid()) {
+        var order_detail = {};
+        var order_quantity = $('#order_quantity').val();
+        var product_id = parseInt($('#product').val());
+        var index = listOrderedProduct.indexOf(product_id);
+        if (index !== -1) {
+            order_detail = listOrderedProduct[index];
+            var newOrderQuantity = order_detail.order_quantity + order_quantity;
+            order_detail.order_quantity = newOrderQuantity;
+            listOrderedProduct.splice(index, 1, order_detail);
+        } else {
+            order_detail.prime_cost = $('#prime_cost').val();
+            order_detail.order_quantity = order_quantity;
+            order_detail.product = products.findById(product_id);
+            listOrderedProduct.push(order_detail);
         }
     }
-    return list_order_detail;
+}
+
+order_details.removeProductOutOfOrderedList = function (product_id) {
+    var index = listOrderedProduct.indexOf(product_id);
+    if (index !== -1) {
+        listOrderedProduct.splice(index, 1);
+    }
+    return listOrderedProduct;
+}
+
+order_details.save = function () {
+    for (let i = 0; i < listOrderedProduct.length; i++) {
+        $.ajax({
+            url: "/api/user/order_detail",
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(listOrderedProduct[i])
+        });
+    }
 }
 
 
