@@ -2,6 +2,17 @@ var shops = {} || shops;
 
 shops.intTable = function () {
     $("#datatables").DataTable({
+        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
+        "language": {
+            "emptyTable": "Không có Cửa hàng nào!",
+            "lengthMenu": "Hiển thị _MENU_ cửa hàng",
+            "search": "Tìm kiếm",
+            "info": "Hiển thị _START_ đến _END_ của _TOTAL_ cửa hàng",
+            "paginate": {
+                "next": "Trang tiếp",
+                "previous": "Trang trước",
+            },
+        },
         ajax: {
             url: '/api/admin/shop/',
             method: "GET",
@@ -34,7 +45,7 @@ shops.intTable = function () {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
                     var str = `
-                        <a href='javascript:' title='Xóa Shop' onclick='shops.delete(${data})' style='color: red'><i class="fas fa-trash-alt"></i></a>
+                        <a href='javascript:' title='Xóa' onclick='shops.delete(${data})' style='color: red'><i class="fas fa-trash-alt"></i></a>
                         <a href='/admins/shops/shop_detail/${data}' title='Xem chi tiết' style='color: blue'><i class="fas fa-eye"></i></a>`
                     return str;
                 }
@@ -44,7 +55,7 @@ shops.intTable = function () {
 };
 
 shops.addNew = function () {
-    $('#modalTitle').html("Thêm Shop mới");
+    $('#modalTitle').html("Thêm Cửa hàng mới");
     shops.resetForm();
     $('#modalAddEdit').modal('show');
     $('#email').prop("disabled", false);
@@ -70,7 +81,7 @@ shops.get = function (id) {
         dataType: "json"
     }).done(function (data) {
             $('#formAddEdit')[0].reset();
-            $('#modalTitle').html("Chỉnh sửa Shop");
+            $('#modalTitle').html("Chỉnh sửa thông tin");
             $('#id').val(data.id);
             $('#shop_name').val(data.shop_name);
             $('#phone').val(data.phone);
@@ -112,7 +123,7 @@ shops.save = function () {
             addShop.done(function (data) {
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
-                toastr.info('Thêm Shop thành công', 'INFORMATION:')
+                toastr.info('Thêm Cửa hàng thành công', 'INFORMATION:')
                 setTimeout(() => {
                     shops.addUser(data.id)
                 }, 500);
@@ -179,7 +190,7 @@ shops.addUser = function (idShop) {
     });
     addUser.done(function () {
         $("#datatables").DataTable().ajax.reload();
-        toastr.info('Thêm User thành công', 'INFORMATION:')
+        toastr.info('Thêm Tài khoản thành công', 'INFORMATION:')
     });
     addUser.fail(function (xhr) {
         if (xhr.status = 404) {
@@ -190,7 +201,7 @@ shops.addUser = function (idShop) {
 
 shops.delete = function (id) {
     bootbox.confirm({
-        message: "Bạn có muốn xóa Shop này không?",
+        message: "Bạn có muốn xóa Cửa hàng này không?",
         buttons: {
             confirm: {
                 label: 'Có',
@@ -221,7 +232,7 @@ shops.delete = function (id) {
 
 shops.remove = function (id) {
     bootbox.confirm({
-        message: "Bạn có muốn xóa Shop này không?",
+        message: "Bạn có muốn xóa Cửa hàng này không?",
         buttons: {
             confirm: {
                 label: 'Có',
@@ -282,7 +293,7 @@ shops.initValidation = function () {
         },
         messages: {
             shop_name: {
-                required: "Vui lòng nhập tên Shop",
+                required: "Vui lòng nhập tên Cửa hàng",
                 maxlength: "Không quá 20 ký tự"
             },
             phone: {
@@ -333,7 +344,7 @@ shops.initUser = function () {
         dataType: "json",
         success: function (data) {
             $('#user').empty();
-            $('#user').append(`<option value="">Chọn User</option>`);
+            $('#user').append(`<option value="">Chọn Tài khoản</option>`);
             $.each(data, function (i, v) {
                 $('#user').append(
                     "<option value='" + v.id + "'>" + v.user_fullname + "</option>"

@@ -27,6 +27,15 @@ public class InvoiceServiceImpl implements InvoiceService {
     public boolean deleteById(Long id) {
         Invoice invoice = findById(id);
         if (invoice != null) {
+           invoiceRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeById(Long id){
+        Invoice invoice = findById(id);
+        if (invoice != null) {
             invoice.setDeleted(true);
             invoiceRepository.save(invoice);
             return true;

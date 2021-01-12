@@ -3,6 +3,13 @@ var webInfos = {} || webInfos;
 webInfos.intTable = function () {
 
     $("#datatables").DataTable({
+        "lengthMenu": false,
+        "info": false,
+        "paginate": false,
+        "language": {
+            "emptyTable": "Không có dữ liệu nào!",
+            "search": "Tìm kiếm",
+        },
         ajax: {
             url: '/api/admin/webInfo/',
             method: "GET",
@@ -14,7 +21,7 @@ webInfos.intTable = function () {
                 data: "id", name: "ID", title: "ID", orderable: false
             },
             {
-                data: "hotline", name: "Hotline", title: "Hotline", orderable: false
+                data: "hotline", name: "Điện thoại", title: "Điện thoại", orderable: false
             },
             {
                 data: "email", name: "Email", title: "Email", orderable: false

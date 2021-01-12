@@ -2,6 +2,17 @@ var lineOfBusinesses = {} || lineOfBusinesses;
 
 lineOfBusinesses.intTable = function () {
     $("#datatables").DataTable({
+        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
+        "language": {
+            "emptyTable": "Không có mặt hàng kinh doanh nào!",
+            "lengthMenu": "Hiển thị _MENU_ mặt hàng",
+            "search": "Tìm kiếm",
+            "info": "Hiển thị _START_ đến _END_ của _TOTAL_ mặt hàng",
+            "paginate": {
+                "next": "Trang tiếp",
+                "previous": "Trang trước",
+            },
+        },
         ajax: {
             url: '/api/admin/lob/',
             method: "GET",
@@ -13,13 +24,13 @@ lineOfBusinesses.intTable = function () {
                 data: "id", name: "ID", title: "ID", orderable: false
             },
             {
-                data: "name", name: "Tên Lĩnh vực kinh doanh", title: "Tên Lĩnh vực kinh doanh", orderable: true
+                data: "name", name: "Tên mặt hàng kinh doanh", title: "Tên mặt hàng kinh doanh", orderable: true
             },
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
-                    var str = "<a href='javascript:' title='Sửa Lĩnh vực kinh doanh' onclick='lineOfBusinesses.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
-                        "<a href='javascript:' title='Xóa Lĩnh vực kinh doanh' onclick='lineOfBusinesses.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
+                    var str = "<a href='javascript:' title='Sửa' onclick='lineOfBusinesses.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: orange'><i class=\"fas fa-edit\"></i></a> " +
+                        "<a href='javascript:' title='Xóa' onclick='lineOfBusinesses.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>"
                     return str;
                 }
             }
@@ -28,7 +39,7 @@ lineOfBusinesses.intTable = function () {
 };
 
 lineOfBusinesses.addNew = function () {
-    $('#modalTitle').html("Thêm Lĩnh vực kinh doanh mới");
+    $('#modalTitle').html("Thêm Mặt hàng kinh doanh mới");
     lineOfBusinesses.resetForm();
     $('#modalAddEdit').modal('show');
 }
@@ -48,7 +59,7 @@ lineOfBusinesses.get = function (id) {
         dataType: "json"
     }).done(function (data) {
         $('#formAddEdit')[0].reset();
-        $('#modalTitle').html("Chỉnh sửa Lĩnh vực kinh doanh");
+        $('#modalTitle').html("Chỉnh sửa thông tin");
         $('#id').val(data.id);
         $('#name').val(data.name);
         $('#modalAddEdit').modal('show');
@@ -106,7 +117,7 @@ lineOfBusinesses.save = function () {
 }
 lineOfBusinesses.delete = function (id) {
     bootbox.confirm({
-        message: "Bạn có muốn xóa lĩnh vực kinh doanh này không?",
+        message: "Bạn có muốn xóa mặt hàng này không?",
         buttons: {
             confirm: {
                 label: 'Có',

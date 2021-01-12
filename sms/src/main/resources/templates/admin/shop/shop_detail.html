@@ -30,7 +30,7 @@
                             <div class="col-md-8 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <h6>Tên Shop</h6>
+                                        <h6>Tên Cửa hàng</h6>
                                         <div class="info-detail" th:text="${shop.shop_name}"></div>
                                         <h6>Số điện thoại</h6>
                                         <div class="info-detail" th:text="${shop.phone}"></div>
@@ -44,13 +44,13 @@
                                         <div class="info-detail" th:text="${#temporals.format(shop.created_at,'dd/MM/yyyy HH:mm:ss')}"></div>
                                         <h6>Tỉnh thành</h6>
                                         <div class="info-detail" th:text="${shop.province.name}"></div>
-                                        <h6>Lĩnh vực kinh doanh</h6>
+                                        <h6>Mặt hàng kinh doanh</h6>
                                         <div class="info-detail" th:text="${shop.lineOfBusiness.name}"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <h5>Danh sách nhân viên của Shop</h5>
+                        <h5>Danh sách nhân viên của Cửa hàng</h5>
                         <div class="table-responsive">
                             <table class="table table-striped jambo_table bulk_action">
                                 <tr>

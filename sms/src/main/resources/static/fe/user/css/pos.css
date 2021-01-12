@@ -192,3 +192,7 @@ tr:hover{
 .extra-info{
     font-size: 13px;
 }
+
+#isShip{
+    background-color: blue;
+}

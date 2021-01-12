@@ -1,8 +1,10 @@
 package com.shopnow.controller.api.user;
 
+import com.shopnow.model.Invoice;
 import com.shopnow.model.InvoiceDetail;
 import com.shopnow.model.Product;
 import com.shopnow.service.InvoiceDetailService;
+import com.shopnow.service.InvoiceService;
 import com.shopnow.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,9 @@ public class APIInvoiceDetail {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    InvoiceService invoiceService;
 
     @GetMapping
     public ResponseEntity<List<InvoiceDetail>> listInvoiceDetail() {
@@ -50,8 +55,15 @@ public class APIInvoiceDetail {
         return new ResponseEntity<>(invoiceDetail, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Boolean> deleteInvoiceDetail(@PathVariable("id") Long id){
-        return new ResponseEntity<>(invoiceDetailService.deleteById(id), HttpStatus.OK);
+        return new ResponseEntity<>(invoiceDetailService.deleteById(id),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/invoice/{idInvoice}")
+    public ResponseEntity<List<InvoiceDetail>> findByInvoiceId(@PathVariable("idInvoice") Long idInvoice){
+        Invoice invoice = invoiceService.findById(idInvoice);
+        List<InvoiceDetail> invoiceDetails=invoiceDetailService.findAllByInvoice(invoice);
+        return new ResponseEntity<>(invoiceDetails,HttpStatus.OK);
     }
 }

@@ -15,6 +15,7 @@ order_details.intTable = function () {
         "language": {
             "emptyTable": "Không có đơn hàng nào!",
             "lengthMenu": "Hiển thị _MENU_ đơn hàng",
+            "serch": "Tìm kiếm",
             "info": "Hiển thị _START_ đến _END_ của _TOTAL_ đơn hàng",
             "paginate": {
                 "next": "Trang tiếp",

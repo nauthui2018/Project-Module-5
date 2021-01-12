@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="">
+
+<header th:replace="admin/layout::header">
+</header>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- left_nav -->
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <th:block th:insert="admin/layout::nav-title"></th:block>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div th:replace="admin/layout::user"></div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="admin/layout::top_nav"></div>
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_content">
+                        <div class="text-right">
+                        </div>
+                        <div class="table-responsive">
+                            <table id="datatables" class="table table-striped jambo_table bulk_action">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="admin/layout::footer"></footer>
+    </div>
+    <div th:insert="admin/layout::block-script">
+
+    </div>
+    <script src="/admin/build/js/user/invoice.js"></script>
+</div>
+</body>
+</html>
