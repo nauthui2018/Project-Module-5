@@ -2,6 +2,17 @@ var provinces = {} || provinces;
 
 provinces.intTable = function () {
     $("#datatables").DataTable({
+        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
+        "language": {
+            "emptyTable": "Không có tỉnh thành nào!",
+            "lengthMenu": "Hiển thị _MENU_ tỉnh thành",
+            "search": "Tìm kiếm",
+            "info": "Hiển thị _START_ đến _END_ của _TOTAL_ tỉnh thành",
+            "paginate": {
+                "next": "Trang tiếp",
+                "previous": "Trang trước",
+            },
+        },
         ajax: {
             url: '/api/admin/province/',
             method: "GET",
@@ -48,7 +59,7 @@ provinces.get = function (id) {
         dataType: "json"
     }).done(function (data) {
         $('#formAddEdit')[0].reset();
-        $('#modalTitle').html("Chỉnh sửa Tỉnh thành");
+        $('#modalTitle').html("Chỉnh sửa thông tin");
         $('#id').val(data.id);
         $('#name').val(data.name);
         $('#modalAddEdit').modal('show');

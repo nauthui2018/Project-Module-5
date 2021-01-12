@@ -1,5 +1,6 @@
 package com.shopnow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 

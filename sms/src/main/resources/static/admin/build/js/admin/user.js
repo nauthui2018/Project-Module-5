@@ -2,6 +2,17 @@ var users = {} || users;
 
 users.intTable = function () {
     $("#datatables").DataTable({
+        "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
+        "language": {
+            "emptyTable": "Không có tài khoản nào!",
+            "lengthMenu": "Hiển thị _MENU_ tài khoản",
+            "search": "Tìm kiếm",
+            "info": "Hiển thị _START_ đến _END_ của _TOTAL_ tài khoản",
+            "paginate": {
+                "next": "Trang tiếp",
+                "previous": "Trang trước",
+            },
+        },
         ajax: {
             url: '/api/admin/user/',
             method: "GET",
@@ -22,10 +33,18 @@ users.intTable = function () {
                 data: "starting_date", name: "Ngày đăng ký", title: "Ngày đăng ký", orderable: true
             },
             {
-                data: "role", name: "Role", title: "Role", orderable: false
+                data: "role", name: "Role", title: "Chức vụ", orderable: false, "render": function (data) {
+                    if (data == "ADMIN") {
+                        return "Quản trị website";
+                    } else if (data == "EMPLOYEE") {
+                        return "Nhân viên";
+                    } else if (data == "SHOP_OWNER"){
+                        return "Chủ cửa hàng";
+                    }
+                }
             },
             {
-                data: "shop", name: "Shop", title: "Shop", orderable: true, "render": function (data) {
+                data: "shop", name: "Shop", title: "Cửa hàng", orderable: true, "render": function (data) {
                     if (data != null)
                         return `${data.shop_name}`;
                     else
@@ -45,7 +64,7 @@ users.intTable = function () {
 };
 
 users.addNew = function () {
-    $('#modalTitle').html("Thêm User mới");
+    $('#modalTitle').html("Thêm Tài khoản mới");
     users.resetForm();
     $('#modalAddEdit').modal('show');
 }
@@ -56,7 +75,7 @@ users.resetForm = function () {
     $('#password').val('');
     $('#confirm_password').val('');
     $('#role').val('');
-    $('#shop').prop('disable',false);
+    $('#shop').prop('disable', false);
     $('#shop').val('');
     $("#formAddEdit").validate().resetForm();
     myInput.onkeyup();
@@ -83,7 +102,7 @@ users.save = function () {
             $("#datatables").DataTable().ajax.reload();
             toastr.info('Thêm thành công', 'INFORMATION:')
         }).fail(function (xhr) {
-            if(xhr.status=404){
+            if (xhr.status = 404) {
                 toastr.error('Email này đã được sử dụng', 'INFORMATION:')
             }
         });
@@ -93,7 +112,7 @@ users.save = function () {
 
 users.delete = function (id) {
     bootbox.confirm({
-        message: "Bạn có muốn xóa user này không?",
+        message: "Bạn có muốn xóa tài khoản này không?",
         buttons: {
             confirm: {
                 label: 'Có',
@@ -124,7 +143,7 @@ users.delete = function (id) {
 
 users.remove = function (id) {
     bootbox.confirm({
-        message: "Bạn có muốn xóa user này không?",
+        message: "Bạn có muốn xóa tài khoản này không?",
         buttons: {
             confirm: {
                 label: 'Có',
@@ -207,7 +226,7 @@ users.initShop = function () {
         success: function (data) {
             $('#shop').empty();
             $('#shop').append(
-                `<option value="">Chọn Shop</option>`
+                `<option value="">Chọn Cửa hàng</option>`
             );
             $.each(data, function (i, v) {
 
@@ -285,9 +304,9 @@ myInput.onkeyup = function () {
 }
 
 $('#role').on('change', function () {
-    if(this.value=="ADMIN"){
+    if (this.value == "ADMIN") {
         $('#shop').val(null);
-        $( "#shop" ).prop( "disabled", true );
+        $("#shop").prop("disabled", true);
         $("#shop").prop("required", false);
     } else {
         $("#shop").prop("disabled", false);

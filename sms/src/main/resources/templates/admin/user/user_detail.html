@@ -38,11 +38,11 @@
                                         <div class="info-detail" th:text="${user.user_address}"></div>
                                         <h6>Giới tính</h6>
                                         <div class="info-detail" th:text="${user.user_gender}"></div>
-                                        <h6>Role</h6>
+                                        <h6>Chức vụ</h6>
                                         <div th:switch="${user.role}">
                                             <div th:case="'ADMIN'" class="info-detail">Quản trị website</div>
-                                            <div th:case="'SHOP_OWNER'" class="info-detail">Chủ shop</div>
-                                            <div th:case="'USER'" class="info-detail">Nhân viên của shop</div>
+                                            <div th:case="'SHOP_OWNER'" class="info-detail">Chủ Cửa hàng</div>
+                                            <div th:case="'USER'" class="info-detail">Nhân viên cửa hàng</div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
@@ -57,9 +57,9 @@
                                         </div>
                                         <h6>CMND</h6>
                                         <div class="info-detail" th:text="${user.personal_code}"></div>
-                                        <h6>Shop</h6>
+                                        <h6>Cửa hàng</h6>
                                         <div th:switch="${user.shop}">
-                                            <div th:case="null" class="info-detail">Không thuộc Shop nào trong hệ thống</div>
+                                            <div th:case="null" class="info-detail">Không thuộc Cửa hàng nào trong hệ thống</div>
                                             <div th:case="*" class="info-detail" th:text="${user.shop.shop_name}"></div>
                                         </div>
                                     </div>

@@ -38,48 +38,6 @@
         <footer th:replace="admin/layout::footer"></footer>
     </div>
 
-    <!-- The Modal Upload-->
-    <div class="modal" id="modalUpload" name="modalUpload">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modalUploadTitle"></h4>
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-label="Close">&times;
-                    </button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form id="formUpload" th:name="formUpload" enctype="multipart/form-data">
-                        <input hidden name="id" id="code">
-                        <div class="row form-group">
-                            <div class="col-3">
-                                <label>Upload Logo</label>
-                            </div>
-                            <div class="col-9">
-                                <input class="form-control" type="file"
-                                       name="file" id="file" accept="image/svg+xml"
-                                       data-rule-required=true>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <a href="javascript:" class="btn btn-primary"
-                       onclick="webInfos.upload()">Upload</a>
-
-                    <button type="button" class="btn btn-danger" onclick="webInfos.resetForm()"
-                            data-dismiss="modal" aria-label="Close"> Đóng
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- The Modal -->
     <div class="modal" id="modalAddEdit" name="modalAddEdit">
         <div class="modal-dialog">
@@ -99,7 +57,7 @@
                         <input hidden name="id" id="id">
                         <div class="row form-group">
                             <div class="col-3">
-                                <label>Hotline</label>
+                                <label>Điện thoại</label>
                             </div>
                             <div class="col-9">
                                 <input class="form-control" type="text"
@@ -119,7 +77,7 @@
                         </div>
                         <div class="row form-group">
                             <div class="col-3">
-                                <label>Address</label>
+                                <label>Địa chỉ</label>
                             </div>
                             <div class="col-9">
                                 <input class="form-control" type="text"

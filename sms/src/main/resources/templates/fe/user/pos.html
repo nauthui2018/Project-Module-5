@@ -38,34 +38,8 @@
 
                                         <div id="productDropdown" class="dropdown-content">
                                             <p class="list-empty" th:if="${products.size()==0}">Chưa có sản phẩm nào</p>
-                                            <th:block th:each="product: ${products}">
-                                                <a href="javascript:" th:id="${product.id}"
-                                                   onclick="addToCart(this.id)">
-                                                    <div class="row">
-                                                        <div class="col-2 grid">
-                                                            <img th:src="@{${product.image}}" alt="image"
-                                                                 width="100%">
-                                                        </div>
-                                                        <div class="col-10 grid">
-                                                            <div class="main-info">
-                                                                <div class="row">
-                                                                    <div class="col-7 name-product"
-                                                                         th:text="${product.name}"></div>
-                                                                    <div class="col-5 price-product"
-                                                                         th:text="${#numbers.formatDecimal(product.current_price, 0, 'COMMA', 0, 'POINT')}+' đ'"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="extra-info">
-                                                                <div class="row">
-                                                                    <div class="col-7 code-product"
-                                                                         th:text="${product.barcode}"></div>
-                                                                    <div class="col-5 canSale" th:text="'Có thể bán: '+${product.stock}"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </th:block>
+                                            <div id="list-product">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

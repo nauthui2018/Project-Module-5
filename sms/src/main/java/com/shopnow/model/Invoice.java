@@ -33,8 +33,8 @@ public class Invoice {
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     private ZonedDateTime created_at = ZonedDateTime.now();
 
-    @OneToMany(mappedBy = "invoice")
     @JsonIgnore
+    @OneToMany(mappedBy = "invoice")
     private Set<InvoiceDetail> invoiceDetails = new HashSet<>();
 
     private boolean finished=false;

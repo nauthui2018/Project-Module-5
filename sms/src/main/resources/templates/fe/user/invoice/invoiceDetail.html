@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="">
+
+<header th:replace="admin/layout::header">
+</header>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- left_nav -->
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <th:block th:insert="admin/layout::nav-title"></th:block>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div th:replace="admin/layout::user"></div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="admin/layout::top_nav"></div>
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_content">
+                        <input type="hidden" th:value="${invoice.id}" id="idInvoice">
+                        <div class="text-right">
+                            <a href="/user/invoices" class="btn btn-primary">Quay lại</a>
+                        </div>
+                        <div class="customer-info mb-3">
+                            <div class="row mb-2 title-div">
+                                <div class="col-4">
+                                    Thông tin khách hàng
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="text-dark">Tên khách hàng: </span><span
+                                        th:text="${invoice.customer.customer_fullName}" class="text-primary"></span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="text-dark">Số điện thoại: </span><span
+                                        th:text="${invoice.customer.customer_phone}" class="text-primary"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="invoice-detail mb-3">
+                            <div class="row mb-2 title-div">
+                                <div class="col-12">
+                                    Thông tin đơn hàng
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="text-dark">Trạng thái đơn hàng: </span>
+                                    <th:block th:switch="${invoice.finished}">
+                                        <span th:case="true" class="text-success">Hoàn thành</span>
+                                        <span th:case="false" class="text-warning">Đang giao dịch</span>
+                                    </th:block>
+                                    <div class="row">
+                                        <div class="col-1"></div>
+                                        <div class="col-10">
+                                            <table class="table text-right" id="invoiceDetailTable">
+                                            </table>
+                                        </div>
+                                        <div class="col-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7"></div>
+                                        <div class="col-5">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="text-dark">Tổng tiền</p>
+                                                    <p class="text-danger">Giảm giá</p>
+                                                    <p class="text-success font-weight-bold">Khách phải trả</p>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <p class="text-dark" id="totalAmount">0</p>
+                                                    <p class="text-danger" th:text="${invoice.discount}" id="discountAmount"></p>
+                                                    <p class="text-success font-weight-bold" style="font-size: 16px" th:text="${invoice.total_amount}" id="moneyAmount"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <span class="text-dark">Nhân viên lập hóa đơn: </span><span
+                                        th:text="${invoice.user.user_fullname}" class="text-primary"></span>
+                                </div>
+                                <div class="col-6">
+                                    <span class="text-dark">Ngày lập hóa đơn: </span><span
+                                        th:text="${#temporals.format(invoice.created_at, 'dd-MM-yyyy HH:mm:ss')}" class="text-primary"></span>
+                                </div>
+                            </div>
+                            <th:block th:switch="${invoice.finished}">
+                                <div th:case="true"></div>
+                                <div th:case="false" class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-danger w-100" th:onclick="|invoiceDetail.delete(${invoice.id})|"
+                                                data-dismiss="modal" aria-label="Close">Hủy
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-success w-100" th:onclick="|invoiceDetail.finished(${invoice.id})|">Hoàn thành</button>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="admin/layout::footer"></footer>
+    </div>
+    <div th:insert="admin/layout::block-script">
+
+    </div>
+    <script src="/admin/build/js/user/invoiceDetail.js"></script>
+</div>
+</body>
+</html>

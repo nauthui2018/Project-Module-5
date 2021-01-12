@@ -104,6 +104,17 @@ pos.init = function () {
     customers.initListCustomer();
 }
 
+var number = $('.number');
+
+number.onkeydown = function(e) {
+    console.log(e.keyCode);
+    if (!((e.keyCode > 95 && e.keyCode < 106)
+        || (e.keyCode > 47 && e.keyCode < 58)
+        || e.keyCode == 8)) {
+        return false;
+    }
+}
+
 customers.addNew = function () {
     $('.modal-title').html("Thêm khách hàng mới");
     customers.resetForm();
@@ -113,6 +124,7 @@ customers.addNew = function () {
 customers.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#id').val('');
+    $('#customerId').val('');
     $('#customer_fullName').val('');
     $('#customer_phone').val('');
     $('#customer_email').val('');
@@ -202,6 +214,34 @@ pos.initListProduct = function () {
         dataType: "json",
         success: function (data) {
             listProduct = data;
+            $('#list-product').empty();
+            $.each(data, function (i, v) {
+                $('#list-product').append(
+                    `<a href="javascript:" id="${v.id}" onClick="addToCart(${v.id})">
+                        <div class="row">
+                            <div class="col-2 grid">
+                                <img src="${v.image}" alt="image" width="100%">
+                            </div>
+                            <div class="col-10 grid">
+                                <div class="main-info">
+                                    <div class="row">
+                                        <div class="col-7 name-product">${v.name}</div>
+                                        <div class="col-5 price-product">${numberWithCommas(v.current_price)+' đ'}</div>
+                                    </div>
+                                </div>
+                                <div class="extra-info">
+                                    <div class="row">
+                                        <div class="col-7 code-product">${v.barcode}</div>
+                                        <div class="col-5 canSale">
+                                            Có thể bán: ${v.stock}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>`
+                );
+            });
         }
     });
 }
@@ -244,13 +284,20 @@ drawListProductItem = function (productArr) {
                 <td>${i + 1}</td>
                 <td><a href="javascript:" onclick="removeProduct(${v.id})"><i class="fas fa-trash-alt"></i></a></td>
                 <td>${v.name}</td>
-                <td><input type="number" class="text-right" min="0" max="${v.stock}" step="1" id="quantity" value="${v.count}" 
+                <td><input type="number" class="text-right number" min="0" max="${v.stock}" step="1" id="quantity" value="${v.count}" 
                 onchange="amountItem(${i},this.value,${v.current_price})" style="width: 100%;"></td>
                 <td>${numberWithCommas(v.current_price)}</td>
                 <td id="amount${i}">${numberWithCommas(v.amount)}</td>
             </tr>`
         );
     })
+    const numberInput = document.getElementsByClassName('number');
+    for (let i = 0; i < numberInput.length ; i++) {
+        const numberInp = numberInput[i];
+        numberInput[i].addEventListener("input",function (e) {
+            numberInp.value = Math.abs(numberInp.value);
+        })
+    }
 }
 
 function amountItem(i, value, price) {
@@ -373,6 +420,7 @@ function printElement() {
         $('#print-invoice').modal('hide')
     }, 100);
     saveInvoice();
+
 }
 
 
@@ -402,6 +450,7 @@ function saveInvoice() {
     });
     saveBill.done(function (data) {
         saveInvoiceDetail(data);
+        setTimeout(pos.initListProduct(),100);
     });
     saveBill.fail(function () {
         toastr.error('Lưu hóa đơn không thành công', 'INFORMATION:');
@@ -447,6 +496,7 @@ function clearData() {
     $('#amountMoney').html(0);
     $('#discount').val(0);
     $('#totalFinal').html(0);
+    $('#customerId').val('');
     $('#isShip').prop('checked', false);
 }
 
