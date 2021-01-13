@@ -210,6 +210,11 @@ products.listProduct = function () {
                     `<option value='${v.id}'>${v.name}</option>`
                 );
             });
+            $.each(data, function (i, v) {
+                $('#new_product').append(
+                    `<option value='${v.id}'>${v.name}</option>`
+                );
+            });
         }
     });
 }

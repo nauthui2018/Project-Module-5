@@ -47,4 +47,9 @@ public class OrderServiceImpl implements OrderService {
     public Order findById(Long id) {
         return orderRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Order findTopByOrderByIdDesc() {
+        return orderRepository.findTopByOrderByIdDesc();
+    }
 }

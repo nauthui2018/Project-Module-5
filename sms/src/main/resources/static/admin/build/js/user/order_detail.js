@@ -1,5 +1,6 @@
 let order_details = {} || order_details;
 var listOrderDetail = [];
+var listOrderDetailByOrderId = [];
 
 order_details.init = function () {
     order_details.intTable();
@@ -92,16 +93,37 @@ order_details.findById = function (id) {
     return null;
 }
 
-order_details.save = function () {
-    for (let i = 0; i < listOrderedProduct.length; i++) {
-        $.ajax({
-            url: "/api/user/order_detail",
-            method: "POST",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(listOrderedProduct[i])
-        });
-    }
+order_details.findByOrderId = function (order_id) {
+    listOrderDetailByOrderId = [];
+    $.ajax({
+        url: "/api/user/order_detail",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            for (let i = 0; i < data.length; i++) {
+                var orderId = data[i].order.id;
+                if (order_id == orderId) {
+                    listOrderDetailByOrderId.push(data[i]);
+                }
+            }
+            return listOrderDetailByOrderId;
+        }
+    });
+}
+
+order_details.save = function (orderDetail) {
+    var ajaxAdd = $.ajax({
+        url: "/api/user/order_detail",
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(orderDetail)
+    });
+    ajaxAdd.done(function () {
+        order_details.listOrderDetail();
+    });
+    ajaxAdd.fail(function () {
+    });
 }
 
 
