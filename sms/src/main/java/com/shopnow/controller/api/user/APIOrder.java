@@ -21,6 +21,12 @@ public class APIOrder {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/newOrder")
+    public ResponseEntity<Order> getNewOrderId() {
+        Order order = orderService.findTopByOrderByIdDesc();
+        return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Order> saveOrder(@RequestBody Order order) {
         orderService.save(order);
