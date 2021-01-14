@@ -31,9 +31,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_content">
-                        <button type="button" class="btn-sm btn-success mb-3" onclick="orders.addNew()">
-                            Tạo đơn đặt hàng mới
-                        </button>
+                        <h5>Danh sách đặt hàng</h5>
                         <div class="table-responsive">
                             <table id="datatables" class="table table-striped jambo_table bulk_action">
                             </table>
@@ -52,105 +50,14 @@
     </div>
 </div>
 
-<!--Modal-->
-<div class="modal" id="modalAddEdit">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title"></h4>
-                <button type="button" class="close" data-dismiss="modal" onclick="orders.resetForm()" aria-label="Close">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form id="formAddEdit" th:name="formAddEdit">
-                    <input type="hidden" name="id" id="id" class="form-control" required>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label style="font-size: larger">Nhà cung cấp</label>
-                        </div>
-                        <div class="col-9 form-label-group">
-                            <select class="form-control" id="supplier" name="supplier">
-                            </select>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label style="font-size: larger">Thêm sản phẩm</label>
-                        </div>
-                        <div class="col-5">
-                            <label style="font-size: larger">Tên sản phẩm</label>
-                        </div>
-                        <div class="col-2">
-                            <label style="font-size: larger">Số lượng</label>
-                        </div>
-                        <div class="col-2">
-                            <label style="font-size: larger">Xác nhận</label>
-                        </div>
-                    </div>
-                    <form  id="formOrder" th:name="formOrder">
-                        <div class="row form-group">
-                            <div class="col-3"></div>
-                            <div class="col-5">
-                                <select class="form-control" id="product" name="product">
-                                </select>
-                                <p style="color: red;display: none" class="ui-state-error-text"></p>
-                            </div>
-                            <div class="col-2">
-                                <input type="number" id="quantity" name="quantity" class="form-control" required>
-                                <p style="color: red;display: none" class="ui-state-error-text"></p>
-                            </div>
-                            <div class="col-2">
-                                <a class="mt-3" onclick="orders.save()" style="font-size: x-large; color: dodgerblue">
-                                    <i class="far fa-check-square" title="Lưu"></i>
-                                </a>
-                                <a class="mt-3 ml-2" onclick="orders.save()" style="font-size: x-large; color: sandybrown">
-                                    <i class="fas fa-ban" title="Huỷ"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="row form-group">
-                        <div class="table-responsive">
-                            <table class="table table-striped jambo_table bulk_action">
-                                <thead>
-                                <tr class="headings" style="background-color: lightseagreen">
-                                    <th class="column-title">STT</th>
-                                    <th class="column-title">Sản phẩm</th>
-                                    <th class="column-title">Số lượng</th>
-                                    <th class="column-title no-link last"><span class="nobr">Thao tác</span></th>
-                                </tr>
-                                </thead>
-                                <tbody id="orderTable" >
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <a class="btn btn-primary" onclick="orders.save()">Lưu</a>
-                        <button type="button" class="btn btn-danger" onclick="orders.resetForm()" data-dismiss="modal" aria-label="Close">Hủy</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 <th:block th:replace="admin/layout :: block-script"></th:block>
 
 <th:block th:replace="admin/layout :: block-dataTable"></th:block>
 
-<script src="/admin/build/js/supplier.js"></script>
-<script src="/admin/build/js/product.js"></script>
-<script src="/admin/build/js/order_detail.js"></script>
-<script src="/admin/build/js/order.js"></script>
+<script src="/admin/build/js/user/supplier.js"></script>
+<script src="/admin/build/js/user/product.js"></script>
+<script src="/admin/build/js/user/order.js"></script>
+<script src="/admin/build/js/user/order_detail.js"></script>
 
 <script>
     $(document).ready(function () {

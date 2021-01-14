@@ -190,11 +190,11 @@
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
                         <div class="col-2">
-                            <input type="number" id="new_order_quantity" name="new_order_quantity" class="form-control" required>
+                            <input type="number" id="new_prime_cost" name="new_prime_cost" class="form-control" required>
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
                         <div class="col-2">
-                            <input type="number" id="new_prime_cost" name="new_prime_cost" class="form-control" required>
+                            <input type="number" id="new_order_quantity" name="new_order_quantity" class="form-control" required>
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
                         <div class="col-2">
@@ -272,9 +272,11 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="row form-group">
-                    <h5 class="order_id"></h5>
-                    <h5 class="order_date"></h5>
-                    <h5 class="order_amount"></h5>
+                    <ul style="font-size: larger; color: #0b0b0b">
+                        <li class="order_id"></li>
+                        <li class="order_amount"></li>
+                        <li class="order_date"></li>
+                    </ul>
                 </div>
                 <div class="row form-group">
                     <div class="table-responsive">
@@ -285,7 +287,6 @@
                                 <th class="column-title">Sản phẩm</th>
                                 <th class="column-title">Đơn giá</th>
                                 <th class="column-title">Số lượng</th>
-                                <th class="column-title">Tồn kho</th>
                                 <th class="column-title">Ghi chú</th>
                             </tr>
                             </thead>
