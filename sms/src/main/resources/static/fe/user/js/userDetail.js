@@ -196,7 +196,9 @@ function initShop() {
 }
 
 function updateUser() {
+    if(user.province!=null)
     $('#province').val(user.province.id);
+    else $('#province').val('');
     $('#user_gender').val(user.user_gender);
     $('#info-user').hide();
     $('#update-user').show();
@@ -231,7 +233,6 @@ function editUser(user) {
 
 function confirmUpdate() {
     if ($("#formUpdateUser").valid()) {
-        debugger
         var userObj = {};
         userObj.id = $('#id').val();
         userObj.user_fullname = $('#user_fullname').val();
@@ -269,25 +270,25 @@ function confirmUpdate() {
 }
 
 function uploadImage(){
-    var fd = new FormData();
-    fd.append( 'file', $('#avatar')[0].files[0]);
-    fd.append("id",$("#userId").val());
-    $.ajax({
-        url: "/api/admin/user/upload",
-        type: "POST",
-        data: fd,
-        enctype: 'multipart/form-data',
-        processData: false,
-        contentType: false,
-        cache: false,
-    }).done(function (){
-        $('#userAvatar').attr('src',srcImage);
-        $('#avatar-user').attr('src',srcImage);
-    }).fail(function () {
-        $('.modal').modal('hide');
-        toastr.error('Thêm ảnh không thành công', 'INFORMATION:')
+        var fd = new FormData();
+        fd.append('file', $('#avatar')[0].files[0]);
+        fd.append("id", $("#userId").val());
+        $.ajax({
+            url: "/api/admin/user/upload",
+            type: "POST",
+            data: fd,
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            cache: false,
+        }).done(function () {
+            $('#userAvatar').attr('src', srcImage);
+            $('#avatar-user').attr('src', srcImage);
+        }).fail(function () {
+            $('.modal').modal('hide');
+            toastr.error('Không thêm ảnh', 'INFORMATION:')
 
-    });
+        });
 }
 
 var srcImage;

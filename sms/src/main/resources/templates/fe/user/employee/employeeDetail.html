@@ -132,9 +132,16 @@
                                                         <input type="text" id="email" class="form-control"
                                                                th:value="${user.email}" disabled>
                                                         <h6 class="mt-1">Tỉnh thành</h6>
-                                                        <select name="province" id="province" class="form-control"
-                                                                th:value="${user.province.id}">
-                                                        </select>
+                                                        <th:block th:if="${user.province}">
+                                                            <select name="province" id="province" class="form-control"
+                                                                    th:value="${user.province.id}">
+                                                            </select>
+                                                        </th:block>
+                                                        <th:block th:unless="${user.province}">
+                                                            <select name="province" id="province"
+                                                                    class="form-control">
+                                                            </select>
+                                                        </th:block>
                                                         <h6 class="mt-1">CMND</h6>
                                                         <input type="text" id="personal_code" class="form-control"
                                                                th:value="${user.personal_code}">
