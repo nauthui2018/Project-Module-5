@@ -1,6 +1,5 @@
 let order_details = {} || order_details;
 var listOrderDetail = [];
-var listOrderDetailByOrderId = [];
 
 order_details.init = function () {
     order_details.intTable();
@@ -30,17 +29,18 @@ order_details.intTable = function () {
             dataSrc: ""
         },
         columns: [
-            { data: "id", name: "ID", title: "ID", sortable: false},
+            { data: "id", name: "id", title: "ID", sortable: false},
             { data: "product.name", name: "product", title: "Sản phẩm", sortable: true},
-            { data: "order_quantity", name: "order_quantity", title: "Số lượng đặt hàng", sortable: false},
+            { data: "order_quantity", name: "order_quantity", title: "Số lượng", sortable: false},
             { data: "prime_cost", name: "prime_cost", title: "Giá nhập", sortable: false},
             { data: "order.ordered_date", name: "ordered_date", title: "Ngày đặt hàng", sortable: false},
-            { data: "supplier.name", name: "supplier", title: "Nhà cung cấp", sortable: false},
-            { data: "order.finished", name: "finished", title: "Trạng thái", sortable: false,
+            { data: "order.supplier.name", name: "supplier", title: "Nhà cung cấp", sortable: false},
+            { data: "finished", name: "finished", title: "Trạng thái", sortable: false,
                 "render": function (data) {
-                    return data ? "Đã hoàn thành" : "Chưa hoàn thành";
+                    return data ? "Đã nhập kho" : "Đang chờ";
                 }
-            }
+            },
+            { data: "order.id", name: "order", title: "Số đơn hàng", sortable: false},
         ]
     });
 }
@@ -91,24 +91,6 @@ order_details.findById = function (id) {
         }
     }
     return null;
-}
-
-order_details.findByOrderId = function (order_id) {
-    listOrderDetailByOrderId = [];
-    $.ajax({
-        url: "/api/user/order_detail",
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            for (let i = 0; i < data.length; i++) {
-                var orderId = data[i].order.id;
-                if (order_id == orderId) {
-                    listOrderDetailByOrderId.push(data[i]);
-                }
-            }
-            return listOrderDetailByOrderId;
-        }
-    });
 }
 
 order_details.save = function (orderDetail) {

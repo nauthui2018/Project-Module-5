@@ -3,6 +3,7 @@ var listOrder = [];
 var listNewOrderDetail = [];
 var supplier_id;
 var newOrder;
+var listOrderDetailByOrderId = [];
 
 orders.init = function () {
     products.listProduct();
@@ -48,7 +49,6 @@ orders.selectSupplier = function () {
 
 orders.openModalAddEditOrder = function () {
     orders.resetFormAddOrderDetail();
-    listNewOrderDetail = [];
     $('.modalAddEditOrder-title').html("Thêm sản phẩm vào đơn hàng");
     $('#modalAddEditOrder').modal({
         backdrop: 'static'
@@ -77,56 +77,63 @@ orders.addNewOrderDetail = function () {
         var product_id = parseInt($('#product').val());
         var prime_cost = $('#prime_cost').val();
         var remark = $('#remark').val();
-        var index = -1;
-        for (let i = 0; i < listNewOrderDetail.length; i++) {
-            if (product_id == listNewOrderDetail[i].product.id) {
-                index = i;
-            }
-        }
-        if (index != -1) {
-            order_detail = listNewOrderDetail[index];
-            if (order_detail.prime_cost != prime_cost) {
-                order_detail.prime_cost = prime_cost;
-                order_detail.remark = remark;
-                order_detail.order_quantity = order_quantity;
-                order_detail.product = products.findById(product_id);
-                listNewOrderDetail.push(order_detail);
-            } else {
-                var new_order_quantity = order_detail.order_quantity + order_quantity;
-                order_detail.order_quantity = new_order_quantity;
-                listNewOrderDetail.splice(index, 1, order_detail);
-            }
-        } else {
-            order_detail.prime_cost = prime_cost;
-            order_detail.remark = remark;
-            order_detail.order_quantity = order_quantity;
-            order_detail.product = products.findById(product_id);
+        order_detail.prime_cost = prime_cost;
+        order_detail.remark = remark;
+        order_detail.order_quantity = order_quantity;
+        order_detail.product = products.findById(product_id);
+        var isExisted = orders.findOrderDetail(order_detail);
+        if (!isExisted) {
             listNewOrderDetail.push(order_detail);
+        } else {
+            var index = orders.findIndex(order_detail)
+            var current_order_detail = listNewOrderDetail[index];
+            var new_order_quantity = current_order_detail.order_quantity + order_quantity;
+            current_order_detail.order_quantity = new_order_quantity;
+            if (remark != "") {
+                current_order_detail.remark = remark;
+            }
+            listNewOrderDetail.splice(index, 1, current_order_detail);
         }
         orders.showListOrderDetail(listNewOrderDetail);
     }
 }
 
-orders.findOrderDetail = function (product_id) {
+orders.findOrderDetail = function (orderDetail) {
+    var isExisted = false;
+    var product_id = orderDetail.product.id;
+    var prime_cost = orderDetail.prime_cost;
     for (let i = 0; i < listNewOrderDetail.length; i++) {
-        if (product_id === listNewOrderDetail[i].product.id) {
-            return listNewOrderDetail[i];
+        var item = listNewOrderDetail[i];
+        if (product_id == item.product.id && prime_cost == item.prime_cost) {
+            isExisted = true;
         }
     }
-    return null;
+    return isExisted;
 }
 
-orders.openModalUpdateOrderDetail = function (product_id) {
+orders.findIndex = function (orderDetail) {
+    var index = -1;
+    var product_id = orderDetail.product.id;
+    var prime_cost = orderDetail.prime_cost;
+    for (let i = 0; i < listNewOrderDetail.length; i++) {
+        var item = listNewOrderDetail[i];
+        if (product_id == item.product.id && prime_cost == item.prime_cost) {
+            index = i;
+        }
+    }
+    return index;
+}
+
+orders.openModalUpdateOrderDetail = function (index) {
     orders.resetFormAddOrderDetail();
-    var orderDetail = orders.findOrderDetail(product_id);
+    var orderDetail = listNewOrderDetail[index];
     $('#formUpdateOrderDetail')[0].reset();
-    $('#new_product').val(product_id);
+    $('#new_product').val(orderDetail.product.id);
     $('#new_prime_cost').val(orderDetail.prime_cost);
     $('#new_order_quantity').val(orderDetail.order_quantity);
     var amount = orderDetail.prime_cost*orderDetail.order_quantity;
     $('#new_amount').val(amount);
     $('#new_remark').val(orderDetail.remark);
-    var index = listNewOrderDetail.indexOf(product_id);
     $('#index').val(index);
     $('#modalUpdateOrderDetail').modal({
         backdrop: 'static'
@@ -135,14 +142,30 @@ orders.openModalUpdateOrderDetail = function (product_id) {
 
 orders.updateOrderDetail = function () {
     if ($("#formUpdateOrderDetail").valid()) {
-        var orderDetail = {};
-        var product_id = parseInt($('#new_product').val());
-        orderDetail.prime_cost = $('#new_prime_cost').val();
-        orderDetail.order_quantity = $('#new_order_quantity').val();
-        orderDetail.remark = $('#new_remark').val();
-        orderDetail.product = products.findById(product_id);
-        var index = parseInt($('#index').val());
-        listNewOrderDetail.splice(index, 1, orderDetail);
+        var order_detail = {};
+        var new_order_quantity = parseInt($('#new_order_quantity').val());
+        var new_product_id = parseInt($('#new_product').val());
+        var new_prime_cost = $('#new_prime_cost').val();
+        var new_remark = $('#new_remark').val();
+        order_detail.prime_cost = new_prime_cost;
+        order_detail.remark = new_remark;
+        order_detail.order_quantity = new_order_quantity;
+        order_detail.product = products.findById(new_product_id);
+        var old_index = parseInt($('#index').val());
+        var isExisted = orders.findOrderDetail(order_detail);
+        var index = orders.findIndex(order_detail)
+        if (!isExisted || index == old_index) {
+            listNewOrderDetail.splice(old_index, 1, order_detail);
+        } else {
+            var current_order_detail = listNewOrderDetail[index];
+            var order_quantity = current_order_detail.order_quantity + new_order_quantity;
+            current_order_detail.order_quantity = order_quantity;
+            if (new_remark != "") {
+                current_order_detail.remark = new_remark;
+            }
+            listNewOrderDetail.splice(index, 1, current_order_detail);
+            listNewOrderDetail.splice(old_index, 1);
+        }
         orders.showListOrderDetail(listNewOrderDetail);
         $('#modalUpdateOrderDetail').modal('hide');
     }
@@ -166,7 +189,6 @@ orders.removeOrderDetail = function (product_id) {
                 if (result) {
                     listNewOrderDetail.splice(index, 1);
                     orders.showListOrderDetail(listNewOrderDetail);
-                    toastr.info('Xóa thành công!', 'INFORMATION:');
                 }
             }
         })
@@ -187,7 +209,7 @@ orders.showListOrderDetail = function (listNewOrderDetail) {
                 <td>${total_amount}</td>
                 <td>${v.remark}</td>
                 <td>
-                    <a href='javascript:' title='Cập nhật' onclick='orders.openModalUpdateOrderDetail(${v.product.id})' data-toggle="modal" data-target="#modalOrder" style='color: orange'><i class="fas fa-edit"></i></a>
+                    <a href='javascript:' title='Cập nhật' onclick='orders.openModalUpdateOrderDetail(${i})' data-toggle="modal" style='color: orange'><i class="fas fa-edit"></i></a>
                     <a class='ml-3' href='javascript:' title='Xóa' onclick='orders.removeOrderDetail(${v.product.id})' style='color: red'><i class="fas fa-trash-alt"></i></a>
                 </td>
             </tr>`
@@ -196,38 +218,40 @@ orders.showListOrderDetail = function (listNewOrderDetail) {
     orders.resetFormAddOrderDetail();
 }
 
+orders.listByOrderId = function (order_id) {
+    listOrderDetailByOrderId = [];
+    for (let i = 0; i < listOrderDetail.length; i++) {
+        var orderId = listOrderDetail[i].order.id;
+        if (order_id == orderId) {
+            listOrderDetailByOrderId.push(listOrderDetail[i]);
+        }
+    }
+}
+
 orders.openModalOrderInformation = function (id) {
     var order = orders.findById(id);
-    console.log(id);
-    console.log(order);
-    $('.order_id').html(order.id);
-    $('.order_date').html(order.ordered_date);
-    $('.order_amount').html(order.total_amount);
+    $('.order_id').html("ID đơn hàng: " + order.id);
+    $('.order_date').html("Ngày đặt hàng: " + order.ordered_date);
+    $('.order_amount').html("Tổng tiền: " + order.total_amount);
     $('#modalShowOrderDetail').modal({
         backdrop: 'static'
     });
-    orders.showOrderInformation(id);
-}
-
-orders.showOrderInformation = function (id) {
-    var list = order_details.findByOrderId(id);
+    orders.listByOrderId(id);
     var dataTable = $('#orderDetailTable').DataTable();
     dataTable.clear();
     dataTable.draw();
     dataTable.destroy();
-    $.each(list, function (i, v) {
+    $.each(listOrderDetailByOrderId, function (i, v) {
         $('#orderDetailData').append(
             `<tr class="odd pointer"> 
                 <td>${v.id}</td>  
                 <td>${v.product.name}</td>           
                 <td>${v.prime_cost}</td>
                 <td>${v.order_quantity}</td>
-                <td>${v.stock}</td>
                 <td>${v.remark}</td>
             </tr>`
         );
     });
-    orders.resetFormAddOrderDetail();
 }
 
 orders.intTable = function () {
@@ -242,34 +266,8 @@ orders.intTable = function () {
         },
         columns: [
             { data: "id", name: "id", title: "ID", sortable: false},
-            // { data: "id", name: "product", title: "Tên sản phẩm", sortable: false,
-            //     "render": function (data) {
-            //         var str = "";
-            //         for (let i = 0; i < listOrderDetail.length; i++) {
-            //             var product = listOrderDetail[i].product;
-            //             var order = listOrderDetail[i].order;
-            //             if (data == order.id) {
-            //                 str += "<a class='mr-2' href='javascript:;' title='Chi tiết'>" + product.name + "</a><br>";
-            //             }
-            //         }
-            //         return str;
-            //     }
-            // },
-            // { data: "id", name: "order_detail", title: "Đơn hàng chi tiết", sortable: false,
-            //     "render": function (data) {
-            //         var str = "";
-            //         for (let i = 0; i < listOrderDetail.length; i++) {
-            //             var orderDetailId = listOrderDetail[i].id;
-            //             var order = listOrderDetail[i].order;
-            //             if (data == order.id) {
-            //                 str += "<a class='mr-2' href='javascript:;' title='Chi tiết'>#" + orderDetailId + "</a><br>";
-            //             }
-            //         }
-            //         return str;
-            //     }
-            // },
             { data: "supplier.name", name: "supplier", title: "Nhà cung cấp", sortable: true},
-            { data: "total_amount", name: "total_amount", title: "Tổng số lượng", sortable: true},
+            { data: "total_amount", name: "total_amount", title: "Tổng tiền", sortable: true},
             { data: "ordered_date", name: "ordered_date", title: "Ngày đặt hàng", sortable: true},
             { data: "finished", name: "finished", title: "Trạng thái", sortable: false,
                 "render": function (data) {
@@ -280,7 +278,7 @@ orders.intTable = function () {
                 "render": function (data) {
                     var str = "<a href='javascript:' title='Cập nhật' onclick='orders.get(" + data + ")' data-toggle=\"modal\" data-target=\"#modalAddEdit\" style='color: #ffa500'><i class=\"fas fa-edit\"></i></a> " +
                         "<a class='ml-2' href='javascript:' title='Xóa' onclick='orders.delete(" + data + ")' style='color: red'><i class=\"fas fa-trash-alt\"></i></a>" +
-                        "<a class='ml-2' href='javascript:' title='Xem' onclick='orders.openModalOrderInformation(" + data + ")' data-toggle=\"modal\" data-target=\"#modalShowOrderDetail\" style='color: dodgerblue'><i class=\"fas fa-info-circle\"></i></a> "
+                        "<a class='ml-2' href='javascript:' title='Xem' onclick='orders.openModalOrderInformation(" + data + ")' data-toggle=\"modal\" style='color: dodgerblue'><i class=\"fas fa-info-circle\"></i></a> "
                     return str;
                 }
             }

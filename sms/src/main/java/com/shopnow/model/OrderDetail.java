@@ -21,6 +21,7 @@ public class OrderDetail {
     private int stock = 0;
     private int scrap = 0;
     private boolean deleted = false;
+    private boolean finished = false;
     private String remark;
 
     @ManyToOne
