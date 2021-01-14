@@ -101,12 +101,9 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="li-menu"><a><i class="mr-3 fas fa-user-shield"></i>Nhân viên<span
-                                    class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="/employees">Danh sách nhân viên</a></li>
-                                    <li><a href="/employees">Thêm mới nhân viên</a></li>
-                                </ul>
+                            <li>
+                                <a href="javascript:" onclick="toEmployeePage()"><i class="mr-3 fas fa-user-shield"></i>
+                                    Nhân viên</a>
                             </li>
                             <li class="li-menu"><a><i class="mr-3 fas fa-cogs"></i>Cài đặt<span
                                     class="fa fa-chevron-down"></span></a>
@@ -152,12 +149,12 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown"
                                      style="width: 100px;">
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-user pull-right"></i>Profile</a>
-                                    <a class="dropdown-item" href="login.html"><i class="fas fa-cogs pull-right"></i>Setting</a>
+                                    <a class="dropdown-item" sec:authorize="hasRole('ADMIN')"  href="javascript:" onclick="toUserDetailPage()"><i class="fa fa-user pull-right"></i>Profile</a>
+                                    <a class="dropdown-item" sec:authorize="hasRole('EMPLOYEE')" href="javascript:" onclick="toEmployeeDetailPage()"><i class="fa fa-user pull-right"></i>Profile</a>
+                                    <a class="dropdown-item" sec:authorize="hasRole('SHOP_OWNER')" href="javascript:" onclick="toEmployeeDetailPage()"><i class="fa fa-user pull-right"></i>Profile</a>
                                     <a class="dropdown-item" th:href="@{/logout}"><i
                                             class="fa fa-sign-out pull-right"></i>Log
                                         Out</a>
-                                    <a class="dropdown-item" href="javascript:;">Help</a>
                                 </div>
                             </li>
                         </ul>

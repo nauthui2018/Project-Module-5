@@ -51,4 +51,13 @@ public class APIProduct {
     public ResponseEntity<Boolean> deleteProduct(@PathVariable("id") Long id){
         return new ResponseEntity<>(productService.deleteById(id), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/upload")
+    public ResponseEntity<String> uploadLogo1(@RequestParam("file") MultipartFile file, @RequestParam  Long id ) throws IllegalStateException, IOException {
+        Product product=productService.findById(id);
+        String src="./src/main/resources/static/admin/build/images/imagesProduct";
+        product.setImage("/admin/build/images/imagesProduct/"+ FileUploadService.uploadFile(file,src));
+        productService.save(product);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

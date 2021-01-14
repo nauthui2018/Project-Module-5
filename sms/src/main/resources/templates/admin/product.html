@@ -162,7 +162,11 @@
                             <label>Hình ảnh</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" id="image" name="image" class="form-control" required>
+                            <img src="" id="imageSrc" alt="image"
+                                 style="max-width:100%; max-height:100%; object-fit:cover;">
+                            <form th:name="formUpload" enctype="multipart/form-data">
+                                <input type="file" name="file" id="image" style="width: 70px; overflow:hidden; ">
+                            </form>
                             <p style="color: red;display: none" class="ui-state-error-text"></p>
                         </div>
                     </div>

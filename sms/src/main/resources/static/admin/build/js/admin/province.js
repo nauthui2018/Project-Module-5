@@ -52,7 +52,6 @@ provinces.resetForm = function () {
 
 
 provinces.get = function (id) {
-    console.log('get :' + id);
     $.ajax({
         url: "/api/admin/province/" + id,
         method: "GET",
