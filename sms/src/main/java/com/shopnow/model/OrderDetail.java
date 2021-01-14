@@ -1,11 +1,13 @@
 package com.shopnow.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "order_details")
@@ -22,6 +24,10 @@ public class OrderDetail {
     private int scrap = 0;
     private boolean deleted = false;
     private boolean finished = false;
+
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private ZonedDateTime finished_date;
+
     private String remark;
 
     @ManyToOne

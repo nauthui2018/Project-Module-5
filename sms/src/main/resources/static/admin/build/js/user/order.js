@@ -81,6 +81,7 @@ orders.addNewOrderDetail = function () {
         order_detail.remark = remark;
         order_detail.order_quantity = order_quantity;
         order_detail.product = products.findById(product_id);
+        order_detail.finished_date = null;
         var isExisted = orders.findOrderDetail(order_detail);
         if (!isExisted) {
             listNewOrderDetail.push(order_detail);
@@ -293,12 +294,12 @@ orders.get = function (id) {
         dataType: "json"
     });
     ajaxGet.done(function (data) {
-        $('#formAddEdit')[0].reset();
+        orders.resetFormAddOrderDetail();
         $('#id').val(data.id);
-        $('#finished').val(data.finished);
-        $('#total_amount').val(data.total_amount);
-        $('#supplier').val(data.supplier.id);
-        $('#modalAddEdit').modal('show');
+        $('.modalAddEditOrder-title').html("Cập nhật đơn hàng - Nhà cung cấp: " + data.supplier.name);
+        $('#modalAddEditOrder').modal({
+            backdrop: 'static'
+        });
     });
     ajaxGet.fail(function () {
         toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
@@ -321,6 +322,7 @@ orders.save = function () {
         order.id = $('#id').val();
         order.supplier = suppliers.findById(parseInt(supplier_id));
         order.creating_date = null;
+        order.finished_date = null;
         order.total_amount = orders.getTotalAmount();
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
@@ -352,25 +354,35 @@ orders.save = function () {
                 $("#datatables").DataTable().ajax.reload();
                 toastr.error('Tạo không thành công', 'INFORMATION:');
             });
-        // } else {
-        //     var ajaxUpdate = $.ajax({
-        //         url: "/api/user/order/",
-        //         method: "PUT",
-        //         dataType: "json",
-        //         contentType: "application/json",
-        //         data: JSON.stringify(order)
-        //     });
-        //     ajaxUpdate.done(function () {
-        //         $('#modalAddEditOrder').modal('hide');
-        //         $("#datatables").DataTable().ajax.reload();
-        //         toastr.info('Cập nhật thành công', 'INFORMATION:')
-        //     });
-        //     ajaxUpdate.fail(function () {
-        //         $('#modalAddEditOrder').modal('hide');
-        //         $("#datatables").DataTable().ajax.reload();
-        //         toastr.error('Cập nhật không thành công', 'INFORMATION:')
-        //
-        //     });
+        } else {
+            var ajaxUpdate = $.ajax({
+                url: "/api/user/order/",
+                method: "PUT",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(order)
+            });
+            ajaxUpdate.done(function () {
+                $('#modalAddEditOrder').modal('hide');
+                $("#datatables").DataTable().ajax.reload();
+                toastr.info('Cập nhật thành công', 'INFORMATION:');
+                setTimeout(() => {
+                    for (let i = 0; i < listNewOrderDetail.length; i++) {
+                        var orderDetail = listNewOrderDetail[i];
+                        var product = {};
+                        product.id = orderDetail.product.id;
+                        orderDetail.order = order;
+                        orderDetail.product = product;
+                        order_details.save(orderDetail);
+                    }
+                }, 500);
+            });
+            ajaxUpdate.fail(function () {
+                $('#modalAddEditOrder').modal('hide');
+                $("#datatables").DataTable().ajax.reload();
+                toastr.error('Cập nhật không thành công', 'INFORMATION:')
+
+            });
         }
         return false;
     }

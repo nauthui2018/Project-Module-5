@@ -25,6 +25,9 @@ public class Order {
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     private ZonedDateTime ordered_date;
 
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
+    private ZonedDateTime finished_date;
+
     private boolean finished = false;
     private boolean deleted = false;
     private String remark = "";
