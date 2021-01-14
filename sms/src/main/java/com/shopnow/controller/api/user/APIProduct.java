@@ -1,7 +1,6 @@
 package com.shopnow.controller.api.user;
 
 import com.shopnow.model.Product;
-import com.shopnow.model.User;
 import com.shopnow.service.ProductService;
 import com.shopnow.service.UploadFile.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
