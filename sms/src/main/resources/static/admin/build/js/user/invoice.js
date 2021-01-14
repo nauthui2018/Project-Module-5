@@ -109,7 +109,6 @@ function numberWithCommas(x) {
 
 invoices.init = function () {
     invoices.intTable();
-    // invoices.initUser();
 }
 
 $(document).ready(function () {

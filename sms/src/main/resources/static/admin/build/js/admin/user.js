@@ -1,5 +1,4 @@
 var users = {} || users;
-
 users.intTable = function () {
     $("#datatables").DataTable({
         "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, "All"]],
@@ -38,7 +37,7 @@ users.intTable = function () {
                         return "Quản trị website";
                     } else if (data == "EMPLOYEE") {
                         return "Nhân viên";
-                    } else if (data == "SHOP_OWNER"){
+                    } else if (data == "SHOP_OWNER") {
                         return "Chủ cửa hàng";
                     }
                 }
@@ -75,8 +74,7 @@ users.resetForm = function () {
     $('#password').val('');
     $('#confirm_password').val('');
     $('#role').val('');
-    $('#shop').prop('disable', false);
-    $('#shop').val('');
+    $('#shop').val('').prop('disable', false);
     $("#formAddEdit").validate().resetForm();
     myInput.onkeyup();
 }
@@ -111,67 +109,77 @@ users.save = function () {
 }
 
 users.delete = function (id) {
-    bootbox.confirm({
-        message: "Bạn có muốn xóa tài khoản này không?",
-        buttons: {
-            confirm: {
-                label: 'Có',
-                className: 'btn-success'
+    var idUser = $('#userId').val();
+    if (idUser == id) {
+        toastr.error('Không thể xóa chính bạn!', 'INFORMATION:')
+    } else {
+        bootbox.confirm({
+            message: "Bạn có muốn xóa tài khoản này không?",
+            buttons: {
+                confirm: {
+                    label: 'Có',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'Không',
+                    className: 'btn-danger'
+                }
             },
-            cancel: {
-                label: 'Không',
-                className: 'btn-danger'
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "/api/admin/user/" + id,
+                        method: "DELETE",
+                        dataType: "json"
+                    }).done(function () {
+                        console.log("DELETE SUCCESS");
+                        $("#datatables").DataTable().ajax.reload();
+                        toastr.info('Xóa thành công!', 'INFORMATION:')
+                    }).fail(function () {
+                        toastr.error('Xóa không thành công!', 'INFORMATION:')
+                    });
+                }
             }
-        },
-        callback: function (result) {
-            if (result) {
-                $.ajax({
-                    url: "/api/admin/user/" + id,
-                    method: "DELETE",
-                    dataType: "json"
-                }).done(function () {
-                    console.log("DELETE SUCCESS");
-                    $("#datatables").DataTable().ajax.reload();
-                    toastr.info('Xóa thành công!', 'INFORMATION:')
-                }).fail(function () {
-                    toastr.error('Xóa không thành công!', 'INFORMATION:')
-                });
-            }
-        }
-    })
+        })
+    }
 }
 
 users.remove = function (id) {
-    bootbox.confirm({
-        message: "Bạn có muốn xóa tài khoản này không?",
-        buttons: {
-            confirm: {
-                label: 'Có',
-                className: 'btn-success'
+    var idUser = $('#userId').val();
+    if (idUser == id) {
+        toastr.error('Không thể xóa chính bạn!', 'INFORMATION:')
+    } else {
+        bootbox.confirm({
+            message: "Bạn có muốn xóa tài khoản này không?",
+            buttons: {
+                confirm: {
+                    label: 'Có',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'Không',
+                    className: 'btn-danger'
+                }
             },
-            cancel: {
-                label: 'Không',
-                className: 'btn-danger'
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "/admins/registers/delete/" + id,
+                        method: "DELETE",
+                        dataType: "json"
+                    }).done(function () {
+                        console.log("DELETE SUCCESS");
+                        setTimeout(function () {
+                            location.href = "/admins/registers"
+                        }, 1000);
+                        toastr.info('Xóa thành công!', 'INFORMATION:')
+                    }).fail(function () {
+                        toastr.error('Xóa không thành công!', 'INFORMATION:')
+                    });
+                }
             }
-        },
-        callback: function (result) {
-            if (result) {
-                $.ajax({
-                    url: "/admins/registers/delete/" + id,
-                    method: "DELETE",
-                    dataType: "json"
-                }).done(function () {
-                    console.log("DELETE SUCCESS");
-                    setTimeout(function () {
-                        location.href = "/admins/registers"
-                    }, 1000);
-                    toastr.info('Xóa thành công!', 'INFORMATION:')
-                }).fail(function () {
-                    toastr.error('Xóa không thành công!', 'INFORMATION:')
-                });
-            }
-        }
-    })
+        })
+    }
 }
 
 users.initValidation = function () {

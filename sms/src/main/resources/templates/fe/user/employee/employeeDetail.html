@@ -12,16 +12,16 @@
                 <th:block th:insert="admin/layout::nav-title"></th:block>
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div th:replace="admin/layout::admin"></div>
+                    <div th:replace="admin/layout::user"></div>
                 </div>
             </div>
         </div>
 
         <div th:replace="admin/layout::top_nav"></div>
-        <input type="hidden" id="idUser" th:value="${user.id}">
         <div class="right_col" role="main">
             <div class="text-right">
-                <a href="/admins/registers" class="btn btn-primary">Quay lại</a>
+                <a href="javascript:" onclick="toEmployeePage()" class="btn btn-primary">Quay
+                    lại</a>
             </div>
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
@@ -76,7 +76,8 @@
                                             <h6>Cửa hàng</h6>
                                             <div th:switch="${user.shop}">
                                                 <div th:case="null" class="info-detail">Không thuộc Cửa hàng nào trong
-                                                    hệ thống
+                                                    hệ
+                                                    thống
                                                 </div>
                                                 <div th:case="*" class="info-detail"
                                                      th:text="${user.shop.shop_name}"></div>
@@ -116,10 +117,6 @@
                                                         </select>
                                                         <h6 class="mt-1">Chức vụ</h6>
                                                         <th:block th:switch="${user.role}">
-                                                            <th:block th:case="'ADMIN'">
-                                                                <input type="text" name="role" class="form-control"
-                                                                       value="Quản trị website" disabled>
-                                                            </th:block>
                                                             <th:block th:case="'SHOP_OWNER'">
                                                                 <input type="text" name="role" class="form-control"
                                                                        value="Chủ cửa hàng" disabled>
@@ -143,7 +140,7 @@
                                                                th:value="${user.personal_code}">
                                                         <h6 class="mt-1">Cửa hàng</h6>
                                                         <input type="text" name="shop" class="form-control"
-                                                               value="Không thuộc cửa hàng nào" disabled>
+                                                               th:value="${user.shop.shop_name}" disabled>
                                                     </div>
                                                 </form>
                                             </div>
@@ -157,7 +154,8 @@
                                         </div>
                                         <div class="col-4 text-center" id="btn-upload">
                                             <form th:name="formUpload" enctype="multipart/form-data">
-                                                <input type="file" name="file" id="avatar" style="width: 70px; overflow:hidden; ">
+                                                <input type="file" name="file" id="avatar"
+                                                       style="width: 70px; overflow:hidden; ">
                                             </form>
                                         </div>
                                         <div class="col-4 text-right" id="btn-cancel">

@@ -32,9 +32,6 @@ public class User{
     private String user_avatar="/admin/images/default/default-avatar.jpg";
     private String personal_code;
 
-    @JsonFormat(pattern="dd/MM/yyyy")
-    private ZonedDateTime dob;
-
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     private ZonedDateTime starting_date=ZonedDateTime.now();
 

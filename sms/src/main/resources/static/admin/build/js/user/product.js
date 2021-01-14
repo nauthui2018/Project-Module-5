@@ -10,6 +10,7 @@ products.init = function () {
 }
 
 products.addNew = function () {
+    $('#imageSrc').attr('src','/admin/images/default/default-image.jpg');
     $('.modal-title').html("Thêm sản phẩm mới");
     products.resetForm();
     $('#modalAddEdit').modal('show');
@@ -20,7 +21,6 @@ products.resetForm = function () {
     $('#id').val('');
     $('#name').val('');
     $('#brand').val('');
-    $('#image').val('');
     $('#stock').val('');
     $('#unit').val('');
     $('#barcode').val('');
@@ -91,7 +91,7 @@ products.get = function (id) {
         $('#id').val(data.id);
         $('#name').val(data.name);
         $('#brand').val(data.brand);
-        $('#image').val(data.image);
+        $('#imageSrc').attr('src',data.image);
         $('#stock').val(data.stock);
         $('#current_price').val(data.current_price);
         $('#unit').val(data.unit);
@@ -113,7 +113,6 @@ products.save = function () {
         product.name = $('#name').val();
         product.current_price = $('#current_price').val();
         product.brand = $('#brand').val();
-        product.image = $('#image').val();
         product.stock = $('#stock').val();
         product.unit = $('#unit').val();
         product.barcode = $('#barcode').val();
@@ -133,6 +132,7 @@ products.save = function () {
                 data: JSON.stringify(product)
             });
             ajaxAdd.done(function () {
+                products.uploadImage();
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
                 toastr.info('Thêm sản phẩm thành công', 'INFORMATION:');
@@ -151,6 +151,7 @@ products.save = function () {
                 data: JSON.stringify(product)
             });
             ajaxUpdate.done(function () {
+                products.uploadImage();
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
                 toastr.info('Cập nhật thông tin thành công', 'INFORMATION:')
@@ -222,5 +223,41 @@ products.findById = function (id) {
     }
     return null;
 }
+
+products.uploadImage= function (){
+    var fd = new FormData();
+    fd.append( 'file', $('#image')[0].files[0]);
+    fd.append("id",$("#id").val());
+    $.ajax({
+        url: "/api/user/product/upload",
+        type: "POST",
+        data: fd,
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
+    }).done(function (){
+    }).fail(function () {
+        $('.modal').modal('hide');
+        toastr.error('Thêm ảnh không thành công', 'INFORMATION:')
+
+    });
+}
+
+var srcImage;
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            srcImage=e.target.result;
+            $('#imageSrc').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+    }
+}
+
+$("#image").change(function() {
+    readURL(this);
+});
 
 

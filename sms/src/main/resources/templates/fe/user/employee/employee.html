@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="">
+
+<header th:replace="admin/layout::header">
+</header>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- left_nav -->
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <th:block th:insert="admin/layout::nav-title"></th:block>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div th:replace="admin/layout::user"></div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="admin/layout::top_nav"></div>
+        <input type="hidden" id="idShop" th:value="${shopID}">
+        <input type="hidden" id="idUser" th:value="${userObj.id}">
+        <input type="hidden" id="roleUser" th:value="${userObj.role}">
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_content">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-primary" onclick="employees.addNew()">
+                                Thêm mới
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="datatables" class="table table-striped jambo_table bulk_action">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div class="modal" id="modalAddEdit" name="modalAddEdit">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalTitle"></h4>
+                        <button type="button" class="close" onclick="employees.resetForm()" data-dismiss="modal"
+                                aria-label="Close">&times;
+                        </button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form id="formAddEdit" th:name="formAddEdit">
+                            <input type="hidden" id="id">
+                            <div class="row form-group">
+                                <div class="col-3">
+                                    <label>Họ và tên</label>
+                                </div>
+                                <div class="col-9">
+                                    <input class="form-control" type="text"
+                                           name="user_fullname" id="user_fullname"
+                                           data-rule-required=true>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-3">
+                                    <label>Số điện thoại</label>
+                                </div>
+                                <div class="col-9">
+                                    <input class="form-control" type="text"
+                                           name="user_phone" id="user_phone"
+                                           data-rule-required=true>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-3">
+                                    <label>Số chứng minh nhân dân</label>
+                                </div>
+                                <div class="col-9">
+                                    <input class="form-control" type="text"
+                                           name="personal_code" id="personal_code"
+                                           data-rule-required=true>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-3">
+                                    <label>Giới tính</label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="user_gender" id="user_gender" class="form-control">
+                                        <option value="">Chọn giới tính</option>
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                        <option value="Khác">Khác</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-3">
+                                    <label>Địa chỉ</label>
+                                </div>
+                                <div class="col-9">
+                                    <input class="form-control" type="text"
+                                           name="user_address" id="user_address">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-3">
+                                    <label>Tỉnh thành</label>
+                                </div>
+                                <div class="col-9">
+                                    <select class="form-control" id="province" name="province">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-3">
+                                    <label>Email</label>
+                                </div>
+                                <div class="col-9">
+                                    <input class="form-control" type="email"
+                                           name="email" id="email"
+                                           data-rule-required=true>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-3">
+                                    <label>Chức vụ</label>
+                                </div>
+                                <div class="col-9">
+                                    <select name="role" id="role" class="form-control" data-rule-required=true>
+                                        <option value="">Chọn Chức vụ</option>
+                                        <option value="EMPLOYEE">Nhân viên</option>
+                                        <option value="SHOP_OWNER">Chủ Cửa hàng</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <a href="javascript:" class="btn btn-primary"
+                           onclick="employees.save()">Lưu</a>
+
+                        <button type="button" class="btn btn-danger" onclick="employees.resetForm()"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                            Đóng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="admin/layout::footer"></footer>
+    </div>
+    <div th:insert="admin/layout::block-script">
+
+    </div>
+    <script src="/admin/build/js/user/employee.js"></script>
+</div>
+</body>
+</html>

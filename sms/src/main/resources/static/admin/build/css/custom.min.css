@@ -2240,7 +2240,7 @@ h2 {
     width: 100%;
     float: left;
     clear: both;
-    margin-top: 5px
+    /*margin-top: 5px*/
 }
 
 .x_content h4 {
@@ -6219,7 +6219,7 @@ ul.notifications {
 .info-detail {
     font-size: 14px;
     padding: 5px;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     border: #D0D7DD solid 1px;
     height: 32px;
     color: black;

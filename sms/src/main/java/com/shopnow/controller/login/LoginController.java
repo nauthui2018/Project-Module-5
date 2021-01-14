@@ -3,6 +3,7 @@ package com.shopnow.controller.login;
 import com.shopnow.model.User;
 import com.shopnow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
