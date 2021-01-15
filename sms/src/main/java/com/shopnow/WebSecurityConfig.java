@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // Cấu hình cho Logout Page. Khi logout mình trả về trang
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));;
 
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/login");
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
         http.csrf().disable();
     }
     @Override

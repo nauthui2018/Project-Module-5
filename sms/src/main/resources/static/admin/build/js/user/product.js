@@ -131,7 +131,8 @@ products.save = function () {
                 contentType: "application/json",
                 data: JSON.stringify(product)
             });
-            ajaxAdd.done(function () {
+            ajaxAdd.done(function (data) {
+                $("#id").val(data.id);
                 products.uploadImage();
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
@@ -242,6 +243,7 @@ products.uploadImage= function (){
         contentType: false,
         cache: false,
     }).done(function (){
+        $('#imageSrc').attr('src', srcImage);
     }).fail(function () {
         $('.modal').modal('hide');
         toastr.error('Thêm ảnh không thành công', 'INFORMATION:')
