@@ -6,7 +6,7 @@ $(document).ready(function () {
     shops.initValidation();
 });
 
-shops.save = function () {
+shops.register = function () {
     if ($("#trialForm").valid()) {
         var shopObj = {};
         shopObj.shop_name = $('#shop_name').val();
@@ -34,6 +34,8 @@ shops.save = function () {
         addShop.fail(function (xhr) {
             if (xhr.status == 404) {
                 toastr.error('Email này đã được sử dụng', 'INFORMATION:')
+            } else {
+                toastr.error('Thêm không thành công', 'INFORMATION:')
             }
         });
 

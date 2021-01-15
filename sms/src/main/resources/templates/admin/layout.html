@@ -84,21 +84,19 @@
                                     class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="/products">Danh sách sản phẩm</a></li>
-                                    <li><a href="/warehouses">Quản lý kho</a></li>
-                                    <li><a href="/order_details">Nhập kho</a></li>
-                                    <li><a href="/stock_checks">Kiểm kê</a></li>
-                                    <li><a href="/invoices">Chuyển hàng</a></li>
-                                    <li><a href="/suppliers">Nhà cung cấp</a></li>
-                                    <li><a href="/products">Điều chỉnh giá vốn</a></li>
+                                    <li><a href="/orders">Đặt hàng</a></li>
+                                    <li><a href="/order_details">Danh sách đơn đặt hàng</a></li>
+<!--                                    <li><a href="/stock_checks">Kiểm kê</a></li>-->
+<!--                                    <li><a href="/invoices">Chuyển hàng</a></li>-->
+<!--                                    <li><a href="/products">Điều chỉnh giá vốn</a></li>-->
                                 </ul>
                             </li>
-                            <li class="li-menu"><a><i class="mr-3 fas fa-user"></i>Khách hàng<span
+                            <li class="li-menu"><a>Khách hàng<span
                                     class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="/customers"><i class="mr-3 fas fa-user-circle"></i>Danh sách khách hàng</a>
                                     </li>
-                                    <li><a href="/customer_groups"><i class="mr-3 fas fa-users"></i>Danh nhóm khách hàng</a>
-                                    </li>
+
                                 </ul>
                             </li>
                             <li>
@@ -111,7 +109,13 @@
                                     <li><a href="javascript:" onclick="toShopDetailPage()">Thông tin cửa hàng</a></li>
                                     <th:block sec:authorize="hasRole('SHOP_OWNER')">
                                         <li><a href="javascript:" onclick="toEditShopPage()">Cập nhật thông tin</a></li>
+                                        <li><a href="/suppliers">Nhà cung cấp</a></li>
+                                        <li><a href="/warehouses">Kho</a></li>
+                                        <li><a href="/product_types">Loại sản phẩm</a></li>
+                                        <li><a href="/customer_groups">Nhóm khách hàng</a>
+                                        </li>
                                     </th:block>
+
                                 </ul>
                             </li>
                         </ul>
