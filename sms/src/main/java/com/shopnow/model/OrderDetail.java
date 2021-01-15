@@ -39,4 +39,9 @@ public class OrderDetail {
     @JoinColumn(name = "order_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "warehouse_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Warehouse warehouse;
 }

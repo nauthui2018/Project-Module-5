@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         // Các trang không yêu cầu login như vậy ai cũng có thể vào được admin hay user hoặc guest có thể vào các trang
-        http.authorizeRequests().antMatchers("/", "/login/**", "/logout/**").permitAll()
+        http.authorizeRequests().antMatchers("/**", "/login/**", "/logout/**").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/user/**").hasAnyRole("EMPLOYEE","SHOP_OWNER")
                 .and()

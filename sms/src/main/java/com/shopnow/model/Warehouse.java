@@ -26,7 +26,7 @@ public class Warehouse {
 
     @OneToMany(mappedBy = "warehouse")
     @JsonIgnore
-    private Set<Product> products;
+    private Set<OrderDetail> order_details;
 
     @OneToMany(mappedBy = "warehouse")
     @JsonIgnore
