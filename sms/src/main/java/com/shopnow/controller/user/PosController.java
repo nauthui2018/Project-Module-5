@@ -29,7 +29,7 @@ public class PosController {
     public ModelAndView index(){
         List<Product> products=productService.findAll();
         List<Customer> customers=customerService.findAll();
-        ModelAndView modelAndView= new ModelAndView("fe/user/pos", "products", products);
+        ModelAndView modelAndView= new ModelAndView("admin/pos", "products", products);
         modelAndView.addObject("customers",customers);
         modelAndView.addObject("webInfo", webInfoService.findById(1L));
         return modelAndView;

@@ -20,7 +20,7 @@ invoices.intTable = function () {
         },
         columns: [
             {
-                data: "id", name: "ID", title: "Mã đơn hàng", orderable: false,
+                data: "id", name: "ID", title: "Mã đơn hàng", orderable: true,
             },
             {
                 data: "customer", name: "name", title: "Tên khách hàng", orderable: true, "render": function (data){
@@ -37,7 +37,7 @@ invoices.intTable = function () {
                 }
             },
             {
-                data: "finished", name: "finished", title: "Trạng thái đơn hàng", orderable: false, "render": function (data){
+                data: "finished", name: "finished", title: "Trạng thái đơn hàng", orderable: true, "render": function (data){
                     if(data){
                         return `<a class="text-success">Hoàn thành</a>`
                     } else if(!data) {
@@ -46,19 +46,19 @@ invoices.intTable = function () {
                 }
             },
             {
-                data: "discount", name: "discount", title: "Giảm giá", orderable: false,"render": function (data){
+                data: "discount", name: "discount", title: "Giảm giá", orderable: true,"render": function (data){
                     var numberFormat = numberWithCommas(data);
                     return `<p class='text-right'>${numberFormat} đ</p>`;
                 }
             },
             {
-                data: "total_amount", name: "total_amount", title: "Khách phải trả", orderable: false, "render": function (data){
+                data: "total_amount", name: "total_amount", title: "Khách phải trả", orderable: true, "render": function (data){
                     var numberFormat = numberWithCommas(data);
                     return `<p class='text-danger text-right font-weight-bold'>${numberFormat} đ</p>`;
                 }
             },
             {
-                data: "created_at", name: "created_at", title: "Ngày tạo đơn", orderable: false
+                data: "created_at", name: "created_at", title: "Ngày tạo đơn", orderable: true
             },
             {
                 data: "id", name: "Action", title: "Thao tác", sortable: false,

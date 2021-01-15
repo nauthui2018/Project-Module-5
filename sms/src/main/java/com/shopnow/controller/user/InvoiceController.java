@@ -16,13 +16,12 @@ public class InvoiceController {
     InvoiceService invoiceService;
     @GetMapping
     public String index(){
-        return "fe/user/invoice/invoice";
+        return "admin/invoice/invoice";
     }
 
     @GetMapping(value = "/{idInvoice}")
     public ModelAndView getInvoiceDetail(@PathVariable("idInvoice") Long idInvoice){
         Invoice invoice= invoiceService.findById(idInvoice);
-        ModelAndView modelAndView = new ModelAndView("fe/user/invoice/invoiceDetail","invoice",invoice);
-        return modelAndView;
+        return new ModelAndView("admin/invoice/invoiceDetail","invoice",invoice);
     }
 }

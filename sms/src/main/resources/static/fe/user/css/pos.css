@@ -150,7 +150,7 @@
     box-shadow: #3DA0DB 0px 5px 15px !important;
 }
 
-tr:hover{
+tr:hover, input:hover, select:hover{
     border: #3DA0DB solid 1px !important;
     box-shadow: #3DA0DB 0px 5px 15px !important;
 }
@@ -195,4 +195,14 @@ tr:hover{
 
 #isShip{
     background-color: blue;
+}
+
+.info-detail:hover{
+    border: #3DA0DB solid 1px !important;
+    box-shadow: #3DA0DB 0px 5px 15px !important;
+}
+
+h6{
+    color: green;
+    text-shadow: #3DA0DB 0px 2px 15px !important;
 }

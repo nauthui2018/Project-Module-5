@@ -25,7 +25,7 @@ public class EmployeeController {
 
     @GetMapping(value = "/{shopId}/{userId}")
     public ModelAndView index(@PathVariable("shopId") Long shopID,@PathVariable("userId") Long userId){
-        ModelAndView modelAndView=new ModelAndView("fe/user/employee/employee");
+        ModelAndView modelAndView=new ModelAndView("admin/employee/employee");
         modelAndView.addObject("shopID",shopID);
 
         User user = userService.findById(userId);
@@ -40,7 +40,7 @@ public class EmployeeController {
 
     @GetMapping(value ="/employeeDetail/{idUser}" )
     public ModelAndView employeeDetail(@PathVariable("idUser") Long idUser){
-        ModelAndView modelAndView=new ModelAndView("fe/user/employee/employeeDetail");
+        ModelAndView modelAndView=new ModelAndView("admin/employee/employeeDetail");
         User user = userService.findById(idUser);
         modelAndView.addObject("user",user);
         return modelAndView;

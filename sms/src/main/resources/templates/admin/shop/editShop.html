@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" lang="">
+
+<header th:replace="admin/layout::header">
+</header>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- left_nav -->
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <th:block th:insert="admin/layout::nav-title"></th:block>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div th:replace="admin/layout::user"></div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="admin/layout::top_nav"></div>
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_content" style="background-color: #ffffff; color: #3c3c3c; padding-top: 1em">
+                        <div class="title-div mb-3">
+                            Thông tin Cửa hàng
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 text-center" style="height: 52vh;">
+                                <img th:src="@{${shop.logo}}" alt="logo" style="max-width:100%; max-height:100%; object-fit:cover;" id="logo_shop">
+                            </div>
+
+                            <div class="col-md-8 col-sm-12">
+                                <div class="row">
+                                    <form id="formUpdateShop" class="col-12">
+                                        <input type="hidden" id="id" th:value="${shop.id}">
+                                        <div class="col-md-6 col-sm-12">
+                                            <h6>Tên Cửa hàng</h6>
+                                            <input type="text" id="shop_name" class="form-control"
+                                                   th:value="${shop.shop_name}">
+                                            <h6 class="mt-1">Số điện thoại</h6>
+                                            <input type="text" id="phone" class="form-control"
+                                                   th:value="${shop.phone}">
+                                            <h6 class="mt-1">Địa chỉ</h6>
+                                            <input type="text" id="address" class="form-control"
+                                                   th:value="${shop.address}">
+                                            <h6 class="mt-1">Email</h6>
+                                            <input type="email" id="email" class="form-control"
+                                                   th:value="${shop.email}">
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <h6>Ngày Tham gia</h6>
+                                            <div class="info-detail"
+                                                 th:text="${#temporals.format(shop.created_at,'dd/MM/yyyy HH:mm:ss')}"></div>
+                                            <h6 class="mt-1">Tỉnh thành</h6>
+                                            <th:block th:if="${shop.province}">
+                                                <select name="province" id="province" class="form-control"
+                                                        th:value="${shop.province.id}">
+                                                </select>
+                                            </th:block>
+                                            <th:block th:unless="${shop.province}">
+                                                <select name="province" id="province"
+                                                        class="form-control">
+                                                </select>
+                                            </th:block>
+                                            <h6 class="mt-1">Mặt hàng kinh doanh</h6>
+                                            <th:block th:if="${shop.lineOfBusiness}">
+                                                <select name="lineOfBusiness" id="lob" class="form-control"
+                                                        th:value="${shop.lineOfBusiness.id}">
+                                                </select>
+                                            </th:block>
+                                            <th:block th:unless="${shop.lineOfBusiness}">
+                                                <select name="lineOfBusiness" id="lob"
+                                                        class="form-control">
+                                                </select>
+                                            </th:block>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-4 text-center" id="btn-uploadLogo">
+                                <form th:name="formUpload" enctype="multipart/form-data">
+                                    <input type="file" name="file" id="logoShop"
+                                           style="width: 70px; overflow:hidden; ">
+                                </form>
+                            </div>
+                            <div>
+
+                            </div>
+                            <div class="col-4 text-right" id="btn-cancelShop">
+                                <button onclick="shops.resetDefault()" class="btn btn-sm btn-outline-danger">Hủy chỉnh
+                                    sửa
+                                </button>
+                            </div>
+                            <div class="col-4 text-left" id="btn-confirmShop">
+                                <a th:onclick="|shops.save(${shop.id})|" class="btn btn-sm btn-outline-success">Xác
+                                    nhận</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="admin/layout::footer"></footer>
+    </div>
+    <div th:insert="admin/layout::block-script">
+
+    </div>
+    <script src="/admin/build/js/user/shopEdit.js"></script>
+</div>
+</body>
+</html>

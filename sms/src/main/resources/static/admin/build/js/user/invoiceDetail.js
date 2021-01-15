@@ -17,7 +17,7 @@ invoiceDetail.intInvoiceDetailTable = function () {
         },
         columns: [
             {
-                data: "product", name: "productID", title: "Mã sản phẩm", orderable: false,"render":function (data){
+                data: "product", name: "productID", title: "Mã sản phẩm", orderable: true,"render":function (data){
                     return `${data.id}`
                 }
             },
@@ -30,13 +30,13 @@ invoiceDetail.intInvoiceDetailTable = function () {
                 data: "quantity", name: "quantity", title: "Số lượng", orderable: false,
             },
             {
-                data: "retail_price", name: "retail_price", title: "Đơn giá", orderable: false, "render": function (data){
+                data: "retail_price", name: "retail_price", title: "Đơn giá", orderable: true, "render": function (data){
                     var numberFormat = numberWithCommas(data);
                     return `<p class='text-right'>${numberFormat} đ</p>`;
                 }
             },
             {
-                data: "amount", name: "amount", title: "Thành tiền", orderable: false, "render": function (data){
+                data: "amount", name: "amount", title: "Thành tiền", orderable: true, "render": function (data){
                     var numberFormat = numberWithCommas(data);
                     return `<p class='text-danger text-right font-weight-bold'>${numberFormat} đ</p>`;
                 }
