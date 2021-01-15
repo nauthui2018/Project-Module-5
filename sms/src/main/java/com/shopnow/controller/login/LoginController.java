@@ -30,7 +30,7 @@ public class LoginController {
 
     @GetMapping(value = "/login")
     public ModelAndView getViewRegister(){
-        return new ModelAndView("fe/login/login");
+        return new ModelAndView("fe/login/login","message",null);
     }
 
     @PostMapping(value = "/sign-in")
@@ -47,5 +47,10 @@ public class LoginController {
         user.setEnable(true);
         userService.save(user);
         return "fe/login/login";
+    }
+
+    @PostMapping("/fail-login")
+    public  ModelAndView handleFailedLogin(){
+        return new ModelAndView("/fe/login/login","message","404");
     }
 }

@@ -82,7 +82,7 @@ function validatePass() {
     } else if (confirmPass.indexOf(' ') >= 0) {
         toastr.error('Mật khẩu không được chứa khoảng cách!', 'INFORMATION:')
         return false;
-    } else if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(newPass)) {
+    } else if (!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(newPass))){
         resetFormPass();
         $("#errormsg").html('Mật khẩu mới phải ít nhất 8 ký tự, phải bao gồm chữ cái in hoa, in thường và số!')
         $("#errormsg").show();
@@ -233,15 +233,18 @@ function infoUser() {
 }
 
 function editUser(user) {
-    var provinceObj=findProvinceById(user.province.id);
-    $('#province1').hide();
-    $('#province2').hide();
+    if(user.province!=null){
+        var provinceObj=findProvinceById(user.province.id);
+        $('#province-Update').html(provinceObj.name).show();
+        $('#province1').hide();
+        $('#province2').hide();
+    }
     $('#user_fullname-Update').html(user.user_fullname);
     $('#user_phone-Update').html(user.user_phone);
     $('#user_address-Update').html(user.user_address);
     $('#user_gender-Update').html(user.user_gender);
     $('#personal_code-Update').html(user.personal_code);
-    $('#province-Update').html(provinceObj.name).show();
+
 }
 
 function confirmUpdate() {
@@ -254,7 +257,9 @@ function confirmUpdate() {
         userObj.user_gender = $('#user_gender').val();
         userObj.user_address = $('#user_address').val();
         var province = {};
-        province.id = $('#province').val();
+        if($('#province').val()==''){
+            province.id=0;
+        } else province.id = $('#province').val();
         userObj.province = province;
         userObj.email = $('#email').val();
         userObj.role = user.role;

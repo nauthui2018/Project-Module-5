@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         // Các trang không yêu cầu login như vậy ai cũng có thể vào được admin hay user hoặc guest có thể vào các trang
-        http.authorizeRequests().antMatchers("/**", "/login/**", "/logout/**").permitAll()
+        http.authorizeRequests().antMatchers("/", "/login/**", "/logout/**").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/user/**").hasAnyRole("EMPLOYEE","SHOP_OWNER")
                 .and()
@@ -47,8 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/default")
+                .failureForwardUrl("/fail-login")
                 // Cấu hình cho Logout Page. Khi logout mình trả về trang
-                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));;
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
         http.csrf().disable();
