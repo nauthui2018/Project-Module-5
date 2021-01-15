@@ -156,7 +156,7 @@
                             <div class="slider-content">
                                 <h2 class="title" th:text="${webInfo.slogan}"></h2>
                                 <p class="text" th:text="${webInfo.description_slogan}"></p>
-                                <ul class="slider-btn rounded-buttons">
+                                <ul class="slider-btn rounded-buttons" sec:authorize="!isAuthenticated()">
                                     <li><a class="main-btn rounded-one" data-toggle="modal" data-target="#myModal">ĐĂNG
                                         KÝ</a></li>
                                     <li><a class="main-btn rounded-two" data-toggle="modal" data-target="#pos-login">ĐĂNG
@@ -179,7 +179,7 @@
                             <div class="slider-content">
                                 <h2 class="title" th:text="${webInfo.slogan}"></h2>
                                 <p class="text" th:text="${webInfo.description_slogan}"></p>
-                                <ul class="slider-btn rounded-buttons">
+                                <ul class="slider-btn rounded-buttons" sec:authorize="!isAuthenticated()">
                                     <li><a class="main-btn rounded-one" data-toggle="modal" data-target="#myModal">ĐĂNG
                                         KÝ</a></li>
                                     <li><a class="main-btn rounded-two" data-toggle="modal" data-target="#pos-login">ĐĂNG
