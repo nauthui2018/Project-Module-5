@@ -254,6 +254,7 @@ products.uploadImage= function (){
         contentType: false,
         cache: false,
     }).done(function (){
+        $('#imageSrc').attr('src', srcImage);
     }).fail(function () {
         $('.modal').modal('hide');
         toastr.error('Thêm ảnh không thành công', 'INFORMATION:')
