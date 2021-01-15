@@ -54,9 +54,12 @@ public class APIUser {
 
     @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody User user) {
+        if(user.getProvince().getId()==0){
+            user.setProvince(null);
+        }
         User dbUser = userService.findById(user.getId());
         user.setEmail(dbUser.getEmail());
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setPassword(dbUser.getPassword());
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -89,7 +92,7 @@ public class APIUser {
         String dbPassword = userDatabase.getPassword();
         String existingPassword = userOld.getPassword();
         if (passwordEncoder.matches(existingPassword, dbPassword)) {
-            return new ResponseEntity<>(userDatabase, HttpStatus.OK);
+            return new ResponseEntity<>(userOld, HttpStatus.OK);
         } else return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
