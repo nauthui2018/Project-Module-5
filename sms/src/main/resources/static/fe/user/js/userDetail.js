@@ -31,6 +31,19 @@ function toUserDetailPage() {
     location.href = "/admins/registers/user_detail/" + user.id;
 }
 
+function toShopDetailPage(){
+    location.href = "/user/shops/" + user.shop.id;
+}
+
+function toEditShopPage(){
+    if(user.role=="SHOP_OWNER"){
+        location.href = "/user/shops/edit/" + user.shop.id+"/"+user.id;
+    } else {
+        toastr.error('Bạn không có quyền vào mục này!', 'INFORMATION:')
+    }
+
+}
+
 $(document).ready(function () {
     var elems = document.getElementsByClassName("li-menu");
     var elems1 = document.getElementsByClassName("child_menu");

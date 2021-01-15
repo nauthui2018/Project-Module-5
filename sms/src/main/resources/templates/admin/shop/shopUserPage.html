@@ -12,17 +12,13 @@
                 <th:block th:insert="admin/layout::nav-title"></th:block>
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div th:replace="admin/layout::admin"></div>
+                    <div th:replace="admin/layout::user"></div>
                 </div>
             </div>
         </div>
 
         <div th:replace="admin/layout::top_nav"></div>
         <div class="right_col" role="main">
-            <div class="text-right">
-                <a href="/admins/shops" class="btn btn-primary">Quay lại</a>
-            </div>
-
             <div class="row">
                 <div class="col-md-12 col-sm-12 ">
                     <div class="x_content" style="background-color: #ffffff; color: #3c3c3c; padding-top: 1em">
@@ -58,32 +54,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="title-div mb-3">
-                            Danh sách nhân viên của Cửa hàng
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped jambo_table bulk_action">
-                                <tr>
-                                    <th>STT</th>
-                                    <th>ID</th>
-                                    <th>Họ tên</th>
-                                    <th>Chức vụ</th>
-                                </tr>
-                                <th:block th:each="user,iter :${users}">
-                                    <tr>
-                                        <td th:text="${iter.index+1}"></td>
-                                        <td th:text="${user.id}"></td>
-                                        <td th:text="${user.user_fullname}"></td>
-                                        <td th:text="${user.role}"></td>
-                                    </tr>
-                                </th:block>
-                            </table>
-                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="text-right">
-                <a th:onclick="|shops.remove(${shop.id})|" class="btn btn-danger">Xóa</a>
             </div>
         </div>
         <footer th:replace="admin/layout::footer"></footer>
@@ -91,7 +63,6 @@
     <div th:insert="admin/layout::block-script">
 
     </div>
-    <script src="/admin/build/js/admin/shop.js"></script>
 </div>
 </body>
 </html>

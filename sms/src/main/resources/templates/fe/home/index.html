@@ -90,9 +90,18 @@
                     </div>
 
                     <div class="navbar-btn d-none d-sm-inline-block">
-                        <ul>
-                            <li><a class="solid" href="/login">Đăng nhập</a></li>
-                        </ul>
+                        <th:block sec:authorize="isAuthenticated()">
+                            <ul>
+                                <li>
+                                    <a class="solid" href="/logout">Đăng xuất</a>
+                                </li>
+                            </ul>
+                        </th:block>
+                        <th:block sec:authorize="!isAuthenticated()">
+                            <ul>
+                                <li><a class="solid" href="/login">Đăng nhập</a></li>
+                            </ul>
+                        </th:block>
                     </div>
                 </nav> <!-- navbar -->
             </div>
@@ -120,11 +129,15 @@
                             <div class="slider-content">
                                 <h2 class="title" th:text="${webInfo.slogan}"></h2>
                                 <p class="text" th:text="${webInfo.description_slogan}"></p>
-                                <ul class="slider-btn rounded-buttons">
-                                    <li><a class="main-btn rounded-one" data-toggle="modal" data-target="#myModal">ĐĂNG
-                                        KÝ</a></li>
-                                    <li><a class="main-btn rounded-two" href="/login">ĐĂNG
-                                        NHẬP</a></li>
+                                <ul class="slider-btn rounded-buttons" sec:authorize="!isAuthenticated()">
+                                    <li>
+                                        <a class="main-btn rounded-one" data-toggle="modal" data-target="#myModal">ĐĂNG
+                                        KÝ</a>
+                                    </li>
+                                    <li>
+                                        <a class="main-btn rounded-two" href="/login">ĐĂNG
+                                        NHẬP</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -218,7 +231,8 @@
                       accept-charset="UTF-8">
                     <ul class="register-form-error"></ul>
                     <div class="form-group mdc-text-field">
-                        <input type="text" maxlength="60" id="user_fullname" class="form-control form-input" name="user_fullname"
+                        <input type="text" maxlength="60" id="user_fullname" class="form-control form-input"
+                               name="user_fullname"
                                required="required" th:field="*{user_fullname}">
                         <label>Họ tên của bạn</label>
                     </div>

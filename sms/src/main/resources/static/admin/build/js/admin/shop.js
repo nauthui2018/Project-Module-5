@@ -133,39 +133,6 @@ shops.save = function () {
                     toastr.error('Email này đã được sử dụng', 'INFORMATION:')
                 }
             });
-
-        } else {
-            var shopObj = {};
-            shopObj.shop_name = $('#shop_name').val();
-            shopObj.email = $('#email').val();
-            shopObj.phone = $('#phone').val();
-            shopObj.address = $('#address').val();
-            var user = {};
-            user.id = $('#user').val();
-            shopObj.user = user;
-            var province = {};
-            province.id = $('#province').val();
-            shopObj.province = province;
-            var lob = {};
-            lob.id = $('#lineOfBusiness').val();
-            shopObj.lineOfBusiness = lob;
-            shopObj.id = $('#id').val();
-            $.ajax({
-                url: "/api/admin/shop/",
-                method: "PUT",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(shopObj)
-            }).done(function () {
-                $('#modalAddEdit').modal('hide');
-                $("#datatables").DataTable().ajax.reload();
-                toastr.info('Cập nhật thành công', 'INFORMATION:')
-            }).fail(function () {
-                console.log("POST ");
-                $('#modalAddEdit').modal('hide');
-                $("#datatables").DataTable().ajax.reload();
-                toastr.error('Cập nhật không thành công', 'INFORMATION:')
-            });
         }
         return false;
     }

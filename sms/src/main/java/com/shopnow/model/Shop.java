@@ -26,6 +26,7 @@ public class Shop{
     private String email;
     private String address;
     private String shop_name;
+    private String logo = "/admin/images/default/default-image.jpg";
 
     @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     private ZonedDateTime created_at;
