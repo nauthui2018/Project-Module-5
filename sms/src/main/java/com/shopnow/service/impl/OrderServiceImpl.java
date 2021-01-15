@@ -24,10 +24,14 @@ public class OrderServiceImpl implements OrderService {
         ZonedDateTime today = ZonedDateTime.now();
         if(object.getId() == null) {
             object.setOrdered_date(today);
+            object.setFinished_date(null);
         } else {
             Order order = findById(object.getId());
             ZonedDateTime ordered_date = order.getOrdered_date();
             object.setOrdered_date(ordered_date);
+            if (object.isFinished()) {
+                object.setFinished_date(today);
+            }
         }
         return orderRepository.save(object);
     }
