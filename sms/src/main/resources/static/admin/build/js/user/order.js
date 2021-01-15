@@ -292,13 +292,19 @@ orders.openModalOrderInformation = function (id) {
     dataTable.draw();
     dataTable.destroy();
     $.each(listOrderDetailByOrderId, function (i, v) {
+        var status;
+        if (v.finished) {
+            status = "Đã nhập kho";
+        } else {
+            status = "Đang chờ";
+        }
         $('#orderDetailData').append(
             `<tr class="odd pointer"> 
                 <td>${v.id}</td>  
                 <td>${v.product.name}</td>           
                 <td>${v.prime_cost}</td>
                 <td>${v.order_quantity}</td>
-                <td>${v.remark}</td>
+                <td>${status}</td>
             </tr>`
         );
     });
