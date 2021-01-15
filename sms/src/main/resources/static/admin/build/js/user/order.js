@@ -312,93 +312,116 @@ orders.get = function (id) {
     });
 }
 
-orders.openModalProductsReceipt = function (id) {
-    listProductsReceipt = [];
-    var ajaxGet = $.ajax({
-        url: "/api/user/order/" + id,
-        method: "GET",
-        dataType: "json"
-    });
-    ajaxGet.done(function (data) {
-        $('.order_id').html("ID đơn hàng: " + data.id);
-        $('.supplier').html("Ngày đặt hàng: " + data.supplier.name);
-        orders.listByOrderId(data.id);
-        var list = listOrderDetailByOrderId;
-        $('.modalProductsReceipt-title').html("Nhập kho");
-        $('#modalProductsReceipt').modal({
-            backdrop: 'static'
-        });
-        orders.listOrderDetail(list);
-    });
-    ajaxGet.fail(function () {
-        toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
-    });
-}
-
-orders.listOrderDetail = function (list) {
-    var dataTable = $('#productsReceipt').DataTable();
-    dataTable.clear();
-    dataTable.draw();
-    dataTable.destroy();
-    $.each(listOrderDetailByOrderId, function (i, v) {
-        $('#listProductsReceipt').append(
-            `<tr class="odd pointer"> 
-                <td>${v.product.name}</td>           
-                <td>${v.prime_cost}</td>
-                <td>${v.order_quantity}</td>
-                <td>${v.remark}</td>
-                <td>
-                    <form>
-                        <a class="btn btn-success" id="select_${v.id}" onclick="orders.addProductToReceiptList(${v.id})">Chọn</a>
-                    </form>
-                </td>
-            </tr>`
-        );
-    });
-}
-
-orders.addProductToReceiptList = function (id) {
-    var order_detail = order_details.findById(id);
-    listProductsReceipt.push(order_detail);
-    $('#select_' + order_detail.id).html("Bỏ chọn");
-    document.getElementById('select_' + id).setAttribute('onclick','orders.removeProductOutOfReceiptList(id)');
-    document.getElementById('select_' + id).classList.remove("btn-success");
-    document.getElementById('select_' + id).classList.add("btn-warning");
-}
-
-orders.removeProductOutOfReceiptList = function (id) {
-    for (let i=0; i<listProductsReceipt.length; i++) {
-        if (listProductsReceipt[i].id == id) {
-            listProductsReceipt.splice(i, 1);
-        }
-    }
-    $('#select_' + id).html("Chọn");
-    document.getElementById('select_' + id).setAttribute('onclick','orders.addProductToReceiptList(id)');
-    document.getElementById('select_' + id).classList.remove("btn-warning");
-    document.getElementById('select_' + id).classList.add("btn-success");
-}
-
-orders.saveProductsReceipt = function (list) {
-    var ajaxGet = $.ajax({
-        url: "/api/user/order/" + id,
-        method: "GET",
-        dataType: "json"
-    });
-    ajaxGet.done(function (data) {
-        $('.order_id').html("ID đơn hàng: " + data.id);
-        $('.supplier').html("Ngày đặt hàng: " + data.supplier.name);
-        orders.listByOrderId(data.id);
-        var list = listOrderDetailByOrderId;
-        $('.modalProductsReceipt-title').html("Nhập kho");
-        $('#modalProductsReceipt').modal({
-            backdrop: 'static'
-        });
-        orders.listOrderDetail(list);
-    });
-    ajaxGet.fail(function () {
-        toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
-    });
-}
+// orders.openModalProductsReceipt = function (id) {
+//     listProductsReceipt = [];
+//     var ajaxGet = $.ajax({
+//         url: "/api/user/order/" + id,
+//         method: "GET",
+//         dataType: "json"
+//     });
+//     ajaxGet.done(function (data) {
+//         $('.order_id').html("ID đơn hàng: #" + data.id);
+//         $('.supplier').html("Ngày đặt hàng: " + data.supplier.name);
+//         orders.listByOrderId(data.id);
+//         var list = listOrderDetailByOrderId;
+//         $('.modalProductsReceipt-title').html("Nhập kho");
+//         $('#modalProductsReceipt').modal({
+//             backdrop: 'static'
+//         });
+//         orders.listOrderDetail(list);
+//     });
+//     ajaxGet.fail(function () {
+//         toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
+//     });
+// }
+//
+// orders.openModalProductsReceipt = function (id) {
+//     listProductsReceipt = [];
+//     var ajaxGet = $.ajax({
+//         url: "/api/user/order/" + id,
+//         method: "GET",
+//         dataType: "json"
+//     });
+//     ajaxGet.done(function (data) {
+//         $('.order_id').html("ID đơn hàng: #" + data.id);
+//         $('.supplier').html("Ngày đặt hàng: " + data.supplier.name);
+//         orders.listByOrderId(data.id);
+//         var list = listOrderDetailByOrderId;
+//         $('.modalProductsReceipt-title').html("Nhập kho");
+//         $('#modalProductsReceipt').modal({
+//             backdrop: 'static'
+//         });
+//         orders.listOrderDetail(list);
+//     });
+//     ajaxGet.fail(function () {
+//         toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
+//     });
+// }
+//
+// orders.listOrderDetail = function () {
+//     var dataTable = $('#productsReceipt').DataTable();
+//     dataTable.clear();
+//     dataTable.draw();
+//     dataTable.destroy();
+//     $.each(listOrderDetailByOrderId, function (i, v) {
+//         $('#listProductsReceipt').append(
+//             `<tr class="odd pointer">
+//                 <td style="font-size: larger">${v.product.name}</td>
+//                 <td style="font-size: larger">${v.prime_cost}</td>
+//                 <td style="font-size: larger">${v.order_quantity}</td>
+//                 <td style="font-size: larger">${v.remark}</td>
+//                 <td>
+//                     <form>
+//                         <a class="btn btn-success" id="select_${v.id}" onclick="orders.addProductToReceiptList(${v.id})">Chọn</a>
+//                     </form>
+//                 </td>
+//             </tr>`
+//         );
+//     });
+// }
+//
+// orders.addProductToReceiptList = function (id) {
+//     var order_detail = order_details.findById(id);
+//     listProductsReceipt.push(order_detail);
+//     $('#select_' + order_detail.id).html("Bỏ chọn");
+//     document.getElementById('select_' + id).setAttribute('onclick','orders.removeProductOutOfReceiptList(id)');
+//     document.getElementById('select_' + id).classList.remove("btn-success");
+//     document.getElementById('select_' + id).classList.add("btn-warning");
+// }
+//
+// orders.removeProductOutOfReceiptList = function (id) {
+//     for (let i=0; i<listProductsReceipt.length; i++) {
+//         if (listProductsReceipt[i].id == id) {
+//             listProductsReceipt.splice(i, 1);
+//         }
+//     }
+//     $('#select_' + id).html("Chọn");
+//     document.getElementById('select_' + id).setAttribute('onclick','orders.addProductToReceiptList(id)');
+//     document.getElementById('select_' + id).classList.remove("btn-warning");
+//     document.getElementById('select_' + id).classList.add("btn-success");
+// }
+//
+// orders.saveProductsReceipt = function (list) {
+//     var ajaxGet = $.ajax({
+//         url: "/api/user/order/" + id,
+//         method: "GET",
+//         dataType: "json"
+//     });
+//     ajaxGet.done(function (data) {
+//         $('.order_id').html("ID đơn hàng: " + data.id);
+//         $('.supplier').html("Ngày đặt hàng: " + data.supplier.name);
+//         orders.listByOrderId(data.id);
+//         var list = listOrderDetailByOrderId;
+//         $('.modalProductsReceipt-title').html("Nhập kho");
+//         $('#modalProductsReceipt').modal({
+//             backdrop: 'static'
+//         });
+//         orders.listOrderDetail(list);
+//     });
+//     ajaxGet.fail(function () {
+//         toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
+//     });
+// }
 
 orders.getTotalAmount = function () {
     var totalAmount = 0;
