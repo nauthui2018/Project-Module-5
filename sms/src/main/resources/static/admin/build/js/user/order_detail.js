@@ -5,6 +5,7 @@ order_details.init = function () {
     order_details.intTable();
     products.listProduct();
     suppliers.listSupplier();
+    warehouses.listWarehouse();
     orders.listOrder();
 }
 

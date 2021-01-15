@@ -1,25 +1,28 @@
 let products = {} || products;
 var listProduct = [];
-var listOrderedProduct = [];
 
 products.init = function () {
     products.intTable();
     products.initValidation();
     product_types.listProductType();
-    warehouses.listWarehouse();
 }
 
 products.addNew = function () {
     $('#imageSrc').attr('src','/admin/images/default/default-image.jpg');
     $('.modal-title').html("Thêm sản phẩm mới");
     products.resetForm();
-    $('#modalAddEdit').modal('show');
+    $('#modalAddEdit').modal({
+        backdrop: 'static'
+    });
 }
 
 products.resetForm = function () {
     $('#formAddEdit')[0].reset();
     $('#id').val('');
     $('#name').val('');
+    $('#product_type').val(0);
+    $('#current_price').val('');
+    $('#current_prime_cost').val('');
     $('#brand').val('');
     $('#stock').val('');
     $('#unit').val('');
@@ -65,10 +68,14 @@ products.intTable = function () {
             dataSrc: ""
         },
         columns: [
-            { data: "id", name: "ID", title: "ID", orderable: false},
-            { data: "name", name: "Tên", title: "Tên", orderable: true},
+            { data: "name", name: "name", title: "Tên sản phẩm", orderable: true},
+            // { data: "image", name: "image", title: "Hình ảnh", orderable: false,
+            //     "render": function (data) {
+            //         return `<img src="${data}" id="imageSrc" alt="image" style="width: 40px; height:40px; object-fit:cover;">`;
+            //     }
+            // },
             { data: "brand", name: "Nhãn hiệu", title: "Nhãn hiệu", orderable: true},
-            { data: "stock", name: "Có thể bán", title: "Có thể bán", orderable: true},
+            { data: "stock", name: "stock", title: "Tồn kho", orderable: true},
             { data: "id", name: "Action", title: "Thao tác", sortable: false,
                 orderable: false, "render": function (data) {
                     return `<a href='javascript:' title='Cập nhật' onclick='products.get(${data})' data-toggle="modal" data-target="#modalAddEdit" style='color: orange'><i class="fas fa-edit"></i></a>
@@ -87,19 +94,21 @@ products.get = function (id) {
     });
     ajaxGet.done(function (data) {
         $('#formAddEdit')[0].reset();
-        $('.modal-title').html("Chỉnh sửa thông tin");
+        $('.modal-title').html("Chỉnh sửa thông tin sản phẩm");
         $('#id').val(data.id);
         $('#name').val(data.name);
         $('#brand').val(data.brand);
         $('#imageSrc').attr('src',data.image);
         $('#stock').val(data.stock);
         $('#current_price').val(data.current_price);
+        $('#current_prime_cost').val(data.current_prime_cost);
         $('#unit').val(data.unit);
         $('#barcode').val(data.barcode);
         $('#description').val(data.description);
         $('#product_type').val(data.product_type.id);
-        $('#warehouse').val(data.warehouse.id);
-        $('#modalAddEdit').modal('show');
+        $('#modalAddEdit').modal({
+            backdrop: 'static'
+        });
     });
     ajaxGet.fail(function () {
         toastr.error('Lấy dữ liệu bị lỗi', 'INFORMATION:')
@@ -111,18 +120,18 @@ products.save = function () {
         var product = {};
         product.id = $('#id').val();
         product.name = $('#name').val();
+        var product_type = {};
+        var product_type_id = parseInt($('#product_type').val());
+        product_type.id = product_type_id;
+        product.product_type = product_type;
         product.current_price = $('#current_price').val();
+        product.current_prime_cost = $('#current_prime_cost').val();
         product.brand = $('#brand').val();
         product.stock = $('#stock').val();
         product.unit = $('#unit').val();
         product.barcode = $('#barcode').val();
         product.description = $('#description').val();
-        var product_type = {};
-        product_type.id=$('#product_type').val();
-        product.product_type = product_type;
-        var warehouse = {};
-        warehouse.id=$('#warehouse').val();
-        product.warehouse = warehouse;
+        product.creating_date = null;
         if ($('#id').val() === '') {
             var ajaxAdd = $.ajax({
                 url: "/api/user/product",
@@ -132,8 +141,10 @@ products.save = function () {
                 data: JSON.stringify(product)
             });
             ajaxAdd.done(function (data) {
-                $("#id").val(data.id);
-                products.uploadImage();
+                $('#product_id').val(data.id);
+                setTimeout(() => {
+                    products.uploadImage();
+                }, 500);
                 $('#modalAddEdit').modal('hide');
                 $("#datatables").DataTable().ajax.reload();
                 toastr.info('Thêm sản phẩm thành công', 'INFORMATION:');
@@ -145,7 +156,7 @@ products.save = function () {
             });
         } else {
             var ajaxUpdate = $.ajax({
-                url: "/api/user/product/",
+                url: "/api/user/product",
                 method: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -233,7 +244,7 @@ products.findById = function (id) {
 products.uploadImage= function (){
     var fd = new FormData();
     fd.append( 'file', $('#image')[0].files[0]);
-    fd.append("id",$("#id").val());
+    fd.append("id",$("#product_id").val());
     $.ajax({
         url: "/api/user/product/upload",
         type: "POST",
