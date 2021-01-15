@@ -140,6 +140,7 @@
                     <!-- Modal footer -->
                 <form id="formAddEditOrder" th:name="formAddEditOrder">
                     <input type="hidden" name="id" id="id" class="form-control" required>
+                    <input type="hidden" name="supplier_id" id="supplier_id" class="form-control" required>
                     <div class="modal-footer">
                         <div class="col-12" style="text-align: right">
                             <a class="btn btn-success" onclick="orders.save()">Tạo đơn hàng</a>
@@ -217,6 +218,55 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal products receipt-->
+<div class="modal" id="modalProductsReceipt">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modalProductsReceipt-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="" aria-label="Close">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row form-group mb-0">
+                    <ul style="font-size: larger; color: #0b0b0b">
+                        <li class="order_id"></li>
+                        <li class="supplier"></li>
+                    </ul>
+                </div>
+                <div class="row form-group mt-2">
+                    <div class="table-responsive">
+                        <table class="table table-striped jambo_table bulk_action" id="productsReceipt">
+                            <thead>
+                            <tr class="headings" style="background-color: #26B99A">
+                                <th class="column-title">Sản phẩm</th>
+                                <th class="column-title">Đơn giá</th>
+                                <th class="column-title">Số lượng</th>
+                                <th class="column-title">Ghi chú</th>
+                                <th class="column-title no-link last"><span class="nobr">Chọn</span></th>
+                            </tr>
+                            </thead>
+                            <tbody id="listProductsReceipt" >
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <div class="col-12" style="text-align: right">
+                        <a class="btn btn-success" onclick="">Đóng</a>
+                        <a class="btn btn-warning ml-2" onclick="" data-dismiss="modal" style="font-size: medium">Huỷ</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

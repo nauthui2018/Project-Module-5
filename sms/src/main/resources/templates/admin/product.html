@@ -61,7 +61,7 @@
 
 <!--Modal-->
 <div class="modal" id="modalAddEdit">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -73,101 +73,113 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form id="formAddEdit" th:name="formAddEdit">
-                    <input type="hidden" name="id" id="id" class="form-control" required>
                     <div class="row form-group">
-                        <div class="col-3">
-                            <label>Tên sản phẩm</label>
+                        <div class="col-8 form-group">
+                        <input type="hidden" name="id" id="id" class="form-control" required>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Tên sản phẩm</label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" id="name" name="name" class="form-control" required>
+                                <p style="color: red;display: none" class="ui-state-error-text"></p>
+                            </div>
                         </div>
-                        <div class="col-9">
-                            <input type="text" id="name" name="name" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Nhóm sản phẩm</label>
+                            </div>
+                            <div class="col-9">
+                                <select class="form-control" id="product_type" name="product_type">
+                                </select>
+                                <p style="color: red;display: none" class="ui-state-error-text"></p>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Giá bán</label>
+                            </div>
+                            <div class="col-9">
+                                <input type="number" id="current_price" name="current_price" class="form-control" required>
+                                <p style="color: red;display: none" class="ui-state-error-text"></p>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Giá nhập</label>
+                            </div>
+                            <div class="col-9">
+                                <input type="number" id="current_prime_cost" name="current_prime_cost" class="form-control" required>
+                                <p style="color: red;display: none" class="ui-state-error-text"></p>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Nhãn hiệu</label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" id="brand" name="brand" class="form-control">
+                                <p style="color: red;display: none" class="ui-state-error-text"></p>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Tồn kho</label>
+                            </div>
+                            <div class="col-9">
+                                <input type="number" id="stock" name="stock" class="form-control">
+                                <p style="color: red;display: none" class="ui-state-error-text"></p>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Đơn vị tính</label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" id="unit" name="unit" class="form-control" required>
+                                <p style="color: red;display: none" class="ui-state-error-text"></p>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-3">
+                                <label>Mã vạch</label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" id="barcode" name="barcode" class="form-control">
+                                <p style="color: red;display: none" class="ui-state-error-text"></p>
+                            </div>
                         </div>
                     </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Đơn giá bán</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="text" id="current_price" name="current_price" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Nhãn hiệu</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="text" id="brand" name="brand" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Nhóm sản phẩm</label>
-                        </div>
-                        <div class="col-9">
-                            <select class="form-control" id="product_type" name="product_type">
-                            </select>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Kho</label>
-                        </div>
-                        <div class="col-9">
-                            <select class="form-control" id="warehouse" name="warehouse">
-                            </select>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Có thể bán</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="number" id="stock" name="stock" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Đơn vị tính</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="text" id="unit" name="unit" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Mô tả</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="text" id="description" name="description" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Mã vạch</label>
-                        </div>
-                        <div class="col-9">
-                            <input type="text" id="barcode" name="barcode" class="form-control" required>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-3">
-                            <label>Hình ảnh</label>
-                        </div>
-                        <div class="col-9">
-                            <img src="" id="imageSrc" alt="image"
-                                 style="max-width:100%; max-height:100%; object-fit:cover;">
-                            <form th:name="formUpload" enctype="multipart/form-data">
-                                <input type="file" name="file" id="image" style="width: 70px; overflow:hidden; ">
-                            </form>
-                            <p style="color: red;display: none" class="ui-state-error-text"></p>
+                        <div class="col-4 form-group">
+                            <div class="row form-group" style="height: 25%">
+                                <div class="col-3">
+                                    <label>Mô tả</label>
+                                </div>
+                                <div class="col-9">
+                                    <textarea type="text" id="description" name="description" class="form-control"></textarea>
+                                    <p style="color: red;display: none" class="ui-state-error-text"></p>
+                                </div>
+                            </div>
+                            <div class="row form-group" style="height: 75%">
+                                <div class="col-3">
+                                    <label>Hình ảnh</label>
+                                </div>
+                                <div class="col-9">
+                                    <div class="row form-group">
+                                        <div class="col-12">
+                                            <img src="" id="imageSrc" alt="image"
+                                                 style="width: 240px; height:240px; object-fit:cover;">
+                                        </div>
+                                    </div>
+                                    <form th:name="formUpload" enctype="multipart/form-data">
+                                        <div class="mt-2" style="text-align: right">
+                                            <input type="hidden" name="product_id" id="product_id" class="form-control" required>
+                                            <input type="file" name="file" id="image" style="overflow:hidden; ">
+                                        </div>
+                                    </form>
+                                    <p style="color: red;display: none" class="ui-state-error-text"></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Modal footer -->
@@ -186,7 +198,7 @@
 <th:block th:replace="admin/layout :: block-dataTable"></th:block>
 
 <script src="/admin/build/js/user/product_type.js"></script>
-<script src="/admin/build/js/user/warehouse.js"></script>
+<script src="/admin/build/js/user/order_detail.js"></script>
 <script src="/admin/build/js/user/product.js"></script>
 <script>
     $(document).ready(function () {

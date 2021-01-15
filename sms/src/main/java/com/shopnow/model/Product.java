@@ -39,11 +39,6 @@ public class Product {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ProductType product_type;
 
-    @ManyToOne
-    @JoinColumn(name = "warehouse_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Warehouse warehouse;
-
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private Set<OrderDetail> order_details;
