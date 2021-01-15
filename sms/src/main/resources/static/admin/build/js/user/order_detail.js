@@ -109,4 +109,19 @@ order_details.save = function (orderDetail) {
     });
 }
 
+order_details.update = function (orderDetail) {
+    var ajaxAdd = $.ajax({
+        url: "/api/user/order_detail",
+        method: "PUT",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(orderDetail)
+    });
+    ajaxAdd.done(function () {
+        order_details.listOrderDetail();
+    });
+    ajaxAdd.fail(function () {
+    });
+}
+
 
